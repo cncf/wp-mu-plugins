@@ -1,6 +1,7 @@
 {
     "name": "cncf/wp-mu-plugins",
     "description": "Must Use (MU) plugins used to power WordPress sites cncf.io, lfph.io, and possibly others.",
+    "license": "MIT",
     "require": {
         "php": "^7.2"
     }
