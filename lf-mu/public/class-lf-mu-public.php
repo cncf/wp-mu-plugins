@@ -84,41 +84,47 @@ class Lf_Mu_Public {
 	 * Inserts <head> Google Tag Manager code.
 	 */
 	public function insert_gtm_head() {
+		$options = get_option( $this->plugin_name );
 		$current_domain = parse_url( home_url(), PHP_URL_HOST );
+		$live_site_domain = 'www.' . $options['site'] . '.io';
+		if ( ! $options['site'] || ! $options['gtm_id'] || $live_site_domain !== $current_domain || is_user_logged_in() ) {
+			return;
+		}
+
 		$analytics_code = <<<EOD
 	<!-- Google Tag Manager -->
 	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-KNXFWV');</script>
+	})(window,document,'script','dataLayer','{$options['gtm_id']}');</script>
 	<!-- End Google Tag Manager -->
 
 	EOD;
+		echo $analytics_code; //phpcs:ignore
 
-		if ( 'www.cncf.io' == $current_domain && ! is_user_logged_in() ) {
-			// this is a live site so output the analytics code.
-			echo $analytics_code; //phpcs:ignore
-		}
 	}
 
 	/**
 	 * Inserts the <body> Google Tag Manager code.
 	 */
 	public function insert_gtm_body() {
+		$options = get_option( $this->plugin_name );
 		$current_domain = parse_url( home_url(), PHP_URL_HOST );
+		$live_site_domain = 'www.' . $options['site'] . '.io';
+		if ( ! $options['site'] || ! $options['gtm_id'] || $live_site_domain !== $current_domain || is_user_logged_in() ) {
+			return;
+		}
+
 		$analytics_code = <<<EOD
 	<!-- Google Tag Manager (noscript) -->
-	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNXFWV"
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={$options['gtm_id']}"
 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
 
 	EOD;
+		echo $analytics_code; //phpcs:ignore
 
-		if ( 'www.cncf.io' == $current_domain && ! is_user_logged_in() ) {
-			// this is a live site so output the analytics code.
-			echo $analytics_code; //phpcs:ignore
-		}
 	}
 
 	/**

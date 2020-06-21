@@ -74,6 +74,10 @@ if ( ! defined( 'WPINC' ) ) {
 
 		$generic_hero_id = ( isset( $options['generic_hero_id'] ) && ! empty( $options['generic_hero_id'] ) ) ? absint( $options['generic_hero_id'] ) : '';
 
+		$gtm_id = ( isset( $options['gtm_id'] ) && ! empty( $options['gtm_id'] ) ) ? esc_attr( $options['gtm_id'] ) : '';
+
+		$site = ( isset( $options['site'] ) && ! empty( $options['site'] ) ) ? esc_attr( $options['site'] ) : '';
+
 		settings_fields( $this->plugin_name );
 
 		do_settings_sections( $this->plugin_name );
@@ -461,6 +465,31 @@ if ( ! defined( 'WPINC' ) ) {
 							data-id="<?php echo esc_html( $this->plugin_name ); ?>-generic_hero_id"
 							name="<?php echo esc_html( $this->plugin_name ); ?>[generic_hero_id]"
 							value="<?php echo absint( $generic_hero_id ); ?>" />
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="gtm_id">Google Tag Manager ID</label>
+					</th>
+					<td>
+						<input type="text" class="gtm_id regular-text"
+							id="<?php echo esc_html( $this->plugin_name ); ?>-gtm_id"
+							name="<?php echo esc_html( $this->plugin_name ); ?>[gtm_id]"
+							value="<?php echo esc_attr( $gtm_id ); ?>"
+							placeholder="GTM-KNXFWV" />
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="site">Site</label>
+					</th>
+					<td>
+					<?php
+					$cncf_checked = ( 'cncf' === $site ) ? ' checked="checked"' : '';
+					$lfph_checked = ( 'lfph' === $site ) ? ' checked="checked"' : '';
+					?>
+					<input type="radio" id="<?php echo esc_html( $this->plugin_name ); ?>-cncf" name="<?php echo esc_html( $this->plugin_name ); ?>[site]" value="cncf"<?php echo esc_html( $cncf_checked );?>>
+					<label for="<?php echo esc_html( $this->plugin_name ); ?>-cncf">CNCF</label><br>
+					<input type="radio" id="<?php echo esc_html( $this->plugin_name ); ?>-lfph" name="<?php echo esc_html( $this->plugin_name ); ?>[site]" value="lfph"<?php echo esc_html( $lfph_checked );?>>
+					<label for="<?php echo esc_html( $this->plugin_name ); ?>-lfph">LFPH</label><br>
 					</td>
 				</tr>
 			</tbody>

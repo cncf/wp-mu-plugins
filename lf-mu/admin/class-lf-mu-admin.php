@@ -51,6 +51,10 @@ class Lf_Mu_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
+		$options = get_option( $this->plugin_name );
+		$this->site        = $options['site'];
+		$this->is_cncf     = ( 'cncf' === $options['site'] ) ? true : false;
+
 	}
 
 	/**
@@ -96,46 +100,6 @@ class Lf_Mu_Admin {
 	 */
 	public function register_cpts() {
 
-		// Case Study Block Template setup.
-		$case_study_block_template = array(
-			array(
-				'core/heading',
-				array(
-					'level'     => '1',
-					'placeholder'   => 'Case study title to be shown as page header',
-					'className' => 'is-style-max-800',
-				),
-			),
-			array( 'lf/case-study-overview' ),
-			array( 'lf/case-study-highlights' ),
-			array( 'core-embed/youtube' ),
-			array(
-				'core/heading',
-				array(
-					'level'       => '3',
-					'placeholder' => 'Introductory paragraph to the case study',
-					'className' => 'is-style-max-800',
-				),
-			),
-			array( 'core/paragraph' ),
-			array( 'core/paragraph' ),
-			array(
-				'core/gallery',
-				array(
-					'align' => 'wide',
-				),
-			),
-			array( 'core/paragraph' ),
-			array( 'core/paragraph' ),
-			array(
-				'core/quote',
-				array(
-					'placeholder'   => 'Nice quote from customer lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo',
-					'className' => 'is-style-case-study-quote',
-				),
-			),
-		);
-
 		$opts = array(
 			'labels'              => array(
 				'name'          => __( 'People' ),
@@ -157,41 +121,6 @@ class Lf_Mu_Admin {
 
 		$opts = array(
 			'labels'            => array(
-				'name'          => __( 'Case Studies' ),
-				'singular_name' => __( 'Case Study' ),
-				'all_items'     => __( 'All Case Studies' ),
-			),
-			'public'            => true,
-			'has_archive'       => false,
-			'show_in_nav_menus' => false,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'template'          => $case_study_block_template,
-			'menu_icon'         => 'dashicons-awards',
-			'rewrite'           => array( 'slug' => 'case-studies' ),
-			'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
-		);
-		register_post_type( 'lf_case_study', $opts );
-
-		$opts = array(
-			'labels'            => array(
-				'name'          => __( 'Case Studies CN' ),
-				'singular_name' => __( 'Case Study - Chinese' ),
-				'all_items'     => __( 'All Case Studies' ),
-			),
-			'public'            => true,
-			'has_archive'       => false,
-			'show_in_nav_menus' => false,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'menu_icon'         => 'dashicons-awards',
-			'rewrite'           => array( 'slug' => 'case-studies-ch' ),
-			'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
-		);
-		register_post_type( 'lf_case_study_ch', $opts );
-
-		$opts = array(
-			'labels'            => array(
 				'name'          => __( 'Webinars' ),
 				'singular_name' => __( 'Webinar' ),
 				'all_items'     => __( 'All Webinars' ),
@@ -206,23 +135,6 @@ class Lf_Mu_Admin {
 			'supports'          => array( 'title', 'editor', 'revisions', 'custom-fields' ),
 		);
 		register_post_type( 'lf_webinar', $opts );
-
-		$opts = array(
-			'labels'            => array(
-				'name'          => __( 'Events' ),
-				'singular_name' => __( 'Event' ),
-				'all_items'     => __( 'All Events' ),
-			),
-			'public'            => true,
-			'has_archive'       => false,
-			'show_in_nav_menus' => false,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'menu_icon'         => 'dashicons-calendar',
-			'rewrite'           => array( 'slug' => 'events' ),
-			'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
-		);
-		register_post_type( 'lf_event', $opts );
 
 		$opts = array(
 			'labels'              => array(
@@ -243,40 +155,132 @@ class Lf_Mu_Admin {
 		);
 		register_post_type( 'lf_project', $opts );
 
-		$opts = array(
-			'labels'            => array(
-				'name'          => __( 'Speakers' ),
-				'singular_name' => __( 'Speaker' ),
-				'all_items'     => __( 'All Speakers' ),
-			),
-			'public'            => false,
-			'has_archive'       => false,
-			'show_in_nav_menus' => false,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'menu_icon'         => 'dashicons-groups',
-			'rewrite'           => array( 'slug' => 'speakers-mirror' ),
-			'supports'          => array( 'title', 'custom-fields' ),
-		);
-		register_post_type( 'lf_speaker', $opts );
+		if ( $this->is_cncf ) {
+			// Case Study Block Template setup.
+			$case_study_block_template = array(
+				array(
+					'core/heading',
+					array(
+						'level'     => '1',
+						'placeholder'   => 'Case study title to be shown as page header',
+						'className' => 'is-style-max-800',
+					),
+				),
+				array( 'lf/case-study-overview' ),
+				array( 'lf/case-study-highlights' ),
+				array( 'core-embed/youtube' ),
+				array(
+					'core/heading',
+					array(
+						'level'       => '3',
+						'placeholder' => 'Introductory paragraph to the case study',
+						'className' => 'is-style-max-800',
+					),
+				),
+				array( 'core/paragraph' ),
+				array( 'core/paragraph' ),
+				array(
+					'core/gallery',
+					array(
+						'align' => 'wide',
+					),
+				),
+				array( 'core/paragraph' ),
+				array( 'core/paragraph' ),
+				array(
+					'core/quote',
+					array(
+						'placeholder'   => 'Nice quote from customer lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo',
+						'className' => 'is-style-case-study-quote',
+					),
+				),
+			);
+			$opts = array(
+				'labels'            => array(
+					'name'          => __( 'Case Studies' ),
+					'singular_name' => __( 'Case Study' ),
+					'all_items'     => __( 'All Case Studies' ),
+				),
+				'public'            => true,
+				'has_archive'       => false,
+				'show_in_nav_menus' => false,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'template'          => $case_study_block_template,
+				'menu_icon'         => 'dashicons-awards',
+				'rewrite'           => array( 'slug' => 'case-studies' ),
+				'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
+			);
+			register_post_type( 'lf_case_study', $opts );
 
-		$opts = array(
-			'labels'            => array(
-				'name'          => __( 'Spotlights' ),
-				'singular_name' => __( 'Spotlight' ),
-				'all_items'     => __( 'All Spotlights' ),
-			),
-			'public'            => true,
-			'has_archive'       => false,
-			'show_in_nav_menus' => false,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'menu_icon'         => 'dashicons-universal-access-alt',
-			'rewrite'           => array( 'slug' => 'spotlights' ),
-			'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
-		);
-		register_post_type( 'lf_spotlight', $opts );
+			$opts = array(
+				'labels'            => array(
+					'name'          => __( 'Case Studies CN' ),
+					'singular_name' => __( 'Case Study - Chinese' ),
+					'all_items'     => __( 'All Case Studies' ),
+				),
+				'public'            => true,
+				'has_archive'       => false,
+				'show_in_nav_menus' => false,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'menu_icon'         => 'dashicons-awards',
+				'rewrite'           => array( 'slug' => 'case-studies-ch' ),
+				'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
+			);
+			register_post_type( 'lf_case_study_ch', $opts );
 
+			$opts = array(
+				'labels'            => array(
+					'name'          => __( 'Events' ),
+					'singular_name' => __( 'Event' ),
+					'all_items'     => __( 'All Events' ),
+				),
+				'public'            => true,
+				'has_archive'       => false,
+				'show_in_nav_menus' => false,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'menu_icon'         => 'dashicons-calendar',
+				'rewrite'           => array( 'slug' => 'events' ),
+				'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
+			);
+			register_post_type( 'lf_event', $opts );
+
+			$opts = array(
+				'labels'            => array(
+					'name'          => __( 'Speakers' ),
+					'singular_name' => __( 'Speaker' ),
+					'all_items'     => __( 'All Speakers' ),
+				),
+				'public'            => false,
+				'has_archive'       => false,
+				'show_in_nav_menus' => false,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'menu_icon'         => 'dashicons-groups',
+				'rewrite'           => array( 'slug' => 'speakers-mirror' ),
+				'supports'          => array( 'title', 'custom-fields' ),
+			);
+			register_post_type( 'lf_speaker', $opts );
+
+			$opts = array(
+				'labels'            => array(
+					'name'          => __( 'Spotlights' ),
+					'singular_name' => __( 'Spotlight' ),
+					'all_items'     => __( 'All Spotlights' ),
+				),
+				'public'            => true,
+				'has_archive'       => false,
+				'show_in_nav_menus' => false,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'menu_icon'         => 'dashicons-universal-access-alt',
+				'rewrite'           => array( 'slug' => 'spotlights' ),
+				'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
+			);
+			register_post_type( 'lf_spotlight', $opts );
+		}
 	}
 
 
@@ -318,101 +322,6 @@ class Lf_Mu_Admin {
 			'light-umber'      => '#b8510d',
 			'light-red'        => '#922B21',
 		);
-
-		$sidebar    = array(
-			'id'              => 'lf-sidebar-event',
-			'id_prefix'       => 'lf_',
-			'label'           => __( 'Event Settings' ),
-			'post_type'       => 'lf_event',
-			'data_key_prefix' => 'lf_event_',
-			'icon_dashicon'   => 'admin-settings',
-			'tabs'            => array(
-				array(
-					'label'  => __( 'Tab label' ),
-					'panels' => array(
-						array(
-							'label'        => __( 'General' ),
-							'initial_open' => true,
-							'settings'     => array(
-								array(
-									'type'              => 'date_single',
-									'data_type'         => 'meta',
-									'unavailable_dates' => array(),
-									'data_key'          => 'date_start',
-									'label'             => __( 'Start Date' ),
-									'register_meta'     => true,
-									'ui_border_top'     => true,
-									'default_value'     => '',
-									'format'            => 'YYYY/MM/DD',
-								),
-								array(
-									'type'              => 'date_single',
-									'data_type'         => 'meta',
-									'unavailable_dates' => array(),
-									'data_key'          => 'date_end',
-									'label'             => __( 'End Date' ),
-									'register_meta'     => true,
-									'ui_border_top'     => false,
-									'default_value'     => '',
-									'format'            => 'YYYY/MM/DD',
-									'help'              => __( 'Optional for single day events.' ),
-								),
-								array(
-									'type'          => 'text',
-									'data_type'     => 'meta',
-									'data_key'      => 'external_url',
-									'label'         => __( 'URL to External Event Site' ),
-									'register_meta' => true,
-									'ui_border_top' => true,
-									'default_value' => '',
-									'placeholder'   => 'https://www.cloudfoundry.org/event/summit/',
-								),
-								array(
-									'type'          => 'text',
-									'data_type'     => 'meta',
-									'data_key'      => 'city',
-									'label'         => __( 'City' ),
-									'register_meta' => true,
-									'ui_border_top' => true,
-									'default_value' => '',
-									'placeholder'   => 'Hamilton',
-								),
-								array(
-									'type'          => 'image',
-									'data_type'     => 'meta',
-									'data_key'      => 'logo',
-									'id'            => 'event-logo', // keep this for CSS styling.
-									'label'         => __( 'Event Logo' ),
-									'help'          => __( 'Set a transparent logo for the event using an SVG or PNG file type.' ),
-									'register_meta' => true,
-								),
-								array(
-									'type'          => 'image',
-									'data_type'     => 'meta',
-									'data_key'      => 'background',
-									'label'         => __( 'Event Background' ),
-									'help'          => __( 'An image used for the background of the event tile. Recommended to use a square size at least 700px x 700px.' ),
-									'register_meta' => true,
-								),
-								array(
-									'type'          => 'color',
-									'data_type'     => 'meta',
-									'data_key'      => 'overlay_color',
-									'label'         => __( 'Color Overlay' ),
-									'help'          => __( 'Chose a color to overlay the background image' ),
-									'register_meta' => true,
-									'ui_border_top' => true,
-									'default_value' => '',
-									'alpha_control' => true,
-									'palette'       => $palette,
-								),
-							),
-						),
-					),
-				),
-			),
-		);
-		$sidebars[] = $sidebar;
 
 		$tzlist = DateTimeZone::listIdentifiers( DateTimeZone::ALL );
 		$tzs = array();
@@ -704,74 +613,6 @@ class Lf_Mu_Admin {
 		$sidebars[] = $sidebar;
 
 		$sidebar    = array(
-			'id'              => 'lf-sidebar-case-study',
-			'id_prefix'       => 'lf_',
-			'label'           => __( 'Case Study Settings' ),
-			'post_type'       => 'lf_case_study',
-			'data_key_prefix' => 'lf_case_study_',
-			'icon_dashicon'   => 'admin-settings',
-			'tabs'            => array(
-				array(
-					'label'  => __( 'Tab label' ),
-					'panels' => array(
-						array(
-							'label'        => __( 'General' ),
-							'initial_open' => true,
-							'settings'     => array(
-								array(
-									'type'          => 'text',
-									'data_type'     => 'meta',
-									'data_key'      => 'type',
-									'label'         => __( 'Case Study Type' ),
-									'help'          => __( 'This value will appear in the Case Study tile "READ THE ___ CASE STUDY"' ),
-									'register_meta' => true,
-									'ui_border_top' => true,
-									'default_value' => '',
-									'placeholder'   => 'Kubernetes',
-								),
-							),
-						),
-					),
-				),
-			),
-		);
-		$sidebars[] = $sidebar;
-
-		$sidebar    = array(
-			'id'              => 'lf-sidebar-case-study',
-			'id_prefix'       => 'lf_',
-			'label'           => __( 'Case Study Settings' ),
-			'post_type'       => 'lf_case_study_ch',
-			'data_key_prefix' => 'lf_case_study_ch_',
-			'icon_dashicon'   => 'admin-settings',
-			'tabs'            => array(
-				array(
-					'label'  => __( 'Tab label' ),
-					'panels' => array(
-						array(
-							'label'        => __( 'General' ),
-							'initial_open' => true,
-							'settings'     => array(
-								array(
-									'type'          => 'text',
-									'data_type'     => 'meta',
-									'data_key'      => 'type',
-									'label'         => __( 'Case Study Type' ),
-									'help'          => __( 'This value will appear in the Case Study tile "阅读 ___ 案例研究"' ),
-									'register_meta' => true,
-									'ui_border_top' => true,
-									'default_value' => '',
-									'placeholder'   => 'Kubernetes',
-								),
-							),
-						),
-					),
-				),
-			),
-		);
-		$sidebars[] = $sidebar;
-
-		$sidebar    = array(
 			'id'              => 'lf-sidebar-project',
 			'id_prefix'       => 'lf_',
 			'label'           => __( 'Project Settings' ),
@@ -914,83 +755,250 @@ class Lf_Mu_Admin {
 		);
 		$sidebars[] = $sidebar;
 
-		$sidebar    = array(
-			'id'              => 'lf-sidebar-spotlight',
-			'id_prefix'       => 'lf_',
-			'label'           => __( 'Spotlight Settings' ),
-			'post_type'       => 'lf_spotlight',
-			'data_key_prefix' => 'lf_spotlight_',
-			'icon_dashicon'   => 'admin-settings',
-			'tabs'            => array(
-				array(
-					'label'  => __( 'Tab label' ),
-					'panels' => array(
-						array(
-							'label'        => __( 'General' ),
-							'initial_open' => true,
-							'settings'     => array(
-								array(
-									'type'          => 'textarea',
-									'data_type'     => 'meta',
-									'data_key'      => 'subtitle',
-									'label'         => __( 'Subtitle' ),
-									'register_meta' => true,
-									'ui_border_top' => true,
-									'default_value' => '',
-									'placeholder'   => 'The incubating project recently completed a security audit with Jepsen',
-								),
-							),
-						),
-					),
-				),
-			),
-		);
-		$sidebars[] = $sidebar;
+		if ( $this->is_cncf ) {
 
-		$sidebar    = array(
-			'id'              => 'lf-sidebar-post',
-			'id_prefix'       => 'lf_',
-			'label'           => __( 'Post Settings' ),
-			'post_type'       => 'post',
-			'data_key_prefix' => 'lf_post_',
-			'icon_dashicon'   => 'admin-settings',
-			'tabs'            => array(
-				array(
-					'label'  => __( 'Tab label' ),
-					'panels' => array(
-						array(
-							'label'        => __( 'General' ),
-							'initial_open' => true,
-							'settings'     => array(
-								array(
-									'type'          => 'text',
-									'data_type'     => 'meta',
-									'data_key'      => 'guest_author',
-									'label'         => __( 'Guest Author' ),
-									'help'          => __( 'Enter a guest author name to override WordPress default Posted By' ),
-									'register_meta' => true,
-									'ui_border_top' => true,
-									'default_value' => '',
-									'placeholder'   => '',
-								),
-								array(
-									'type'          => 'text',
-									'data_type'     => 'meta',
-									'data_key'      => 'external_url',
-									'label'         => __( 'External URL' ),
-									'help'          => __( 'This url is used to link to news items on 3rd-party sites.' ),
-									'register_meta' => true,
-									'ui_border_top' => true,
-									'default_value' => '',
-									'placeholder'   => 'https://devclass.com/2020/05/14/harbor-2-container-image-registry/',
+			$sidebar    = array(
+				'id'              => 'lf-sidebar-event',
+				'id_prefix'       => 'lf_',
+				'label'           => __( 'Event Settings' ),
+				'post_type'       => 'lf_event',
+				'data_key_prefix' => 'lf_event_',
+				'icon_dashicon'   => 'admin-settings',
+				'tabs'            => array(
+					array(
+						'label'  => __( 'Tab label' ),
+						'panels' => array(
+							array(
+								'label'        => __( 'General' ),
+								'initial_open' => true,
+								'settings'     => array(
+									array(
+										'type'              => 'date_single',
+										'data_type'         => 'meta',
+										'unavailable_dates' => array(),
+										'data_key'          => 'date_start',
+										'label'             => __( 'Start Date' ),
+										'register_meta'     => true,
+										'ui_border_top'     => true,
+										'default_value'     => '',
+										'format'            => 'YYYY/MM/DD',
+									),
+									array(
+										'type'              => 'date_single',
+										'data_type'         => 'meta',
+										'unavailable_dates' => array(),
+										'data_key'          => 'date_end',
+										'label'             => __( 'End Date' ),
+										'register_meta'     => true,
+										'ui_border_top'     => false,
+										'default_value'     => '',
+										'format'            => 'YYYY/MM/DD',
+										'help'              => __( 'Optional for single day events.' ),
+									),
+									array(
+										'type'          => 'text',
+										'data_type'     => 'meta',
+										'data_key'      => 'external_url',
+										'label'         => __( 'URL to External Event Site' ),
+										'register_meta' => true,
+										'ui_border_top' => true,
+										'default_value' => '',
+										'placeholder'   => 'https://www.cloudfoundry.org/event/summit/',
+									),
+									array(
+										'type'          => 'text',
+										'data_type'     => 'meta',
+										'data_key'      => 'city',
+										'label'         => __( 'City' ),
+										'register_meta' => true,
+										'ui_border_top' => true,
+										'default_value' => '',
+										'placeholder'   => 'Hamilton',
+									),
+									array(
+										'type'          => 'image',
+										'data_type'     => 'meta',
+										'data_key'      => 'logo',
+										'id'            => 'event-logo', // keep this for CSS styling.
+										'label'         => __( 'Event Logo' ),
+										'help'          => __( 'Set a transparent logo for the event using an SVG or PNG file type.' ),
+										'register_meta' => true,
+									),
+									array(
+										'type'          => 'image',
+										'data_type'     => 'meta',
+										'data_key'      => 'background',
+										'label'         => __( 'Event Background' ),
+										'help'          => __( 'An image used for the background of the event tile. Recommended to use a square size at least 700px x 700px.' ),
+										'register_meta' => true,
+									),
+									array(
+										'type'          => 'color',
+										'data_type'     => 'meta',
+										'data_key'      => 'overlay_color',
+										'label'         => __( 'Color Overlay' ),
+										'help'          => __( 'Chose a color to overlay the background image' ),
+										'register_meta' => true,
+										'ui_border_top' => true,
+										'default_value' => '',
+										'alpha_control' => true,
+										'palette'       => $palette,
+									),
 								),
 							),
 						),
 					),
 				),
-			),
-		);
-		$sidebars[] = $sidebar;
+			);
+			$sidebars[] = $sidebar;
+
+			$sidebar    = array(
+				'id'              => 'lf-sidebar-case-study',
+				'id_prefix'       => 'lf_',
+				'label'           => __( 'Case Study Settings' ),
+				'post_type'       => 'lf_case_study',
+				'data_key_prefix' => 'lf_case_study_',
+				'icon_dashicon'   => 'admin-settings',
+				'tabs'            => array(
+					array(
+						'label'  => __( 'Tab label' ),
+						'panels' => array(
+							array(
+								'label'        => __( 'General' ),
+								'initial_open' => true,
+								'settings'     => array(
+									array(
+										'type'          => 'text',
+										'data_type'     => 'meta',
+										'data_key'      => 'type',
+										'label'         => __( 'Case Study Type' ),
+										'help'          => __( 'This value will appear in the Case Study tile "READ THE ___ CASE STUDY"' ),
+										'register_meta' => true,
+										'ui_border_top' => true,
+										'default_value' => '',
+										'placeholder'   => 'Kubernetes',
+									),
+								),
+							),
+						),
+					),
+				),
+			);
+			$sidebars[] = $sidebar;
+
+			$sidebar    = array(
+				'id'              => 'lf-sidebar-case-study',
+				'id_prefix'       => 'lf_',
+				'label'           => __( 'Case Study Settings' ),
+				'post_type'       => 'lf_case_study_ch',
+				'data_key_prefix' => 'lf_case_study_ch_',
+				'icon_dashicon'   => 'admin-settings',
+				'tabs'            => array(
+					array(
+						'label'  => __( 'Tab label' ),
+						'panels' => array(
+							array(
+								'label'        => __( 'General' ),
+								'initial_open' => true,
+								'settings'     => array(
+									array(
+										'type'          => 'text',
+										'data_type'     => 'meta',
+										'data_key'      => 'type',
+										'label'         => __( 'Case Study Type' ),
+										'help'          => __( 'This value will appear in the Case Study tile "阅读 ___ 案例研究"' ),
+										'register_meta' => true,
+										'ui_border_top' => true,
+										'default_value' => '',
+										'placeholder'   => 'Kubernetes',
+									),
+								),
+							),
+						),
+					),
+				),
+			);
+			$sidebars[] = $sidebar;
+
+			$sidebar    = array(
+				'id'              => 'lf-sidebar-spotlight',
+				'id_prefix'       => 'lf_',
+				'label'           => __( 'Spotlight Settings' ),
+				'post_type'       => 'lf_spotlight',
+				'data_key_prefix' => 'lf_spotlight_',
+				'icon_dashicon'   => 'admin-settings',
+				'tabs'            => array(
+					array(
+						'label'  => __( 'Tab label' ),
+						'panels' => array(
+							array(
+								'label'        => __( 'General' ),
+								'initial_open' => true,
+								'settings'     => array(
+									array(
+										'type'          => 'textarea',
+										'data_type'     => 'meta',
+										'data_key'      => 'subtitle',
+										'label'         => __( 'Subtitle' ),
+										'register_meta' => true,
+										'ui_border_top' => true,
+										'default_value' => '',
+										'placeholder'   => 'The incubating project recently completed a security audit with Jepsen',
+									),
+								),
+							),
+						),
+					),
+				),
+			);
+			$sidebars[] = $sidebar;
+
+			$sidebar    = array(
+				'id'              => 'lf-sidebar-post',
+				'id_prefix'       => 'lf_',
+				'label'           => __( 'Post Settings' ),
+				'post_type'       => 'post',
+				'data_key_prefix' => 'lf_post_',
+				'icon_dashicon'   => 'admin-settings',
+				'tabs'            => array(
+					array(
+						'label'  => __( 'Tab label' ),
+						'panels' => array(
+							array(
+								'label'        => __( 'General' ),
+								'initial_open' => true,
+								'settings'     => array(
+									array(
+										'type'          => 'text',
+										'data_type'     => 'meta',
+										'data_key'      => 'guest_author',
+										'label'         => __( 'Guest Author' ),
+										'help'          => __( 'Enter a guest author name to override WordPress default Posted By' ),
+										'register_meta' => true,
+										'ui_border_top' => true,
+										'default_value' => '',
+										'placeholder'   => '',
+									),
+									array(
+										'type'          => 'text',
+										'data_type'     => 'meta',
+										'data_key'      => 'external_url',
+										'label'         => __( 'External URL' ),
+										'help'          => __( 'This url is used to link to news items on 3rd-party sites.' ),
+										'register_meta' => true,
+										'ui_border_top' => true,
+										'default_value' => '',
+										'placeholder'   => 'https://devclass.com/2020/05/14/harbor-2-container-image-registry/',
+									),
+								),
+							),
+						),
+					),
+				),
+			);
+			$sidebars[] = $sidebar;
+
+		}
 
 		// Return the $sidebars array with our sidebar now included.
 		return $sidebars;
@@ -1003,59 +1011,15 @@ class Lf_Mu_Admin {
 	public function register_taxonomies() {
 
 		$labels = array(
-			'name'              => __( 'Country', 'lf-mu' ),
-			'singular_name'     => __( 'Country', 'lf-mu' ),
-			'search_items'      => __( 'Search Countries', 'lf-mu' ),
-			'all_items'         => __( 'All Countries', 'lf-mu' ),
-			'parent_item'       => __( 'Parent Continent', 'lf-mu' ),
-			'parent_item_colon' => __( 'Parent Continent:', 'lf-mu' ),
-			'edit_item'         => __( 'Edit Country', 'lf-mu' ),
-			'update_item'       => __( 'Update Country', 'lf-mu' ),
-			'add_new_item'      => __( 'Add New Country', 'lf-mu' ),
-			'new_item_name'     => __( 'New Country Name', 'lf-mu' ),
-			'menu_name'         => __( 'Countries', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => true,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-country', array( 'lf_event', 'lf_case_study', 'lf_speaker' ), $args );
-
-		$labels = array(
-			'name'              => __( 'Country', 'lf-mu' ),
-			'singular_name'     => __( 'Country', 'lf-mu' ),
-			'search_items'      => __( 'Search Countries', 'lf-mu' ),
-			'all_items'         => __( 'All Countries', 'lf-mu' ),
-			'parent_item'       => __( 'Parent Continent', 'lf-mu' ),
-			'parent_item_colon' => __( 'Parent Continent:', 'lf-mu' ),
-			'edit_item'         => __( 'Edit Country', 'lf-mu' ),
-			'update_item'       => __( 'Update Country', 'lf-mu' ),
-			'add_new_item'      => __( 'Add New Country', 'lf-mu' ),
-			'new_item_name'     => __( 'New Country Name', 'lf-mu' ),
-			'menu_name'         => __( 'Countries', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => true,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-country-ch', array( 'lf_case_study_ch' ), $args );
-
-		$labels = array(
-			'name'          => __( 'Product Type', 'lf-mu' ),
-			'singular_name' => __( 'Product Type', 'lf-mu' ),
-			'search_items'  => __( 'Search Product Types', 'lf-mu' ),
-			'all_items'     => __( 'All Product Types', 'lf-mu' ),
-			'edit_item'     => __( 'Edit Product Type', 'lf-mu' ),
-			'update_item'   => __( 'Update Product Type', 'lf-mu' ),
-			'add_new_item'  => __( 'Add New Product Type', 'lf-mu' ),
-			'new_item_name' => __( 'New Product Type Name', 'lf-mu' ),
-			'menu_name'     => __( 'Product Types', 'lf-mu' ),
+			'name'          => __( 'Language', 'lf-mu' ),
+			'singular_name' => __( 'Language', 'lf-mu' ),
+			'search_items'  => __( 'Search Languages', 'lf-mu' ),
+			'all_items'     => __( 'All Languages', 'lf-mu' ),
+			'edit_item'     => __( 'Edit Language', 'lf-mu' ),
+			'update_item'   => __( 'Update Language', 'lf-mu' ),
+			'add_new_item'  => __( 'Add New Language', 'lf-mu' ),
+			'new_item_name' => __( 'New Language', 'lf-mu' ),
+			'menu_name'     => __( 'Languages', 'lf-mu' ),
 		);
 		$args   = array(
 			'labels'            => $labels,
@@ -1064,67 +1028,7 @@ class Lf_Mu_Admin {
 			'show_in_nav_menus' => false,
 			'show_admin_column' => true,
 		);
-		register_taxonomy( 'lf-product-type', array( 'lf_case_study' ), $args );
-
-		$labels = array(
-			'name'          => __( 'Product Type', 'lf-mu' ),
-			'singular_name' => __( 'Product Type', 'lf-mu' ),
-			'search_items'  => __( 'Search Product Types', 'lf-mu' ),
-			'all_items'     => __( 'All Product Types', 'lf-mu' ),
-			'edit_item'     => __( 'Edit Product Type', 'lf-mu' ),
-			'update_item'   => __( 'Update Product Type', 'lf-mu' ),
-			'add_new_item'  => __( 'Add New Product Type', 'lf-mu' ),
-			'new_item_name' => __( 'New Product Type Name', 'lf-mu' ),
-			'menu_name'     => __( 'Product Types', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-product-type-ch', array( 'lf_case_study_ch' ), $args );
-
-		$labels = array(
-			'name'          => __( 'Cloud Type', 'lf-mu' ),
-			'singular_name' => __( 'Cloud Type', 'lf-mu' ),
-			'search_items'  => __( 'Search Cloud Types', 'lf-mu' ),
-			'all_items'     => __( 'All Cloud Types', 'lf-mu' ),
-			'edit_item'     => __( 'Edit Cloud Type', 'lf-mu' ),
-			'update_item'   => __( 'Update Cloud Type', 'lf-mu' ),
-			'add_new_item'  => __( 'Add New Cloud Type', 'lf-mu' ),
-			'new_item_name' => __( 'New Cloud Type Name', 'lf-mu' ),
-			'menu_name'     => __( 'Cloud Types', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-cloud-type', array( 'lf_case_study' ), $args );
-
-		$labels = array(
-			'name'          => __( 'Cloud Type', 'lf-mu' ),
-			'singular_name' => __( 'Cloud Type', 'lf-mu' ),
-			'search_items'  => __( 'Search Cloud Types', 'lf-mu' ),
-			'all_items'     => __( 'All Cloud Types', 'lf-mu' ),
-			'edit_item'     => __( 'Edit Cloud Type', 'lf-mu' ),
-			'update_item'   => __( 'Update Cloud Type', 'lf-mu' ),
-			'add_new_item'  => __( 'Add New Cloud Type', 'lf-mu' ),
-			'new_item_name' => __( 'New Cloud Type Name', 'lf-mu' ),
-			'menu_name'     => __( 'Cloud Types', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-cloud-type-ch', array( 'lf_case_study_ch' ), $args );
+		register_taxonomy( 'lf-language', array( 'lf_webinar', 'lf_speaker' ), $args );
 
 		$labels = array(
 			'name'          => __( 'Projects', 'lf-mu' ),
@@ -1227,89 +1131,6 @@ class Lf_Mu_Admin {
 		register_taxonomy( 'lf-person-category', array( 'lf_person' ), $args );
 
 		$labels = array(
-			'name'          => __( 'Challenges', 'lf-mu' ),
-			'singular_name' => __( 'Challenge', 'lf-mu' ),
-			'search_items'  => __( 'Search Challenges', 'lf-mu' ),
-			'all_items'     => __( 'All Challenges', 'lf-mu' ),
-			'edit_item'     => __( 'Edit Challenge', 'lf-mu' ),
-			'update_item'   => __( 'Update Challenge', 'lf-mu' ),
-			'add_new_item'  => __( 'Add New Challenge', 'lf-mu' ),
-			'new_item_name' => __( 'New Challenge Name', 'lf-mu' ),
-			'menu_name'     => __( 'Challenges', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-challenge', array( 'lf_case_study' ), $args );
-
-		$labels = array(
-			'name'          => __( 'Challenges', 'lf-mu' ),
-			'singular_name' => __( 'Challenge', 'lf-mu' ),
-			'search_items'  => __( 'Search Challenges', 'lf-mu' ),
-			'all_items'     => __( 'All Challenges', 'lf-mu' ),
-			'edit_item'     => __( 'Edit Challenge', 'lf-mu' ),
-			'update_item'   => __( 'Update Challenge', 'lf-mu' ),
-			'add_new_item'  => __( 'Add New Challenge', 'lf-mu' ),
-			'new_item_name' => __( 'New Challenge Name', 'lf-mu' ),
-			'menu_name'     => __( 'Challenges', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-challenge-ch', array( 'lf_case_study_ch' ), $args );
-
-		$labels = array(
-			'name'          => __( 'Industries', 'lf-mu' ),
-			'singular_name' => __( 'Industry', 'lf-mu' ),
-			'search_items'  => __( 'Search Industries', 'lf-mu' ),
-			'all_items'     => __( 'All Industries', 'lf-mu' ),
-			'edit_item'     => __( 'Edit Industry', 'lf-mu' ),
-			'update_item'   => __( 'Update Industry', 'lf-mu' ),
-			'add_new_item'  => __( 'Add New Industry', 'lf-mu' ),
-			'new_item_name' => __( 'New Industry Name', 'lf-mu' ),
-			'menu_name'     => __( 'Industries', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-industry', array( 'lf_case_study' ), $args );
-
-		$labels = array(
-			'name'          => __( 'Industries', 'lf-mu' ),
-			'singular_name' => __( 'Industry', 'lf-mu' ),
-			'search_items'  => __( 'Search Industries', 'lf-mu' ),
-			'all_items'     => __( 'All Industries', 'lf-mu' ),
-			'edit_item'     => __( 'Edit Industry', 'lf-mu' ),
-			'update_item'   => __( 'Update Industry', 'lf-mu' ),
-			'add_new_item'  => __( 'Add New Industry', 'lf-mu' ),
-			'new_item_name' => __( 'New Industry Name', 'lf-mu' ),
-			'menu_name'     => __( 'Industries', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-industry-ch', array( 'lf_case_study_ch' ), $args );
-
-		/**
-		 * Project Stage Taxonomy for Projects.
-		 */
-		$labels = array(
 			'name'          => __( 'Project Stage', 'lf-mu' ),
 			'singular_name' => __( 'Project Stage', 'lf-mu' ),
 			'search_items'  => __( 'Search Project Stages', 'lf-mu' ),
@@ -1329,82 +1150,268 @@ class Lf_Mu_Admin {
 		);
 		register_taxonomy( 'lf-project-stage', array( 'lf_project' ), $args );
 
-		$labels = array(
-			'name'          => __( 'Host', 'lf-mu' ),
-			'singular_name' => __( 'Host', 'lf-mu' ),
-			'search_items'  => __( 'Search Hosts', 'lf-mu' ),
-			'all_items'     => __( 'All Hosts', 'lf-mu' ),
-			'edit_item'     => __( 'Edit Host', 'lf-mu' ),
-			'update_item'   => __( 'Update Host', 'lf-mu' ),
-			'add_new_item'  => __( 'Add New Host', 'lf-mu' ),
-			'new_item_name' => __( 'New Host', 'lf-mu' ),
-			'menu_name'     => __( 'Hosts', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-event-host', array( 'lf_event' ), $args );
+		if ( $this->is_cncf ) {
+			$labels = array(
+				'name'              => __( 'Country', 'lf-mu' ),
+				'singular_name'     => __( 'Country', 'lf-mu' ),
+				'search_items'      => __( 'Search Countries', 'lf-mu' ),
+				'all_items'         => __( 'All Countries', 'lf-mu' ),
+				'parent_item'       => __( 'Parent Continent', 'lf-mu' ),
+				'parent_item_colon' => __( 'Parent Continent:', 'lf-mu' ),
+				'edit_item'         => __( 'Edit Country', 'lf-mu' ),
+				'update_item'       => __( 'Update Country', 'lf-mu' ),
+				'add_new_item'      => __( 'Add New Country', 'lf-mu' ),
+				'new_item_name'     => __( 'New Country Name', 'lf-mu' ),
+				'menu_name'         => __( 'Countries', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => true,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-country', array( 'lf_event', 'lf_case_study', 'lf_speaker' ), $args );
 
-		$labels = array(
-			'name'          => __( 'Language', 'lf-mu' ),
-			'singular_name' => __( 'Language', 'lf-mu' ),
-			'search_items'  => __( 'Search Languages', 'lf-mu' ),
-			'all_items'     => __( 'All Languages', 'lf-mu' ),
-			'edit_item'     => __( 'Edit Language', 'lf-mu' ),
-			'update_item'   => __( 'Update Language', 'lf-mu' ),
-			'add_new_item'  => __( 'Add New Language', 'lf-mu' ),
-			'new_item_name' => __( 'New Language', 'lf-mu' ),
-			'menu_name'     => __( 'Languages', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-language', array( 'lf_webinar', 'lf_speaker' ), $args );
+			$labels = array(
+				'name'              => __( 'Country', 'lf-mu' ),
+				'singular_name'     => __( 'Country', 'lf-mu' ),
+				'search_items'      => __( 'Search Countries', 'lf-mu' ),
+				'all_items'         => __( 'All Countries', 'lf-mu' ),
+				'parent_item'       => __( 'Parent Continent', 'lf-mu' ),
+				'parent_item_colon' => __( 'Parent Continent:', 'lf-mu' ),
+				'edit_item'         => __( 'Edit Country', 'lf-mu' ),
+				'update_item'       => __( 'Update Country', 'lf-mu' ),
+				'add_new_item'      => __( 'Add New Country', 'lf-mu' ),
+				'new_item_name'     => __( 'New Country Name', 'lf-mu' ),
+				'menu_name'         => __( 'Countries', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => true,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-country-ch', array( 'lf_case_study_ch' ), $args );
 
-		$args = array(
-			'labels'            => array( 'name' => __( 'Affiliations', 'lf-mu' ) ),
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-speaker-affiliation', array( 'lf_speaker' ), $args );
-		$args = array(
-			'labels'            => array( 'name' => __( 'Expertise', 'lf-mu' ) ),
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-speaker-expertise', array( 'lf_speaker' ), $args );
+			$labels = array(
+				'name'          => __( 'Product Type', 'lf-mu' ),
+				'singular_name' => __( 'Product Type', 'lf-mu' ),
+				'search_items'  => __( 'Search Product Types', 'lf-mu' ),
+				'all_items'     => __( 'All Product Types', 'lf-mu' ),
+				'edit_item'     => __( 'Edit Product Type', 'lf-mu' ),
+				'update_item'   => __( 'Update Product Type', 'lf-mu' ),
+				'add_new_item'  => __( 'Add New Product Type', 'lf-mu' ),
+				'new_item_name' => __( 'New Product Type Name', 'lf-mu' ),
+				'menu_name'     => __( 'Product Types', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-product-type', array( 'lf_case_study' ), $args );
 
-		$labels = array(
-			'name'          => __( 'Spotlight Type', 'lf-mu' ),
-			'singular_name' => __( 'Spotlight Type', 'lf-mu' ),
-			'search_items'  => __( 'Search Spotlight Types', 'lf-mu' ),
-			'all_items'     => __( 'All Spotlight Types', 'lf-mu' ),
-			'edit_item'     => __( 'Edit Type', 'lf-mu' ),
-			'update_item'   => __( 'Update Type', 'lf-mu' ),
-			'add_new_item'  => __( 'Add New Spotlight Type', 'lf-mu' ),
-			'new_item_name' => __( 'New Type Name', 'lf-mu' ),
-			'menu_name'     => __( 'Spotlight Types', 'lf-mu' ),
-		);
-		$args   = array(
-			'labels'            => $labels,
-			'show_in_rest'      => true,
-			'hierarchical'      => false,
-			'show_in_nav_menus' => false,
-			'show_admin_column' => true,
-		);
-		register_taxonomy( 'lf-spotlight-type', array( 'lf_spotlight' ), $args );
+			$labels = array(
+				'name'          => __( 'Product Type', 'lf-mu' ),
+				'singular_name' => __( 'Product Type', 'lf-mu' ),
+				'search_items'  => __( 'Search Product Types', 'lf-mu' ),
+				'all_items'     => __( 'All Product Types', 'lf-mu' ),
+				'edit_item'     => __( 'Edit Product Type', 'lf-mu' ),
+				'update_item'   => __( 'Update Product Type', 'lf-mu' ),
+				'add_new_item'  => __( 'Add New Product Type', 'lf-mu' ),
+				'new_item_name' => __( 'New Product Type Name', 'lf-mu' ),
+				'menu_name'     => __( 'Product Types', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-product-type-ch', array( 'lf_case_study_ch' ), $args );
+
+			$labels = array(
+				'name'          => __( 'Cloud Type', 'lf-mu' ),
+				'singular_name' => __( 'Cloud Type', 'lf-mu' ),
+				'search_items'  => __( 'Search Cloud Types', 'lf-mu' ),
+				'all_items'     => __( 'All Cloud Types', 'lf-mu' ),
+				'edit_item'     => __( 'Edit Cloud Type', 'lf-mu' ),
+				'update_item'   => __( 'Update Cloud Type', 'lf-mu' ),
+				'add_new_item'  => __( 'Add New Cloud Type', 'lf-mu' ),
+				'new_item_name' => __( 'New Cloud Type Name', 'lf-mu' ),
+				'menu_name'     => __( 'Cloud Types', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-cloud-type', array( 'lf_case_study' ), $args );
+
+			$labels = array(
+				'name'          => __( 'Cloud Type', 'lf-mu' ),
+				'singular_name' => __( 'Cloud Type', 'lf-mu' ),
+				'search_items'  => __( 'Search Cloud Types', 'lf-mu' ),
+				'all_items'     => __( 'All Cloud Types', 'lf-mu' ),
+				'edit_item'     => __( 'Edit Cloud Type', 'lf-mu' ),
+				'update_item'   => __( 'Update Cloud Type', 'lf-mu' ),
+				'add_new_item'  => __( 'Add New Cloud Type', 'lf-mu' ),
+				'new_item_name' => __( 'New Cloud Type Name', 'lf-mu' ),
+				'menu_name'     => __( 'Cloud Types', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-cloud-type-ch', array( 'lf_case_study_ch' ), $args );
+
+			$labels = array(
+				'name'          => __( 'Challenges', 'lf-mu' ),
+				'singular_name' => __( 'Challenge', 'lf-mu' ),
+				'search_items'  => __( 'Search Challenges', 'lf-mu' ),
+				'all_items'     => __( 'All Challenges', 'lf-mu' ),
+				'edit_item'     => __( 'Edit Challenge', 'lf-mu' ),
+				'update_item'   => __( 'Update Challenge', 'lf-mu' ),
+				'add_new_item'  => __( 'Add New Challenge', 'lf-mu' ),
+				'new_item_name' => __( 'New Challenge Name', 'lf-mu' ),
+				'menu_name'     => __( 'Challenges', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-challenge', array( 'lf_case_study' ), $args );
+
+			$labels = array(
+				'name'          => __( 'Challenges', 'lf-mu' ),
+				'singular_name' => __( 'Challenge', 'lf-mu' ),
+				'search_items'  => __( 'Search Challenges', 'lf-mu' ),
+				'all_items'     => __( 'All Challenges', 'lf-mu' ),
+				'edit_item'     => __( 'Edit Challenge', 'lf-mu' ),
+				'update_item'   => __( 'Update Challenge', 'lf-mu' ),
+				'add_new_item'  => __( 'Add New Challenge', 'lf-mu' ),
+				'new_item_name' => __( 'New Challenge Name', 'lf-mu' ),
+				'menu_name'     => __( 'Challenges', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-challenge-ch', array( 'lf_case_study_ch' ), $args );
+
+			$labels = array(
+				'name'          => __( 'Industries', 'lf-mu' ),
+				'singular_name' => __( 'Industry', 'lf-mu' ),
+				'search_items'  => __( 'Search Industries', 'lf-mu' ),
+				'all_items'     => __( 'All Industries', 'lf-mu' ),
+				'edit_item'     => __( 'Edit Industry', 'lf-mu' ),
+				'update_item'   => __( 'Update Industry', 'lf-mu' ),
+				'add_new_item'  => __( 'Add New Industry', 'lf-mu' ),
+				'new_item_name' => __( 'New Industry Name', 'lf-mu' ),
+				'menu_name'     => __( 'Industries', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-industry', array( 'lf_case_study' ), $args );
+
+			$labels = array(
+				'name'          => __( 'Industries', 'lf-mu' ),
+				'singular_name' => __( 'Industry', 'lf-mu' ),
+				'search_items'  => __( 'Search Industries', 'lf-mu' ),
+				'all_items'     => __( 'All Industries', 'lf-mu' ),
+				'edit_item'     => __( 'Edit Industry', 'lf-mu' ),
+				'update_item'   => __( 'Update Industry', 'lf-mu' ),
+				'add_new_item'  => __( 'Add New Industry', 'lf-mu' ),
+				'new_item_name' => __( 'New Industry Name', 'lf-mu' ),
+				'menu_name'     => __( 'Industries', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-industry-ch', array( 'lf_case_study_ch' ), $args );
+
+			$labels = array(
+				'name'          => __( 'Host', 'lf-mu' ),
+				'singular_name' => __( 'Host', 'lf-mu' ),
+				'search_items'  => __( 'Search Hosts', 'lf-mu' ),
+				'all_items'     => __( 'All Hosts', 'lf-mu' ),
+				'edit_item'     => __( 'Edit Host', 'lf-mu' ),
+				'update_item'   => __( 'Update Host', 'lf-mu' ),
+				'add_new_item'  => __( 'Add New Host', 'lf-mu' ),
+				'new_item_name' => __( 'New Host', 'lf-mu' ),
+				'menu_name'     => __( 'Hosts', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-event-host', array( 'lf_event' ), $args );
+
+			$args = array(
+				'labels'            => array( 'name' => __( 'Affiliations', 'lf-mu' ) ),
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-speaker-affiliation', array( 'lf_speaker' ), $args );
+			$args = array(
+				'labels'            => array( 'name' => __( 'Expertise', 'lf-mu' ) ),
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-speaker-expertise', array( 'lf_speaker' ), $args );
+
+			$labels = array(
+				'name'          => __( 'Spotlight Type', 'lf-mu' ),
+				'singular_name' => __( 'Spotlight Type', 'lf-mu' ),
+				'search_items'  => __( 'Search Spotlight Types', 'lf-mu' ),
+				'all_items'     => __( 'All Spotlight Types', 'lf-mu' ),
+				'edit_item'     => __( 'Edit Type', 'lf-mu' ),
+				'update_item'   => __( 'Update Type', 'lf-mu' ),
+				'add_new_item'  => __( 'Add New Spotlight Type', 'lf-mu' ),
+				'new_item_name' => __( 'New Type Name', 'lf-mu' ),
+				'menu_name'     => __( 'Spotlight Types', 'lf-mu' ),
+			);
+			$args   = array(
+				'labels'            => $labels,
+				'show_in_rest'      => true,
+				'hierarchical'      => false,
+				'show_in_nav_menus' => false,
+				'show_admin_column' => true,
+			);
+			register_taxonomy( 'lf-spotlight-type', array( 'lf_spotlight' ), $args );
+		}
 	}
 
 	/**
@@ -1489,6 +1496,10 @@ class Lf_Mu_Admin {
 		$options['generic_avatar_id'] = ( isset( $input['generic_avatar_id'] ) && ! empty( $input['generic_avatar_id'] ) ) ? absint( $input['generic_avatar_id'] ) : '';
 
 		$options['generic_hero_id'] = ( isset( $input['generic_hero_id'] ) && ! empty( $input['generic_hero_id'] ) ) ? absint( $input['generic_hero_id'] ) : '';
+
+		$options['gtm_id'] = ( isset( $input['gtm_id'] ) && ! empty( $input['gtm_id'] ) ) ? esc_html( $input['gtm_id'] ) : '';
+
+		$options['site'] = ( isset( $input['site'] ) && ! empty( $input['site'] ) ) ? esc_html( $input['site'] ) : '';
 
 		return $options;
 	}
