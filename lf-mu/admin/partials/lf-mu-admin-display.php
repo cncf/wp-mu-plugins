@@ -486,9 +486,9 @@ if ( ! defined( 'WPINC' ) ) {
 					$cncf_checked = ( 'cncf' === $site ) ? ' checked="checked"' : '';
 					$lfph_checked = ( 'lfph' === $site ) ? ' checked="checked"' : '';
 					?>
-					<input type="radio" id="<?php echo esc_html( $this->plugin_name ); ?>-cncf" name="<?php echo esc_html( $this->plugin_name ); ?>[site]" value="cncf"<?php echo esc_html( $cncf_checked );?>>
+					<input type="radio" id="<?php echo esc_html( $this->plugin_name ); ?>-cncf" name="<?php echo esc_html( $this->plugin_name ); ?>[site]" value="cncf"<?php echo esc_html( $cncf_checked ); ?>>
 					<label for="<?php echo esc_html( $this->plugin_name ); ?>-cncf">CNCF</label><br>
-					<input type="radio" id="<?php echo esc_html( $this->plugin_name ); ?>-lfph" name="<?php echo esc_html( $this->plugin_name ); ?>[site]" value="lfph"<?php echo esc_html( $lfph_checked );?>>
+					<input type="radio" id="<?php echo esc_html( $this->plugin_name ); ?>-lfph" name="<?php echo esc_html( $this->plugin_name ); ?>[site]" value="lfph"<?php echo esc_html( $lfph_checked ); ?>>
 					<label for="<?php echo esc_html( $this->plugin_name ); ?>-lfph">LFPH</label><br>
 					</td>
 				</tr>
