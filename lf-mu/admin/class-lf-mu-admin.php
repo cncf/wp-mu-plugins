@@ -379,6 +379,10 @@ class Lf_Mu_Admin {
 	 * Change navigation bar colour for version in debug/local
 	 */
 	public function change_adminbar_colors() {
+		if ( WP_DEBUG !== true ) {
+			return;
+		}
+
 		$change_adminbar_colors = '<style type="text/css">
 			#wpadminbar { background-color:#12881D; }
 		</style>';
