@@ -48,7 +48,7 @@ class UpcomingWebinars extends Component {
 								return (
 									<article className="webinars-upcoming-box" key={ index }>
 										<div className="webinars-upcoming-text-wrapper">
-											<span className="skew-box secondary">CNCF Project Webinar</span>
+											<span className="skew-box secondary">Project Webinar</span>
 											<span className="skew-box">Tuesday 12th January 2021</span>
 											<h5 className="webinar-title">This is the Webinar title Lorem ipsum dolor sit amet consectetuer</h5>
 											<span className="presented-by">Presented by Google</span>

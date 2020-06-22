@@ -74,7 +74,7 @@ function lf_newsroom_render_callback( $attributes ) {
 						echo wp_get_attachment_image( $options['generic_thumb_id'], 'newsroom-image', false, array( 'class' => 'newsroom-image' ) );
 					} else {
 						echo '<img src="' . esc_url( get_stylesheet_directory_uri() )
-						. '/images/thumbnail-default.svg" alt="CNCF" class="newsroom-image"/>';
+						. '/images/thumbnail-default.svg" alt="' . esc_attr( lf_blocks_get_site() ) . '" class="newsroom-image"/>';
 					}
 					?>
 </div>

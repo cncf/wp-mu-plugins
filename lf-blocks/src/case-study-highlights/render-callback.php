@@ -34,7 +34,7 @@ function lf_case_study_highlights_render_callback( $attributes ) {
 <div class="container case-study-highlights-wrapper">
 	<?php if ( ! empty( $projects ) && ! is_wp_error( $projects ) ) { ?>
 <div style="align-content: center">
-<h3>CNCF Projects Used</h3>
+<h3><?php echo esc_html( strtoupper( lf_blocks_get_site() ) ); ?> Projects Used</h3>
 <div>
 		<?php
 		foreach ( $projects as $project ) {

@@ -48,7 +48,7 @@ function lf_blocks_frontend_assets() {
 	if ( has_block( 'lf/landscape' ) ) {
 		wp_enqueue_script(
 			'landscape-resize',
-			'//landscape.cncf.io/iframeResizer.js',
+			'//landscape.' . lf_blocks_get_site() . '.io/iframeResizer.js',
 			is_admin() ? array( 'wp-editor' ) : null,
 			filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ),
 			true
@@ -434,3 +434,12 @@ function add_lf_block_categories( $categories ) {
 	);
 }
 add_filter( 'block_categories', 'add_lf_block_categories' );
+
+/**
+ * Return site acronym
+ */
+function lf_blocks_get_site() {
+	$options = get_option( 'lf-mu' );
+	$site    = ( isset( $options['site'] ) && ! empty( $options['site'] ) ) ? esc_attr( $options['site'] ) : 'cncf';
+	return $site;
+}

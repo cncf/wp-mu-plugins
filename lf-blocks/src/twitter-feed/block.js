@@ -37,7 +37,7 @@ registerBlockType(
 	 'lf/twitter-feed',
 	{
 		title: __( 'LF | Twitter Feed' ),
-		description: __( 'Showing the latest tweets from CNCF.io' ),
+		description: __( 'Shows the latest tweets' ),
 		icon: 'twitter',
 		category: 'lf',
 		keywords: [

@@ -32,7 +32,7 @@ registerBlockType(
 	'lf/landscape',
 	{
 		title: __( 'LF | Landscape' ),
-		description: __( 'iFrame embed for responsively resized CNCF Landscape' ),
+		description: __( 'iFrame embed for responsively resized Landscape' ),
 		icon: LandscapeIcon,
 		category: 'lf',
 		keywords: [
