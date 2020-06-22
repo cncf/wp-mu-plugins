@@ -164,8 +164,6 @@ class Lf_Mu {
 		$this->loader->add_action( 'admin_head', $plugin_admin, 'change_adminbar_colors' );
 		$this->loader->add_action( 'wp_head', $plugin_admin, 'change_adminbar_colors' );
 
-
-
 		if ( $plugin_admin->is_cncf ) {
 			// Special Easter-egg hook to run full sync of Speakers CPTs.  You just have to update the "Speakers" page.
 			$this->loader->add_action( 'post_updated', $plugin_admin, 'sync_speakers' );
