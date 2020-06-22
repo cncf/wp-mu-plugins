@@ -197,6 +197,12 @@ class Lf_Mu {
 		$this->loader->add_action( 'wp_head', $plugin_public, 'insert_gtm_head' );
 		$this->loader->add_action( 'wp_body_open', $plugin_public, 'insert_gtm_body' );
 		$this->loader->add_filter( 'wp_resource_hints', $plugin_public, 'change_to_preconnect_resource_hints', 10, 2 );
+		$this->loader->add_action( 'init', $plugin_public, 'wordpress_head_cleanup' );
+		$this->loader->add_action( 'init', $plugin_public, 'disable_wp_emojicons' );
+		$this->loader->add_filter( 'tiny_mce_plugins', $plugin_public, 'disable_emojicons_tinymce' );
+		$this->loader->add_action( 'pre_ping', $plugin_public, 'disable_pingback' );
+		$this->loader->add_filter( 'wp_default_scripts', $plugin_public, 'opt_remove_jquery_migrate' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'wpdocs_dequeue_dashicon' );
 
 	}
 
