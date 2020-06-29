@@ -47,7 +47,7 @@ function lf_latest_jobs_render_callback( $attributes ) {
 				$title        = mb_strimwidth( $title[0], 0, 50, '...' );
 				?>
 		<li>
-			<a href="<?php echo esc_url( $link ); ?>" target="_blank" rel="noopener noreferrer"
+			<a href="<?php echo esc_url( $link ); ?>" target="_blank" rel="noopener"
 				class="job-image"
 				title="<?php echo esc_html( $title ) . 'at ' . esc_html( $company ); ?>">
 				<img src="<?php echo esc_url( $image ); ?>"
@@ -55,7 +55,7 @@ function lf_latest_jobs_render_callback( $attributes ) {
 			</a>
 
 			<div class="job-content">
-				<h5 class="job-title"><a href="<?php echo esc_url( $link ); ?>" target="_blank" rel="noopener noreferrer"
+				<h5 class="job-title"><a href="<?php echo esc_url( $link ); ?>" target="_blank" rel="noopener"
 					title="<?php echo esc_html( $title ) . 'at ' . esc_html( $company ); ?>"><?php echo esc_html( $title ); ?></a></h5>
 
 				<span class="job-company">

@@ -35,7 +35,7 @@ function lf_count_up_render_callback( $attributes ) {
 			endif;
 
 			if ( $target ) {
-				$is_external = 'target="_blank" rel="noopener noreferrer"';
+				$is_external = 'target="_blank" rel="noopener"';
 			} else {
 				$is_external = '';
 			}
