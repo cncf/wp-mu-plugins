@@ -37,7 +37,7 @@ registerBlockType(
 	'lf/hero',
 	{
 		title: __( 'LF | Hero' ),
-		description: __( 'Hero for page' ),
+		description: __( 'Hero for pages, displays page title over featured image or default image' ),
 		icon: 'list-view',
 		category: 'lf',
 		keywords: [

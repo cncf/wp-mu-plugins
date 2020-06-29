@@ -23,92 +23,92 @@ const { Fragment } = wp.element;
 const { RangeControl, PanelBody } = wp.components;
 
 registerBlockType(
-	 'lf/image-hero',
+	'lf/image-hero',
 	{
-	title: __( 'LF | Image Hero' ),
-	description: __( 'Large responsive image, commonly used for page hero. Recommend image size around 1200x400px.' ),
-	icon: 'welcome-widgets-menus',
-	category: 'lf',
-	keywords: [
-		__( 'image' ),
-		__( 'hero' ),
-		__( 'large' ),
-		__( 'lf' ),
-	],
-	example: {},
-	attributes: {
+		title: __( 'LF | Image Hero' ),
+		description: __( 'Large responsive image, commonly used for frontpage hero or splash page. Recommend to use uploaded image size around 1200x400px.' ),
+		icon: 'welcome-widgets-menus',
+		category: 'lf',
+		keywords: [
+			__( 'image' ),
+			__( 'hero' ),
+			__( 'large' ),
+			__( 'lf' ),
+		],
+		example: {},
+		attributes: {
 			imgUrl: {
 				type: 'string',
 				default: 'https://via.placeholder.com/1200x400/d9d9d9/000000',
 			},
 			imgId: {
-							type: 'integer',
-							default: '0',
-				},
-				heroHeight: {
-										type: 'integer',
-										default: '400',
-						},
-					},
-					edit: function( props ) {
-												const { attributes, setAttributes } = props;
-												const { imgUrl, imgId, heroHeight, className } = attributes;
+				type: 'integer',
+				default: 0,
+			},
+			heroHeight: {
+				type: 'integer',
+				default: 400,
+			},
+		},
+		edit: function( props ) {
+			const { attributes, setAttributes } = props;
+			const { imgUrl, imgId, heroHeight, className } = attributes;
 
-												function selectImage( value ) {
-						setAttributes(
-				 {
-																	  imgUrl: value.url,
-						}
+			function selectImage( value ) {
+				setAttributes(
+					{
+						imgUrl: value.url,
+					}
 				);
-						setAttributes(
-				 {
-														  imgId: value.id,
-						}
+				setAttributes(
+					{
+						imgId: value.id,
+					}
 				);
-										}
+			}
 
-											const inspectorControls = (
-												<InspectorControls key="lf-image-hero-block-panel">
-													<PanelBody title={ __( 'Settings' ) }>
-											<RangeControl
-												label={ __( 'Height of image' ) }
-												min={ 50 }
-												max={ 600 }
-												step={ 50 }
-												value={ heroHeight }
-												onChange={ value => setAttributes( { heroHeight: value } ) }
-											/>
-													</PanelBody>
-												</InspectorControls>
-												);
-
-												return (
-													<Fragment>
-													{ inspectorControls }
-													<div className={ className }>
-												<div className="media">
-													<MediaUpload
-													onSelect={ selectImage }
-													render={ ( { open } ) => {
-														return (
-															<button onClick={ open }>
-														<img
-															src={ imgUrl }
-															alt="Hero"
-															key={ imgId }
-														/>
-															</button>
-														);
-													} }
-													/>
-
-												</div>
-														</div>
-													</Fragment>
-												);
-					},
-					save() {
-																return null;
-					},
-				}
+			const inspectorControls = (
+				<InspectorControls key="lf-image-hero-block-panel">
+					<PanelBody title={ __( 'Settings' ) }>
+						<RangeControl
+							label={ __( 'Height of image' ) }
+							min={ 50 }
+							max={ 600 }
+							step={ 50 }
+							value={ heroHeight }
+							onChange={ value => setAttributes( { heroHeight: value } ) }
+						/>
+					</PanelBody>
+				</InspectorControls>
 			);
+
+			return (
+				<Fragment>
+					{ inspectorControls }
+					<div className={ className }>
+						<div className="media">
+							<MediaUpload
+								onSelect={ selectImage }
+								render={ ( { open } ) => {
+									return (
+										<button onClick={ open }>
+											<img
+												src={ imgUrl }
+												alt="Hero"
+												key={ imgId }
+											/>
+										</button>
+									);
+								} }
+							/>
+
+						</div>
+					</div>
+				</Fragment>
+			);
+		},
+		save() {
+			return null;
+		},
+	}
+);
