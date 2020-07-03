@@ -26,30 +26,32 @@ function lf_newsroom_render_callback( $attributes ) {
 	$order = isset( $attributes['order'] ) ? $attributes['order'] : 'DESC';
 
 	// get sticky posts.
-	$args  = array(
-		'posts_per_page'      => 1,
-		'post_type'           => array( 'post' ),
-		'post_status'         => array( 'publish' ),
-		'has_password'        => false,
-		'post__in'            => get_option( 'sticky_posts' ),
-		'ignore_sticky_posts' => true,
-		'no_found_rows'       => true,
-		'tax_query'           => array(
-			array(
-				'taxonomy' => 'category',
-				'field'    => 'term_id',
-				'terms'    => $category,
+	$featured_post = null;
+	$sticky = get_option( 'sticky_posts' );
+	if ( $sticky ) {
+		$args  = array(
+			'posts_per_page'      => 1,
+			'post_type'           => array( 'post' ),
+			'post_status'         => array( 'publish' ),
+			'has_password'        => false,
+			'post__in'            => $sticky,
+			'ignore_sticky_posts' => true,
+			'no_found_rows'       => true,
+			'tax_query'           => array(
+				array(
+					'taxonomy' => 'category',
+					'field'    => 'term_id',
+					'terms'    => $category,
+				),
 			),
-		),
-	);
-	$stickyquery = new WP_Query( $args );
+		);
+		$stickyquery = new WP_Query( $args );
 
-	if ( $stickyquery->have_posts() ) {
-		$stickyquery->the_post();
-		--$quantity;
-		$featured_post = get_the_ID();
-	} else {
-		$featured_post = null;
+		if ( $stickyquery->have_posts() ) {
+			$stickyquery->the_post();
+			--$quantity;
+			$featured_post = get_the_ID();
+		}
 	}
 
 	// setup the arguments.
