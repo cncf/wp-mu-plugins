@@ -25,6 +25,33 @@ function lf_newsroom_render_callback( $attributes ) {
 	// order of posts.
 	$order = isset( $attributes['order'] ) ? $attributes['order'] : 'DESC';
 
+	// get sticky posts.
+	$args  = array(
+		'posts_per_page'      => 1,
+		'post_type'           => array( 'post' ),
+		'post_status'         => array( 'publish' ),
+		'has_password'        => false,
+		'post__in'            => get_option( 'sticky_posts' ),
+		'ignore_sticky_posts' => true,
+		'no_found_rows'       => true,
+		'tax_query'           => array(
+			array(
+				'taxonomy' => 'category',
+				'field'    => 'term_id',
+				'terms'    => $category,
+			),
+		),
+	);
+	$stickyquery = new WP_Query( $args );
+
+	if ( $stickyquery->have_posts() ) {
+		$stickyquery->the_post();
+		--$quantity;
+		$featured_post = get_the_ID();
+	} else {
+		$featured_post = null;
+	}
+
 	// setup the arguments.
 	$args  = array(
 		'posts_per_page'      => $quantity,
@@ -32,6 +59,7 @@ function lf_newsroom_render_callback( $attributes ) {
 		'post_status'         => array( 'publish' ),
 		'has_password'        => false,
 		'ignore_sticky_posts' => true,
+		'post__not_in'        => array( $featured_post ),
 		'order'               => $order,
 		'orderby'             => 'date',
 		'no_found_rows'       => true,
@@ -43,79 +71,102 @@ function lf_newsroom_render_callback( $attributes ) {
 			),
 		),
 	);
+
 	$query = new WP_Query( $args );
-	ob_start();
+
 	// if no posts.
-	if ( ! $query->have_posts() ) {
+	if ( ! $query->have_posts() && ! $featured_post ) {
 		echo 'Sorry, there are no posts.';
 		return;
 	}
+
+	ob_start();
 	?>
-<section class="wp-block-lf-newsroom <?php echo esc_html( $classes ); ?>">
+	<section class="wp-block-lf-newsroom <?php echo esc_html( $classes ); ?>">
 
 	<?php
-	// setup options.
-	$options = get_option( 'lf-mu' );
+	if ( $featured_post ) {
+		lf_newsroom_show_post( $featured_post, $show_images, true );
+	}
+
 	while ( $query->have_posts() ) :
 		$query->the_post();
-		?>
-	<div class="newsroom-post-wrapper">
-
-				<?php
-				if ( $show_images ) :
-					?>
-<div class="newsroom-image-wrapper">
-			<a class="box-link" href="<?php the_permalink(); ?>"
-				title="<?php the_title(); ?>"></a>
-					<?php
-					if ( has_post_thumbnail() ) {
-						echo wp_get_attachment_image( get_post_thumbnail_id(), 'newsroom-image', false, array( 'class' => 'newsroom-image' ) );
-					} elseif ( isset( $options['generic_thumb_id'] ) && $options['generic_thumb_id'] ) {
-						echo wp_get_attachment_image( $options['generic_thumb_id'], 'newsroom-image', false, array( 'class' => 'newsroom-image' ) );
-					} else {
-						echo '<img src="' . esc_url( get_stylesheet_directory_uri() )
-						. '/images/thumbnail-default.svg" alt="' . esc_attr( lf_blocks_get_site() ) . '" class="newsroom-image"/>';
-					}
-					?>
-</div>
-					<?php
-				endif;
-				?>
-
-		<?php
-		if ( in_category( 'news' ) && ( get_post_meta( get_the_ID(), 'lf_post_external_url', true ) ) ) {
-			$link_url = get_post_meta( get_the_ID(), 'lf_post_external_url', true );
-			?>
-			<h5 class="newsroom-title"><a class="external is-primary-color" target="_blank" rel="noopener" href="<?php echo esc_url( $link_url ); ?>"
-title="<?php the_title(); ?>">
-			<?php the_title(); ?>
-</a></h5>
-			<?php
-		} else {
-			?>
-			<h5 class="newsroom-title"><a href="<?php the_permalink(); ?>"
-				title="<?php the_title(); ?>">
-				<?php the_title(); ?>
-			</a></h5>
-			<?php
-		}
-		?>
-
-
-
-
-		<span class="newsroom-date date-icon"> <?php echo get_the_date( 'F j, Y' ); ?></span>
-	</div>
-		<?php
-endwhile;
+		lf_newsroom_show_post( get_the_ID(), $show_images );
+	endwhile;
 	wp_reset_postdata();
 	?>
 
-</section>
+	</section>
 	<?php
 	$block_content = ob_get_clean();
 	return $block_content;
 }
+
+/**
+ * Displays a post.
+ *
+ * @param int     $lf_post ID of post to display.
+ * @param boolean $show_images Whether to show images.
+ * @param boolean $featured Whether the post is featured.
+ */
+function lf_newsroom_show_post( $lf_post, $show_images, $featured = false ) {
+	if ( ! $lf_post ) {
+		return;
+	}
+	$options = get_option( 'lf-mu' );
+	if ( $featured ) {
+		$featured_class = ' featured-post';
+	} else {
+		$featured_class = '';
+	}
+	?>
+	<div class="newsroom-post-wrapper<?php echo $featured_class; ?>">
+
+	<?php
+	if ( $show_images ) :
+		?>
+		<div class="newsroom-image-wrapper">
+		<a class="box-link" href="<?php the_permalink( $lf_post ); ?>"
+		title="<?php echo get_the_title( $lf_post ); ?>"></a>
+			<?php
+			if ( has_post_thumbnail( $lf_post ) ) {
+				echo wp_get_attachment_image( get_post_thumbnail_id( $lf_post ), 'newsroom-image', false, array( 'class' => 'newsroom-image' ) );
+			} elseif ( isset( $options['generic_thumb_id'] ) && $options['generic_thumb_id'] ) {
+				echo wp_get_attachment_image( $options['generic_thumb_id'], 'newsroom-image', false, array( 'class' => 'newsroom-image' ) );
+			} else {
+				echo '<img src="' . esc_url( get_stylesheet_directory_uri() )
+				. '/images/thumbnail-default.svg" alt="' . esc_attr( lf_blocks_get_site() ) . '" class="newsroom-image"/>';
+			}
+			?>
+		</div>
+		<?php
+	endif;
+	?>
+
+	<?php
+	if ( in_category( 'news', $lf_post ) && ( get_post_meta( get_the_ID( $lf_post ), 'lf_post_external_url', true ) ) ) {
+		$link_url = get_post_meta( get_the_ID( $lf_post ), 'lf_post_external_url', true );
+		?>
+		<h5 class="newsroom-title"><a class="external is-primary-color" target="_blank" rel="noopener" href="<?php echo esc_url( $link_url ); ?>"
+		title="<?php echo get_the_title( $lf_post ); ?>">
+		<?php echo get_the_title( $lf_post ); ?>
+		</a></h5>
+		<?php
+	} else {
+		?>
+		<h5 class="newsroom-title"><a href="<?php the_permalink( $lf_post ); ?>"
+		title="<?php echo get_the_title( $lf_post ); ?>">
+		<?php echo get_the_title( $lf_post ); ?>
+		</a></h5>
+		<?php
+	}
+	?>
+
+	<span class="newsroom-date date-icon"> <?php echo get_the_date( 'F j, Y', $lf_post ); ?></span>
+	</div>
+	<?php
+}
+
 
 /**
  * Register REST field for post featured image.
