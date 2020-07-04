@@ -26,7 +26,7 @@ function lf_newsroom_render_callback( $attributes ) {
 	$order = isset( $attributes['order'] ) ? $attributes['order'] : 'DESC';
 
 	// get sticky posts.
-	$featured_post = null;
+	$sticky_post = null;
 	$sticky = get_option( 'sticky_posts' );
 	if ( $sticky ) {
 		$args  = array(
@@ -50,7 +50,7 @@ function lf_newsroom_render_callback( $attributes ) {
 		if ( $stickyquery->have_posts() ) {
 			$stickyquery->the_post();
 			--$quantity;
-			$featured_post = get_the_ID();
+			$sticky_post = get_the_ID();
 		}
 	}
 
@@ -61,7 +61,7 @@ function lf_newsroom_render_callback( $attributes ) {
 		'post_status'         => array( 'publish' ),
 		'has_password'        => false,
 		'ignore_sticky_posts' => true,
-		'post__not_in'        => array( $featured_post ),
+		'post__not_in'        => array( $sticky_post ),
 		'order'               => $order,
 		'orderby'             => 'date',
 		'no_found_rows'       => true,
@@ -77,7 +77,7 @@ function lf_newsroom_render_callback( $attributes ) {
 	$query = new WP_Query( $args );
 
 	// if no posts.
-	if ( ! $query->have_posts() && ! $featured_post ) {
+	if ( ! $query->have_posts() && ! $sticky_post ) {
 		echo 'Sorry, there are no posts.';
 		return;
 	}
@@ -87,8 +87,8 @@ function lf_newsroom_render_callback( $attributes ) {
 	<section class="wp-block-lf-newsroom <?php echo esc_html( $classes ); ?>">
 
 	<?php
-	if ( $featured_post ) {
-		lf_newsroom_show_post( $featured_post, $show_images, true );
+	if ( $sticky_post ) {
+		lf_newsroom_show_post( $sticky_post, $show_images, true );
 	}
 
 	while ( $query->have_posts() ) :
@@ -109,27 +109,27 @@ function lf_newsroom_render_callback( $attributes ) {
  *
  * @param int     $lf_post ID of post to display.
  * @param boolean $show_images Whether to show images.
- * @param boolean $featured Whether the post is featured.
+ * @param boolean $sticky Whether the post is sticky.
  */
-function lf_newsroom_show_post( $lf_post, $show_images, $featured = false ) {
+function lf_newsroom_show_post( $lf_post, $show_images, $sticky = false ) {
 	if ( ! $lf_post ) {
 		return;
 	}
 	$options = get_option( 'lf-mu' );
-	if ( $featured ) {
-		$featured_class = ' featured-post';
+	if ( $sticky ) {
+		$sticky_class = ' sticky';
 	} else {
-		$featured_class = '';
+		$sticky_class = '';
 	}
 	?>
-	<div class="newsroom-post-wrapper<?php echo $featured_class; ?>">
+	<div class="newsroom-post-wrapper<?php echo esc_attr( $sticky_class ); ?>">
 
 	<?php
 	if ( $show_images ) :
 		?>
 		<div class="newsroom-image-wrapper">
 		<a class="box-link" href="<?php the_permalink( $lf_post ); ?>"
-		title="<?php echo get_the_title( $lf_post ); ?>"></a>
+		title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>"></a>
 			<?php
 			if ( has_post_thumbnail( $lf_post ) ) {
 				echo wp_get_attachment_image( get_post_thumbnail_id( $lf_post ), 'newsroom-image', false, array( 'class' => 'newsroom-image' ) );
@@ -150,15 +150,15 @@ function lf_newsroom_show_post( $lf_post, $show_images, $featured = false ) {
 		$link_url = get_post_meta( get_the_ID( $lf_post ), 'lf_post_external_url', true );
 		?>
 		<h5 class="newsroom-title"><a class="external is-primary-color" target="_blank" rel="noopener" href="<?php echo esc_url( $link_url ); ?>"
-		title="<?php echo get_the_title( $lf_post ); ?>">
-		<?php echo get_the_title( $lf_post ); ?>
+		title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>">
+		<?php echo esc_html( get_the_title( $lf_post ) ); ?>
 		</a></h5>
 		<?php
 	} else {
 		?>
 		<h5 class="newsroom-title"><a href="<?php the_permalink( $lf_post ); ?>"
-		title="<?php echo get_the_title( $lf_post ); ?>">
-		<?php echo get_the_title( $lf_post ); ?>
+		title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>">
+		<?php echo esc_html( get_the_title( $lf_post ) ); ?>
 		</a></h5>
 		<?php
 	}
