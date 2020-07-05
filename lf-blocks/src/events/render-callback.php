@@ -40,8 +40,8 @@ function lf_events_render_callback( $attributes ) {
 		'no_found_rows'      => true,
 		'meta_query'         => array(
 			array(
-				'key'     => 'lf_event_date_start',
-				'value'   => date_i18n( 'Y/m/d' ),
+				'key'     => 'lf_event_date_end',
+				'value'   => date_i18n( 'Y-m-d' ),
 				'compare' => '>=',
 			),
 		),

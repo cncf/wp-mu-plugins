@@ -71,7 +71,7 @@ $sidebar    = array(
 							'register_meta'     => true,
 							'ui_border_top'     => true,
 							'default_value'     => '',
-							'format'            => 'YYYY/MM/DD',
+							'format'            => 'YYYY-MM-DD',
 						),
 						array(
 							'type'          => 'select',
@@ -498,7 +498,7 @@ if ( $this->is_cncf ) {
 								'register_meta'     => true,
 								'ui_border_top'     => true,
 								'default_value'     => '',
-								'format'            => 'YYYY/MM/DD',
+								'format'            => 'YYYY-MM-DD',
 							),
 							array(
 								'type'              => 'date_single',
@@ -509,7 +509,7 @@ if ( $this->is_cncf ) {
 								'register_meta'     => true,
 								'ui_border_top'     => false,
 								'default_value'     => '',
-								'format'            => 'YYYY/MM/DD',
+								'format'            => 'YYYY-MM-DD',
 								'help'              => __( 'Optional for single day events.' ),
 							),
 							array(
