@@ -35,7 +35,7 @@ function lf_upcoming_webinars_render_callback( $attributes ) {
 		'meta_query'         => array(
 			array(
 				'key'     => 'lf_webinar_date',
-				'value'   => date_i18n( 'Y-m-d' ),
+				'value'   => date_i18n( 'Y/m/d' ),
 				'compare' => '>=',
 			),
 			array(
