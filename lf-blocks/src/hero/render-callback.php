@@ -49,7 +49,7 @@ class="hero background-image-wrapper alignfull <?php echo esc_html( $classes ); 
 <a href="/case-studies/" title="Go to Case Studies">Case
 Study</a>
 		<?php
-elseif ( is_singular( 'lf_case_study_ch' ) ) :
+elseif ( is_singular( 'lf_case_study_cn' ) ) :
 	?>
 <a href="/case-studies-cn/" title="最终用户案例研究">最终用户案例研究</a>
 	<?php

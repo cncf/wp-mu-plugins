@@ -47,7 +47,7 @@ $args   = array(
 	'show_in_nav_menus' => false,
 	'show_admin_column' => true,
 );
-register_taxonomy( 'lf-project', array( 'lf_webinar', 'lf_case_study', 'lf_case_study_ch', 'lf_speaker', 'lf_spotlight' ), $args );
+register_taxonomy( 'lf-project', array( 'lf_webinar', 'lf_case_study', 'lf_case_study_cn', 'lf_speaker', 'lf_spotlight' ), $args );
 
 $labels = array(
 	'name'          => __( 'Author Category', 'lf-mu' ),
@@ -192,7 +192,7 @@ if ( $this->is_cncf ) {
 		'show_in_nav_menus' => false,
 		'show_admin_column' => true,
 	);
-	register_taxonomy( 'lf-country-ch', array( 'lf_case_study_ch' ), $args );
+	register_taxonomy( 'lf-country-cn', array( 'lf_case_study_cn' ), $args );
 
 	$labels = array(
 		'name'          => __( 'Product Type', 'lf-mu' ),
@@ -232,7 +232,7 @@ if ( $this->is_cncf ) {
 		'show_in_nav_menus' => false,
 		'show_admin_column' => true,
 	);
-	register_taxonomy( 'lf-product-type-ch', array( 'lf_case_study_ch' ), $args );
+	register_taxonomy( 'lf-product-type-cn', array( 'lf_case_study_cn' ), $args );
 
 	$labels = array(
 		'name'          => __( 'Cloud Type', 'lf-mu' ),
@@ -272,7 +272,7 @@ if ( $this->is_cncf ) {
 		'show_in_nav_menus' => false,
 		'show_admin_column' => true,
 	);
-	register_taxonomy( 'lf-cloud-type-ch', array( 'lf_case_study_ch' ), $args );
+	register_taxonomy( 'lf-cloud-type-cn', array( 'lf_case_study_cn' ), $args );
 
 	$labels = array(
 		'name'          => __( 'Challenges', 'lf-mu' ),
@@ -312,7 +312,7 @@ if ( $this->is_cncf ) {
 		'show_in_nav_menus' => false,
 		'show_admin_column' => true,
 	);
-	register_taxonomy( 'lf-challenge-ch', array( 'lf_case_study_ch' ), $args );
+	register_taxonomy( 'lf-challenge-cn', array( 'lf_case_study_cn' ), $args );
 
 	$labels = array(
 		'name'          => __( 'Industries', 'lf-mu' ),
@@ -352,7 +352,7 @@ if ( $this->is_cncf ) {
 		'show_in_nav_menus' => false,
 		'show_admin_column' => true,
 	);
-	register_taxonomy( 'lf-industry-ch', array( 'lf_case_study_ch' ), $args );
+	register_taxonomy( 'lf-industry-cn', array( 'lf_case_study_cn' ), $args );
 
 	$labels = array(
 		'name'          => __( 'Host', 'lf-mu' ),

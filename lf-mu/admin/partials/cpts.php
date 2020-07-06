@@ -134,10 +134,10 @@ if ( $this->is_cncf ) {
 		'show_in_rest'      => true,
 		'hierarchical'      => false,
 		'menu_icon'         => 'dashicons-awards',
-		'rewrite'           => array( 'slug' => 'case-studies-ch' ),
+		'rewrite'           => array( 'slug' => 'case-studies-cn' ),
 		'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
 	);
-	register_post_type( 'lf_case_study_ch', $opts );
+	register_post_type( 'lf_case_study_cn', $opts );
 
 	$opts = array(
 		'labels'            => array(

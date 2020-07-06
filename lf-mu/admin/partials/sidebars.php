@@ -607,8 +607,8 @@ if ( $this->is_cncf ) {
 		'id'              => 'lf-sidebar-case-study',
 		'id_prefix'       => 'lf_',
 		'label'           => __( 'Case Study Settings' ),
-		'post_type'       => 'lf_case_study_ch',
-		'data_key_prefix' => 'lf_case_study_ch_',
+		'post_type'       => 'lf_case_study_cn',
+		'data_key_prefix' => 'lf_case_study_cn_',
 		'icon_dashicon'   => 'admin-settings',
 		'tabs'            => array(
 			array(

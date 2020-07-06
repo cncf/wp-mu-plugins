@@ -20,21 +20,21 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 	$classes = isset( $attributes['className'] ) ? $attributes['className'] : '';
 
 	// not on a case study page.
-	if ( ! is_singular( array( 'lf_case_study', 'lf_case_study_ch' ) ) ) {
+	if ( ! is_singular( array( 'lf_case_study', 'lf_case_study_cn' ) ) ) {
 		return;
 	}
 
-	if ( is_singular( 'lf_case_study_ch' ) ) {
+	if ( is_singular( 'lf_case_study_cn' ) ) {
 		// get chinese content.
-		$industries = get_the_terms( get_the_ID(), 'lf-industry-ch' );
+		$industries = get_the_terms( get_the_ID(), 'lf-industry-cn' );
 
-		$location = Lf_Utils::get_term_names( get_the_ID(), 'lf-country-ch' );
+		$location = Lf_Utils::get_term_names( get_the_ID(), 'lf-country-cn' );
 
-		$cloud_types = get_the_terms( get_the_ID(), 'lf-cloud-type-ch' );
+		$cloud_types = get_the_terms( get_the_ID(), 'lf-cloud-type-cn' );
 
-		$product_type = Lf_Utils::get_term_names( get_the_ID(), 'lf-product-type-ch' );
+		$product_type = Lf_Utils::get_term_names( get_the_ID(), 'lf-product-type-cn' );
 
-		$challenges = get_the_terms( get_the_ID(), 'lf-challenge-ch' );
+		$challenges = get_the_terms( get_the_ID(), 'lf-challenge-cn' );
 
 		$company_text      = '公司';
 		$industry_text     = '行业';

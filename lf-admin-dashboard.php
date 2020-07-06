@@ -78,7 +78,7 @@ function website_details() {
  * @param int $items Number.
  */
 function custom_glance_items( $items = array() ) {
-	$post_types = array( 'lf_webinar', 'lf_event', 'lf_case_study', 'lf_case_study_ch', 'lf_project', 'lf_person' );
+	$post_types = array( 'lf_webinar', 'lf_event', 'lf_case_study', 'lf_case_study_cn', 'lf_project', 'lf_person' );
 
 	foreach ( $post_types as $type ) {
 
