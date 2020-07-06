@@ -30,7 +30,6 @@ function lf_events_render_callback( $attributes ) {
 	// setup the arguments.
 	$args = array(
 		'posts_per_page'     => $quantity,
-		'ignore_custom_sort' => true,
 		'post_type'          => array( 'lf_event' ),
 		'post_status'        => array( 'publish' ),
 		'meta_key'           => 'lf_event_date_start',

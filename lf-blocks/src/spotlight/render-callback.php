@@ -25,7 +25,6 @@ function lf_spotlight_render_callback( $attributes ) {
 		'posts_per_page'     => $quantity,
 		'post_type'          => array( 'lf_spotlight' ),
 		'post_status'        => array( 'publish' ),
-		'ignore_custom_sort' => true,
 		'order'              => 'DESC',
 		'orderby'            => 'date',
 		'no_found_rows'      => true,

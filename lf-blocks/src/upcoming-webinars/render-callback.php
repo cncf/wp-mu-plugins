@@ -24,7 +24,6 @@ function lf_upcoming_webinars_render_callback( $attributes ) {
 	// setup the arguments.
 	$args  = array(
 		'posts_per_page'     => $quantity,
-		'ignore_custom_sort' => true,
 		'post_type'          => array( 'lf_webinar' ),
 		'post_status'        => array( 'publish' ),
 		'meta_key'           => 'lf_webinar_date',
