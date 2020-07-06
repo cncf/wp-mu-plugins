@@ -48,39 +48,40 @@ function lf_count_up_render_callback( $attributes ) {
 			<?php
 			if ( ! empty( $link ) ) :
 				?>
-			<a <?php echo esc_html( $is_external ); ?> href="<?php echo esc_url( $link ); ?>">
+			<a <?php echo wp_kses_post( $is_external ); ?>
+				href="<?php echo esc_url( $link ); ?>">
 				<?php endif; ?>
 
-			<?php if ( ! empty( $image_id ) ) { ?>
-			<div class="icon-wrap">
-				<?php
-				echo wp_get_attachment_image( $image_id, 'medium' );
-				?>
-			</div>
-			<?php } ?>
-			<div class="text-wrap" data-mh="facts-text-wrap">
-				<div class="number number-item h2" data-element="lf-number"
-					data-original="<?php echo esc_html( $original_number ); ?>"
-					data-to="<?php echo esc_html( $number ); ?>"
-					data-speed="4000">
-					0
+				<?php if ( ! empty( $image_id ) ) { ?>
+				<div class="icon-wrap">
+					<?php
+					echo wp_get_attachment_image( $image_id, 'medium' );
+					?>
+				</div>
+				<?php } ?>
+				<div class="text-wrap" data-mh="facts-text-wrap">
+					<div class="number number-item h2" data-element="lf-number"
+						data-original="<?php echo esc_html( $original_number ); ?>"
+						data-to="<?php echo esc_html( $number ); ?>"
+						data-speed="4000">
+						0
+					</div>
+					<?php
+					if ( ! empty( $description ) ) {
+						?>
+					<span
+						class="count-up-description"><?php echo esc_html( $description ); ?></span>
+						<?php
+					}
+					?>
 				</div>
 				<?php
-				if ( ! empty( $description ) ) {
+				if ( ! empty( $link ) ) :
 					?>
-				<span
-					class="count-up-description"><?php echo esc_html( $description ); ?></span>
+			</a>
 					<?php
-				}
-				?>
-			</div>
-			<?php
-			if ( ! empty( $link ) ) :
-				?>
-				</a>
-				<?php
 endif;
-			?>
+				?>
 		</div>
 		<?php endfor; ?>
 	</div>

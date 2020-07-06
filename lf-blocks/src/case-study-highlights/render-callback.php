@@ -26,20 +26,24 @@ function lf_case_study_highlights_render_callback( $attributes ) {
 
 	$projects = get_the_terms( get_the_ID(), 'lf-project' );
 
+	// change the layout if there are more than 6 projects.
+	$is_double_row = ( ! empty( $projects ) && ! is_wp_error( $projects ) & count( $projects ) > 6 ) ? ' double-row' : '';
+
 	ob_start();
 	?>
 <section class="wp-block-lf-case-study-highlights <?php echo esc_html( $classes ); ?>">
 
 <div class="case-study-highlights">
-<div class="container case-study-highlights-wrapper">
+<div class="container case-study-highlights-wrapper <?php echo esc_html( $is_double_row ); ?>">
+
 	<?php if ( ! empty( $projects ) && ! is_wp_error( $projects ) ) { ?>
-<div style="align-content: center">
+<div class="projects-column">
 <h3><?php echo esc_html( strtoupper( lf_blocks_get_site() ) ); ?> Projects Used</h3>
-<div>
+<div class="cs-project-icons">
 		<?php
 		foreach ( $projects as $project ) {
 			?>
-<div class="project-icon">
+<div class="cs-project-icon">
 <img src="<?php echo esc_url( get_stylesheet_directory_uri() ) . '/images/projects/' . esc_html( $project->slug ) . '-icon-black.svg'; ?>"
 alt="<?php echo esc_html( $project->name ); ?>">
 </div>
@@ -53,33 +57,33 @@ alt="<?php echo esc_html( $project->name ); ?>">
 	?>
 <div class="case-study-highlight-text">
 	<?php if ( $heading_text01 ) : ?>
-<h3><?php echo wp_kses_post( $heading_text01 ); ?></h3>
+<p><?php echo wp_kses_post( $heading_text01 ); ?></p>
 		<?php
-	endif;
+endif;
 	if ( $smaller_text01 ) :
 		?>
-<p><?php echo wp_kses_post( $smaller_text01 ); ?></p>
-	<?php endif; ?>
-	</div>
+<h3><?php echo wp_kses_post( $smaller_text01 ); ?></h3>
+<?php endif; ?>
+</div>
 <div class="case-study-highlight-text">
 	<?php if ( $heading_text02 ) : ?>
-<h3><?php echo wp_kses_post( $heading_text02 ); ?></h3>
+<p><?php echo wp_kses_post( $heading_text02 ); ?></p>
 		<?php
-	endif;
+endif;
 	if ( $smaller_text02 ) :
 		?>
-<p><?php echo wp_kses_post( $smaller_text02 ); ?></p>
-	<?php endif; ?>
+<h3><?php echo wp_kses_post( $smaller_text02 ); ?></h3>
+<?php endif; ?>
 </div>
 <div class="case-study-highlight-text">
 	<?php if ( $heading_text03 ) : ?>
-<h3><?php echo wp_kses_post( $heading_text03 ); ?></h3>
+<p><?php echo wp_kses_post( $heading_text03 ); ?></p>
 		<?php
-	endif;
+endif;
 	if ( $smaller_text03 ) :
 		?>
-<p><?php echo wp_kses_post( $smaller_text03 ); ?></p>
-	<?php endif; ?>
+<h3><?php echo wp_kses_post( $smaller_text03 ); ?></h3>
+<?php endif; ?>
 </div>
 </div></div>
 
