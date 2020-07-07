@@ -38,7 +38,7 @@ function lf_case_study_highlights_render_callback( $attributes ) {
 
 	<?php if ( ! empty( $projects ) && ! is_wp_error( $projects ) ) { ?>
 <div class="projects-column">
-<h3><?php echo esc_html( strtoupper( lf_blocks_get_site() ) ); ?> Projects Used</h3>
+<p><?php echo esc_html( strtoupper( lf_blocks_get_site() ) ); ?> Projects Used</p>
 <div class="cs-project-icons">
 		<?php
 		foreach ( $projects as $project ) {
