@@ -38,7 +38,18 @@ function lf_case_study_highlights_render_callback( $attributes ) {
 
 	<?php if ( ! empty( $projects ) && ! is_wp_error( $projects ) ) { ?>
 <div class="projects-column">
-<p><?php echo esc_html( strtoupper( lf_blocks_get_site() ) ); ?> Projects Used</p>
+<p>
+		<?php
+		if ( 'lf_case_study_cn' === get_post_type() ) {
+			echo '使用的';
+			echo esc_html( strtoupper( lf_blocks_get_site() ) );
+			echo '项目';
+		} else {
+			echo esc_html( strtoupper( lf_blocks_get_site() ) );
+			echo ' Projects Used';
+		}
+		?>
+</p>
 <div class="cs-project-icons">
 		<?php
 		foreach ( $projects as $project ) {
