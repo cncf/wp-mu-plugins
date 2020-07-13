@@ -51,13 +51,13 @@ renderList = () => {
 	const data = posts.slice( 0, numberposts );
 
 	return (
-		<div className="events-wrapper">
+		<div className="case-studies-wrapper">
 			{ data.map(
 				post => (
 					<article className="case-study-box" key={ post.id } style={ { backgroundColor: '#617ABB' } }>
-						<div className="event-content-wrapper-editor">
-							<h4 className="event-title" dangerouslySetInnerHTML={ { __html: post.title.rendered } } />
-							<span className="button transparent outline ">Read Case Study</span>
+						<div className="cs-content-wrapper-editor">
+							<h3 className="cs-title" dangerouslySetInnerHTML={ { __html: post.title.rendered } } />
+							<span className="button transparent outline">Read Case Study</span>
 						</div>
 					</article>
 				)

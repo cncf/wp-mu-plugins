@@ -106,7 +106,7 @@ class Newsroom extends Component {
 						<div key={ post.id } className="nr-post-wrapper">
 							<div className="nr-image-wrapper">
 								{ this.props.attributes.showImages &&
-								<img className="nr-newsroom-image" src={ post.featured_image_src ? post.featured_image_src : 'https://via.placeholder.com/260x160/d9d9d9/000000' } alt="Post Thumbnail" />
+								<img className="nr-newsroom-image" src={ post.featured_image_src ? post.featured_image_src : 'https://via.placeholder.com/280x175/d9d9d9/000000' } alt="Post Thumbnail" />
 								}
 							</div>
 							<p

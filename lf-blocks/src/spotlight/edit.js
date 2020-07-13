@@ -22,6 +22,9 @@ const { InspectorControls } = wp.blockEditor || wp.editor;
 const { RangeControl, PanelBody, Placeholder, Spinner } = wp.components;
 const { withSelect } = wp.data;
 
+// import helper functions.
+import { formatDate } from '../helper-functions.js';
+
 class Spotlights extends Component {
 renderControl = () => {
 	const { attributes, setAttributes } = this.props;
@@ -55,9 +58,10 @@ renderList = () => {
 				post => (
 					<div className="spotlight-box" key={ post.id }>
 						<div className="spotlight-photo">
-							<img className="spotlight" src="https://via.placeholder.com/285x150/d9d9d9/000000" alt="Spotlight Thumbnail" />
+							<img className="spotlight" src="https://via.placeholder.com/320x170/d9d9d9/000000" alt="Spotlight Thumbnail" />
 						</div>
 						<h5 className="spotlight-title" dangerouslySetInnerHTML={ { __html: post.title.rendered } } />
+						<span className="nr-date">{ formatDate( post.date ) }</span>
 					</div>
 				)
 			)
