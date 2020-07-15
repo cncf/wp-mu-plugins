@@ -239,7 +239,7 @@ if ( ! defined( 'WPINC' ) ) {
 		<table class="form-table" role="presentation">
 			<tbody>
 				<tr>
-					<th scope="row"><label for="social_email">Email</label>
+					<th scope="row"><label for="social_email">Contact Form</label>
 					</th>
 					<td>
 						<input type="text" class="social_email regular-text"
