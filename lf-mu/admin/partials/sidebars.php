@@ -41,9 +41,9 @@ $palette = array(
 );
 
 $tzlist = DateTimeZone::listIdentifiers( DateTimeZone::ALL );
-$tzs = array();
+$tzs    = array();
 foreach ( $tzlist as $tz ) {
-	$slug = str_replace( '/', '-', $tz );
+	$slug         = str_replace( '/', '-', $tz );
 	$tzs[ $slug ] = $tz;
 }
 
@@ -81,7 +81,7 @@ $sidebar    = array(
 							'register_meta' => true,
 							'ui_border_top' => true,
 							'default_value' => '10:00',
-							'options'         => array(
+							'options'       => array(
 								'01:00' => __( '1:00', 'my_plugin' ),
 								'01:30' => __( '1:30', 'my_plugin' ),
 								'02:00' => __( '2:00', 'my_plugin' ),
@@ -115,7 +115,7 @@ $sidebar    = array(
 							'register_meta' => true,
 							'ui_border_top' => false,
 							'default_value' => 'am',
-							'options'         => array(
+							'options'       => array(
 								'am' => __( 'AM', 'my_plugin' ),
 								'pm' => __( 'PM', 'my_plugin' ),
 							),
@@ -128,7 +128,7 @@ $sidebar    = array(
 							'register_meta' => true,
 							'ui_border_top' => true,
 							'default_value' => '10:00',
-							'options'         => array(
+							'options'       => array(
 								'01:00' => __( '1:00', 'my_plugin' ),
 								'01:30' => __( '1:30', 'my_plugin' ),
 								'02:00' => __( '2:00', 'my_plugin' ),
@@ -162,7 +162,7 @@ $sidebar    = array(
 							'register_meta' => true,
 							'ui_border_top' => false,
 							'default_value' => 'am',
-							'options'         => array(
+							'options'       => array(
 								'am' => __( 'AM', 'my_plugin' ),
 								'pm' => __( 'PM', 'my_plugin' ),
 							),
@@ -206,7 +206,7 @@ $sidebar    = array(
 							'ui_border_top' => true,
 							'default_value' => '',
 							'placeholder'   => 'https://www.youtube.com/watch?v=95pkfWf8DgA',
-							'help' => 'Leave blank if there is no recording',
+							'help'          => 'Leave blank if there is no recording',
 						),
 						array(
 							'type'          => 'text',
@@ -588,12 +588,23 @@ if ( $this->is_cncf ) {
 								'type'          => 'text',
 								'data_type'     => 'meta',
 								'data_key'      => 'type',
-								'label'         => __( 'Case Study Type' ),
-								'help'          => __( 'This value will appear in the Case Study tile "READ THE ___ CASE STUDY"' ),
+								'label'         => __( 'Main Project' ),
+								'help'          => __( 'This value will override the displayed projects in the Case Study tile' ),
 								'register_meta' => true,
 								'ui_border_top' => true,
 								'default_value' => '',
 								'placeholder'   => 'Kubernetes',
+							),
+							array(
+								'type'          => 'text',
+								'data_type'     => 'meta',
+								'data_key'      => 'type_additional',
+								'label'         => __( 'Additional Main Project' ),
+								'help'          => __( 'An additional value to add as a main project to the Case Study tile' ),
+								'register_meta' => true,
+								'ui_border_top' => true,
+								'default_value' => '',
+								'placeholder'   => 'Prometheus',
 							),
 						),
 					),
@@ -622,12 +633,23 @@ if ( $this->is_cncf ) {
 								'type'          => 'text',
 								'data_type'     => 'meta',
 								'data_key'      => 'type',
-								'label'         => __( 'Case Study Type' ),
-								'help'          => __( 'This value will appear in the Case Study tile "阅读 ___ 案例研究"' ),
+								'label'         => __( 'Main Project' ),
+								'help'          => __( 'This value will override the displayed projects in the Case Study tile' ),
 								'register_meta' => true,
 								'ui_border_top' => true,
 								'default_value' => '',
 								'placeholder'   => 'Kubernetes',
+							),
+							array(
+								'type'          => 'text',
+								'data_type'     => 'meta',
+								'data_key'      => 'type_additional',
+								'label'         => __( 'Additional Main Project' ),
+								'help'          => __( 'An additional value to add as a main project to the Case Study tile' ),
+								'register_meta' => true,
+								'ui_border_top' => true,
+								'default_value' => '',
+								'placeholder'   => 'Prometheus',
 							),
 						),
 					),
