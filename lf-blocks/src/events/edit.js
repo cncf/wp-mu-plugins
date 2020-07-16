@@ -124,7 +124,6 @@ export default withSelect(
 	( select, props ) => {
 		const { getEntityRecords } = select( 'core' );
 		const { category, numberposts } = props.attributes;
-		console.log( numberposts );
 		const latestPostsQuery = pickBy(
 			{
 				'lf-event-host': category,
