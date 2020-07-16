@@ -46,10 +46,10 @@ height: <?php echo esc_html( $hero_height ) . 'px'; ?>
 </style>
 
 <section
-	class="image-hero background-image-wrapper alignfull <?php echo esc_html( $classes ); ?>" height="400px">
+	class="image-hero background-image-wrapper alignfull <?php echo esc_html( $classes ); ?>" height="<?php echo esc_html( $hero_height ) . 'px'; ?>">
 	<figure class="background-image-figure">
 		<?php
-		echo wp_get_attachment_image( $selected_image_id, 'full', false, array( 'class' => '' ) );
+		echo wp_get_attachment_image( $selected_image_id, 'full', false, false );
 		?>
 	</figure>
 </section>
