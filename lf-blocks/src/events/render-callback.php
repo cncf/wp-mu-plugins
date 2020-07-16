@@ -16,8 +16,10 @@
 function lf_events_render_callback( $attributes ) {
 	// get the quantity to display, if not default.
 	$quantity = isset( $attributes['numberposts'] ) ? intval( $attributes['numberposts'] ) : 4;
+
 	// get the classes set from the block if any.
 	$classes = isset( $attributes['className'] ) ? $attributes['className'] : '';
+
 	// get the category to display.
 	$category_id = isset( $attributes['category'] ) ? $attributes['category'] : '';
 

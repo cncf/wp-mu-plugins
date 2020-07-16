@@ -22,10 +22,10 @@ function lf_image_hero_render_callback( $attributes ) {
 	$selected_image_id = isset( $attributes['imgId'] ) ? $attributes['imgId'] : '';
 
 	// hero height.
-	$hero_height = isset( $attributes['heroHeight'] ) ? $attributes['heroHeight'] : '300';
+	$hero_height = isset( $attributes['heroHeight'] ) ? intval( $attributes['heroHeight'] ) : '400';
 
 	// hero height for mobile - 75% of chosen height.
-	$hero_height_mobile = $hero_height / 100 * 75;
+	$hero_height_mobile = ( $hero_height / 100 ) * 75;
 
 	if ( ! is_integer( $selected_image_id ) ) {
 		return;

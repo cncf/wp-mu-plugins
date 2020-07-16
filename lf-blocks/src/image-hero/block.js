@@ -47,12 +47,11 @@ registerBlockType(
 			},
 			heroHeight: {
 				type: 'integer',
-				default: 400,
 			},
 		},
 		edit: function( props ) {
 			const { attributes, setAttributes } = props;
-			const { imgUrl, imgId, heroHeight, className } = attributes;
+			const { imgUrl, imgId, heroHeight } = attributes;
 
 			function selectImage( value ) {
 				setAttributes(
@@ -82,6 +81,12 @@ registerBlockType(
 				</InspectorControls>
 			);
 
+			let imageHeight = {
+				height: heroHeight,
+				width: '100%',
+				objectFit: 'cover'
+			}
+
 			return (
 				<Fragment>
 					{ inspectorControls }
@@ -96,6 +101,7 @@ registerBlockType(
 												src={ imgUrl }
 												alt="Hero"
 												key={ imgId }
+												style={ imageHeight }
 											/>
 										</button>
 									);
