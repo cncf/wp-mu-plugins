@@ -22,7 +22,7 @@ function lf_image_hero_render_callback( $attributes ) {
 	$selected_image_id = isset( $attributes['imgId'] ) ? $attributes['imgId'] : '';
 
 	// hero height.
-	$hero_height = isset( $attributes['heroHeight'] ) ? $attributes['heroHeight'] : '';
+	$hero_height = isset( $attributes['heroHeight'] ) ? $attributes['heroHeight'] : '300';
 
 	// hero height for mobile - 75% of chosen height.
 	$hero_height_mobile = $hero_height / 100 * 75;
@@ -58,4 +58,3 @@ height: <?php echo esc_html( $hero_height ) . 'px'; ?>
 	$block_content = ob_get_clean();
 	return $block_content;
 }
-

@@ -85,7 +85,7 @@ registerBlockType(
 			return (
 				<Fragment>
 					{ inspectorControls }
-					<div className={ className }>
+					<div className="lf-image-hero-block">
 						<div className="media">
 							<MediaUpload
 								onSelect={ selectImage }
@@ -101,7 +101,6 @@ registerBlockType(
 									);
 								} }
 							/>
-
 						</div>
 					</div>
 				</Fragment>
