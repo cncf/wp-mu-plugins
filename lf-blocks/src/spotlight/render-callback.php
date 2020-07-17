@@ -31,14 +31,13 @@ function lf_spotlight_render_callback( $attributes ) {
 	);
 
 	$query = new WP_Query( $args );
-	ob_start();
 
 	// if no posts.
 	if ( ! $query->have_posts() ) {
-		echo 'Sorry, there are no posts.';
-		return;
+		return 'Sorry, there are no posts.';
 	}
 
+	ob_start();
 	?>
 <section
 	class="wp-block-lf-spotlights <?php echo esc_html( $classes ); ?>">
