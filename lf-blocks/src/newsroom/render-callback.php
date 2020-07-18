@@ -198,7 +198,7 @@ function lf_newsroom_block_get_image_src_landscape( $object, $field_name, $reque
 
 	$feat_img_array = wp_get_attachment_image_src(
 		$object['featured_media'],
-		'newsroom-image',
+		'thumbnail',
 		false
 	);
 	return $feat_img_array[0];
