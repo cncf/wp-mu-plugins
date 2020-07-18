@@ -78,8 +78,7 @@ function lf_newsroom_render_callback( $attributes ) {
 
 	// if no posts.
 	if ( ! $query->have_posts() && ! $sticky_post ) {
-		echo 'Sorry, there are no posts.';
-		return;
+		return 'Sorry, there are no posts.';
 	}
 
 	ob_start();

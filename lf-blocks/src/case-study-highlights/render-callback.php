@@ -46,7 +46,7 @@ function lf_case_study_highlights_render_callback( $attributes ) {
 			echo '项目';
 		} else {
 			echo esc_html( strtoupper( lf_blocks_get_site() ) );
-			echo ' Projects Used';
+			echo ' projects used';
 		}
 		?>
 </p>
