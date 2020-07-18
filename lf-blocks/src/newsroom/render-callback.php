@@ -25,11 +25,17 @@ function lf_newsroom_render_callback( $attributes ) {
 	// order of posts.
 	$order = isset( $attributes['order'] ) ? $attributes['order'] : 'DESC';
 
+	if ( 1 === $quantity && ('Announcements' === get_term( $category )->name) ) {
+		$expanded_view = ' expanded-view';
+	} else {
+		$expanded_view = '';
+	}
+
 	// get sticky posts.
 	$sticky_post = null;
-	$sticky = get_option( 'sticky_posts' );
+	$sticky      = get_option( 'sticky_posts' );
 	if ( $sticky ) {
-		$args  = array(
+		$args        = array(
 			'posts_per_page'      => 1,
 			'post_type'           => array( 'post' ),
 			'post_status'         => array( 'publish' ),
@@ -55,7 +61,7 @@ function lf_newsroom_render_callback( $attributes ) {
 	}
 
 	// setup the arguments.
-	$args  = array(
+	$args = array(
 		'posts_per_page'      => $quantity,
 		'post_type'           => array( 'post' ),
 		'post_status'         => array( 'publish' ),
@@ -83,7 +89,7 @@ function lf_newsroom_render_callback( $attributes ) {
 
 	ob_start();
 	?>
-	<section class="wp-block-lf-newsroom <?php echo esc_html( $classes ); ?>">
+	<section class="wp-block-lf-newsroom <?php echo esc_html( $classes ); ?> <?php echo esc_html( $expanded_view ); ?>">
 
 	<?php
 	if ( $sticky_post ) {
