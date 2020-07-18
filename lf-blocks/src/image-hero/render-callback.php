@@ -49,7 +49,7 @@ height: <?php echo esc_html( $hero_height ) . 'px'; ?>
 	class="image-hero background-image-wrapper alignfull <?php echo esc_html( $classes ); ?>" height="<?php echo esc_html( $hero_height ) . 'px'; ?>">
 	<figure class="background-image-figure">
 		<?php
-		echo wp_get_attachment_image( $selected_image_id, 'full', false, false );
+		LF_Utils::display_responsive_images( $selected_image_id, 'ihero-1400', '100vw' );
 		?>
 	</figure>
 </section>

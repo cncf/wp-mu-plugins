@@ -112,7 +112,9 @@ function lf_events_render_callback( $attributes ) {
 
 		<?php if ( $background ) : ?>
 		<figure class="background-image-figure">
-			<?php echo wp_get_attachment_image( $background, 'medium', false ); ?>
+			<?php
+			LF_Utils::display_responsive_images( $background, 'event-270', '250px' );
+			?>
 		</figure>
 		<?php endif; ?>
 

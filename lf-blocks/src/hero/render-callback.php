@@ -30,12 +30,12 @@ class="hero background-image-wrapper alignfull <?php echo esc_html( $classes ); 
 <figure class="background-image-figure">
 	<?php
 	if ( has_post_thumbnail() ) {
-		echo wp_get_attachment_image( get_post_thumbnail_id(), 'full', false, false );
+		Lf_Utils::display_picture( get_post_thumbnail_id(), 'hero' );
 	} elseif ( isset( $options['generic_hero_id'] ) && $options['generic_hero_id'] ) {
-		echo wp_get_attachment_image( $options['generic_hero_id'], 'full', false, false );
+		Lf_Utils::display_picture( $options['generic_hero_id'], 'hero' );
 	} else {
 		echo '<img src="' . esc_url( get_stylesheet_directory_uri() )
-		. '/images/hero-default.jpg" alt="' . esc_attr( lf_blocks_get_site() ) . '" height="400" width="100%"/>';
+		. '/images/hero-default.jpg" alt="' . esc_attr( lf_blocks_get_site() ) . '"  height="400" width="100%"/>';
 	}
 	?>
 </figure>

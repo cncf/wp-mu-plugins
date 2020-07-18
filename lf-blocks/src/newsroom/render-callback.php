@@ -132,9 +132,9 @@ function lf_newsroom_show_post( $lf_post, $show_images, $sticky = false ) {
 		title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>"></a>
 			<?php
 			if ( has_post_thumbnail( $lf_post ) ) {
-				echo wp_get_attachment_image( get_post_thumbnail_id( $lf_post ), 'newsroom-image', false, array( 'class' => 'newsroom-image' ) );
+				LF_Utils::display_responsive_images( get_post_thumbnail_id( $lf_post ), 'newsroom-600', '500px', 'newsroom-image' );
 			} elseif ( isset( $options['generic_thumb_id'] ) && $options['generic_thumb_id'] ) {
-				echo wp_get_attachment_image( $options['generic_thumb_id'], 'newsroom-image', false, array( 'class' => 'newsroom-image' ) );
+				LF_Utils::display_responsive_images( $options['generic_thumb_id'], 'newsroom-600', '500px', 'newsroom-image' );
 			} else {
 				echo '<img src="' . esc_url( get_stylesheet_directory_uri() )
 				. '/images/thumbnail-default.svg" alt="' . esc_attr( lf_blocks_get_site() ) . '" class="newsroom-image"/>';
@@ -174,7 +174,7 @@ function lf_newsroom_show_post( $lf_post, $show_images, $sticky = false ) {
  * Register REST field for post featured image.
  */
 function lf_newsroom_block_register_rest_fields() {
-	// Add Featued image.
+	// Add Featured image.
 	register_rest_field(
 		'post',
 		'featured_image_src',
