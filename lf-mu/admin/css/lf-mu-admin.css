@@ -4,17 +4,18 @@
  */
 
 div.pmc-sidebar input::placeholder {
-	color: #999;
+    color: #999;
 }
 
 .regular-small-text {
-	width: 15em;
+    width: 15em;
 }
 
 .thumbnail-margin-bottom {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .image-preview-wrapper img {
-	max-height: 100px;
+    max-height: 100px;
+    max-width: 500px;
 }
