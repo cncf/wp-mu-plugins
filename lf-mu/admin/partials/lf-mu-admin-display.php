@@ -60,6 +60,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 		$social_rss = ( isset( $options['social_rss'] ) && ! empty( $options['social_rss'] ) ) ? esc_attr( $options['social_rss'] ) : '';
 
+		$social_slack = ( isset( $options['social_slack'] ) && ! empty( $options['social_slack'] ) ) ? esc_attr( $options['social_slack'] ) : '';
+
 		$social_twitter = ( isset( $options['social_twitter'] ) && ! empty( $options['social_twitter'] ) ) ? esc_attr( $options['social_twitter'] ) : '';
 
 		$social_twitter_handle = ( isset( $options['social_twitter_handle'] ) && ! empty( $options['social_twitter_handle'] ) ) ? esc_html( $options['social_twitter_handle'] ) : '';
@@ -327,6 +329,18 @@ if ( ! defined( 'WPINC' ) ) {
 							name="<?php echo esc_html( $this->plugin_name ); ?>[social_rss]"
 							value="<?php echo esc_url( $social_rss ); ?>"
 							placeholder="https://website.com/feed" />
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label
+							for="social_slack">Slack</label>
+					</th>
+					<td>
+						<input type="text" class="social_slack regular-text"
+							id="<?php echo esc_html( $this->plugin_name ); ?>-social_slack"
+							name="<?php echo esc_html( $this->plugin_name ); ?>[social_slack]"
+							value="<?php echo esc_url( $social_slack ); ?>"
+							placeholder="https://www.slack.com/join-link" />
 					</td>
 				</tr>
 				<tr>
