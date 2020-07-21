@@ -25,7 +25,7 @@ function lf_newsroom_render_callback( $attributes ) {
 	// order of posts.
 	$order = isset( $attributes['order'] ) ? $attributes['order'] : 'DESC';
 
-	if ( 1 === $quantity && ('Announcements' === get_term( $category )->name) ) {
+	if ( 1 === $quantity && ( 'Announcements' === get_term( $category )->name ) ) {
 		$expanded_view = ' expanded-view';
 	} else {
 		$expanded_view = '';
