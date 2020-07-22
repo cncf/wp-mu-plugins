@@ -273,7 +273,7 @@ class Lf_Mu_Public {
 	 *
 	 * @param Object $query Query object.
 	 */
-	public function remove_news_category( $query ) {
+	public function remove_news_from_rss( $query ) {
 		if ( $query->is_feed ) {
 			if ( $this->is_cncf ) {
 				$query->set( 'cat', '-229' );
