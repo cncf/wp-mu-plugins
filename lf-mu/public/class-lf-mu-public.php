@@ -51,6 +51,9 @@ class Lf_Mu_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
+		$this->site        = ( isset( $options['site'] ) && ! empty( $options['site'] ) ) ? esc_attr( $options['site'] ) : '';
+		$this->is_cncf     = ( 'cncf' === $this->site ) ? true : false;
+
 	}
 
 	/**
@@ -263,6 +266,22 @@ class Lf_Mu_Public {
 		if ( ! is_user_logged_in() ) {
 			wp_deregister_style( 'dashicons' );
 		}
+	}
+
+	/**
+	 * Remove the News category from the RSS feed.
+	 *
+	 * @param Object $query Query object.
+	 */
+	public function remove_news_category( $query ) {
+		if ( $query->is_feed ) {
+			if ( $this->is_cncf ) {
+				$query->set( 'cat', '-229' );
+			} else {
+				$query->set( 'cat', '-6' );
+			}
+		}
+		return $query;
 	}
 
 }

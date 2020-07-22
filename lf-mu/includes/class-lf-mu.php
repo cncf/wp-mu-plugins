@@ -200,6 +200,7 @@ class Lf_Mu {
 		$this->loader->add_action( 'pre_ping', $plugin_public, 'disable_pingback' );
 		$this->loader->add_action( 'wp_default_scripts', $plugin_public, 'dequeue_jquery_migrate' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'wpdocs_dequeue_dashicon' );
+		$this->loader->add_filter( 'pre_get_posts', $plugin_public, 'remove_news_category' );
 
 	}
 
