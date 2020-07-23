@@ -284,4 +284,19 @@ class Lf_Mu_Public {
 		return $query;
 	}
 
+	/**
+	 * Remove the News category from the SEO Framework sitemap.
+	 *
+	 * @param array $args Query args.
+	 */
+	public function remove_news_from_sitemap( $args ) {
+		if ( $this->is_cncf ) {
+			$args['cat'] = -229;
+		} else {
+			$args['cat'] = -6;
+		}
+
+		return $args;
+	}
+
 }
