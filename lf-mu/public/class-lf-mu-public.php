@@ -73,7 +73,7 @@ class Lf_Mu_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-		// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/lf-mu-public.js', array( 'jquery' ), $this->version, false );
+		// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/lf-mu-public.js', array( 'jquery' ), $this->version, false ); //.
 
 		wp_enqueue_script( 'recaptcha', 'https://www.recaptcha.net/recaptcha/api.js?render=explicit', false, false, true ); // phpcs:ignore
 
