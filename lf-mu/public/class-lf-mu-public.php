@@ -51,6 +51,7 @@ class Lf_Mu_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
+		$options = get_option( $this->plugin_name );
 		$this->site        = ( isset( $options['site'] ) && ! empty( $options['site'] ) ) ? esc_attr( $options['site'] ) : '';
 		$this->is_cncf     = ( 'cncf' === $this->site ) ? true : false;
 
