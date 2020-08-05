@@ -25,12 +25,6 @@ function lf_newsroom_render_callback( $attributes ) {
 	// order of posts.
 	$order = isset( $attributes['order'] ) ? $attributes['order'] : 'DESC';
 
-	if ( 1 === $quantity && ( 'Announcements' === get_term( $category )->name ) ) {
-		$expanded_view = ' expanded-view';
-	} else {
-		$expanded_view = '';
-	}
-
 	// get sticky posts.
 	$sticky_post = null;
 	$sticky      = get_option( 'sticky_posts' );
@@ -89,7 +83,7 @@ function lf_newsroom_render_callback( $attributes ) {
 
 	ob_start();
 	?>
-	<section class="wp-block-lf-newsroom <?php echo esc_html( $classes ); ?> <?php echo esc_html( $expanded_view ); ?>">
+	<section class="wp-block-lf-newsroom <?php echo esc_html( $classes ); ?>">
 
 	<?php
 	if ( $sticky_post ) {
@@ -137,12 +131,12 @@ function lf_newsroom_show_post( $lf_post, $show_images, $sticky = false ) {
 		title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>"></a>
 			<?php
 			if ( has_post_thumbnail( $lf_post ) ) {
-				LF_Utils::display_responsive_images( get_post_thumbnail_id( $lf_post ), 'newsroom-600', '500px', 'newsroom-image' );
+				Lf_Utils::display_responsive_images( get_post_thumbnail_id( $lf_post ), 'newsroom-540', '540px', 'archive-image' );
 			} elseif ( isset( $options['generic_thumb_id'] ) && $options['generic_thumb_id'] ) {
-				LF_Utils::display_responsive_images( $options['generic_thumb_id'], 'newsroom-600', '500px', 'newsroom-image' );
+				Lf_Utils::display_responsive_images( $options['generic_thumb_id'], 'newsroom-260', '260px', 'archive-default-svg' );
 			} else {
 				echo '<img src="' . esc_url( get_stylesheet_directory_uri() )
-				. '/images/thumbnail-default.svg" alt="' . esc_attr( lf_blocks_get_site() ) . '" class="newsroom-image"/>';
+				. '/images/thumbnail-default.svg" alt="' . esc_attr( lf_blocks_get_site() ) . '" class="archive-default-svg"/>';
 			}
 			?>
 		</div>
