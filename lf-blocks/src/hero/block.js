@@ -20,7 +20,7 @@ import Edit from './edit.js';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const { InnerBlocks } = wp.blockEditor || wp.editor;
+const { InnerBlocks } = wp.blockEditor;
 /**
  * Register: Gutenberg Block.
  *

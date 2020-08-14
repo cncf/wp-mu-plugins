@@ -59,3 +59,6 @@ import './spotlight/block.js';
 
 // Tab Container Block.
 import './tab-container-block/block.js';
+
+// Stats Block.
+import './stats/block.js';

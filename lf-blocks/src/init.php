@@ -238,13 +238,22 @@ function lf_blocks_register_dynamic_blocks() {
 				'className'   => array(
 					'type' => 'string',
 				),
-				'highlight01' => array(
+				'headingText01' => array(
 					'type' => 'string',
 				),
-				'highlight02' => array(
+				'headingText02' => array(
 					'type' => 'string',
 				),
-				'highlight03' => array(
+				'headingText03' => array(
+					'type' => 'string',
+				),
+				'smallerText01' => array(
+					'type' => 'string',
+				),
+				'smallerText02' => array(
+					'type' => 'string',
+				),
+				'smallerText03' => array(
 					'type' => 'string',
 				),
 			),
@@ -375,7 +384,7 @@ function lf_blocks_register_dynamic_blocks() {
 		)
 	);
 
-	// Case Studies Block.
+	// Spotlight Block.
 	require_once 'spotlight/render-callback.php';
 	register_block_type(
 		'lf/spotlight',
@@ -408,6 +417,50 @@ function lf_blocks_register_dynamic_blocks() {
 				),
 			),
 		),
+	);
+
+	// Stats block.
+	require_once 'stats/render-callback.php';
+	register_block_type(
+		'lf/stats',
+		array(
+			'attributes'      => array(
+				'className'   => array(
+					'type' => 'string',
+				),
+				'headingText01' => array(
+					'type' => 'string',
+				),
+				'headingText02' => array(
+					'type' => 'string',
+				),
+				'headingText03' => array(
+					'type' => 'string',
+				),
+				'headingText04' => array(
+					'type' => 'string',
+				),
+				'headingText05' => array(
+					'type' => 'string',
+				),
+				'smallerText01' => array(
+					'type' => 'string',
+				),
+				'smallerText02' => array(
+					'type' => 'string',
+				),
+				'smallerText03' => array(
+					'type' => 'string',
+				),
+				'smallerText04' => array(
+					'type' => 'string',
+				),
+				'smallerText05' => array(
+					'type' => 'string',
+				),
+			),
+			'render_callback' => 'lf_stats_block_render_callback',
+		)
 	);
 
 }

@@ -20,7 +20,7 @@ import Edit from './edit.js';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const { InnerBlocks } = wp.blockEditor;
+
 /**
  * Register: Gutenberg Block.
  *
@@ -34,26 +34,67 @@ const { InnerBlocks } = wp.blockEditor;
  * @return {?WPBlock}          The block, if it has been successfully registered; otherwise `undefined`.
  */
 registerBlockType(
-	'lf/case-study-overview',
+	'lf/stats',
 	{
-		title: __( 'LF | Case Study Overview' ),
-		description: __( 'Categorisation details about the case study' ),
-		icon: 'list-view',
+		title: __( 'LF | Stats' ),
+		description: __( 'Big numbers, small descriptions, in columns' ),
+		icon: 'plus-alt',
 		category: 'lf',
 		keywords: [
-			__( 'case study' ),
-			__( 'case' ),
-			__( 'overview' ),
+			__( 'stats' ),
+			__( 'numbers' ),
+			__( 'snapshot' ),
+			__( 'project' ),
+			__( 'journey' ),
 			__( 'lf' ),
 		],
 		example: {},
-		attributes: {},
+		attributes: {
+			headingStat01: {
+				type: 'string',
+				default: '',
+			},
+			headingStat02: {
+				type: 'string',
+				default: '',
+			},
+			headingStat03: {
+				type: 'string',
+				default: '',
+			},
+			headingStat04: {
+				type: 'string',
+				default: '',
+			},
+			headingStat05: {
+				type: 'string',
+				default: '',
+			},
+			smallerStat01: {
+				type: 'string',
+				default: '',
+			},
+			smallerStat02: {
+				type: 'string',
+				default: '',
+			},
+			smallerStat03: {
+				type: 'string',
+				default: '',
+			},
+			smallerStat04: {
+				type: 'string',
+				default: '',
+			},
+			smallerStat05: {
+				type: 'string',
+				default: '',
+			},
+		},
 		html: false,
 		edit: Edit,
-		save: ( props ) => {
-			return (
-				<InnerBlocks.Content />
-			);
+		save() {
+			return null;
 		},
 	}
 );

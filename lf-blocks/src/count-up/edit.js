@@ -14,7 +14,8 @@
 
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const { InspectorControls, PanelColorSettings, RichText, MediaUpload } = wp.blockEditor || wp.editor;
+const { PanelColorSettings, RichText, MediaUpload } = wp.blockEditor || wp.editor;
+const { InspectorControls } = wp.blockEditor;
 const { RangeControl, PanelBody, TextControl, ToggleControl } = wp.components;
 
 class Edit extends Component {

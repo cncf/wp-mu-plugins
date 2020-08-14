@@ -13,7 +13,7 @@
  */
 
 const { __ } = wp.i18n;
-const { RichText } = wp.blockEditor || wp.editor;
+const { RichText } = wp.blockEditor;
 const { Component } = wp.element;
 
 class GuestAuthor extends Component {

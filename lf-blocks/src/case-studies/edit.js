@@ -18,7 +18,7 @@ import isUndefined from 'lodash/isUndefined';
 
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const { InspectorControls } = wp.blockEditor || wp.editor;
+const { InspectorControls } = wp.blockEditor;
 const { RangeControl, PanelBody, Placeholder, Spinner } = wp.components;
 const { withSelect } = wp.data;
 
