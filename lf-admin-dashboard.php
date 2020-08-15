@@ -64,7 +64,7 @@ add_action( 'wp_dashboard_setup', 'add_dashboard_widget_info' );
  */
 function website_details() {
 	echo "<ul>
-	<li><a href='#' target='_blank'>Link to editing guide will be here</a></li>
+	<li><a href='https://docs.google.com/document/d/1TmjvB4MAFEFtYKLhMPuWl_J1guaXdHZh5d2BTQhe4wE/edit#heading=h.udn1pgm82b6' target='_blank'>CNCF.io and LFPH.io editor instructions</a></li>
 <li><strong>Developed By:</strong> <a href='mailto:cjyabraham@gmail.com'>Chris Abraham</a>, <a href='mailto:jim@thetwopercent.co.uk'>James Hunt</a></li>
 <li><strong>Development Repo:</strong> <a href='https://github.com/cncf/cncf.io' target='_blank'>Github</a>
 </li>
