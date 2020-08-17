@@ -44,6 +44,7 @@ function lf_events_render_callback( $attributes ) {
 				'key'     => 'lf_event_date_end',
 				'value'   => date_i18n( 'Y-m-d' ),
 				'compare' => '>=',
+				'type' => 'DATETIME',
 			),
 		),
 	);

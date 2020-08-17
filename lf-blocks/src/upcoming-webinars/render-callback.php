@@ -36,10 +36,10 @@ function lf_upcoming_webinars_render_callback( $attributes ) {
 				'key'     => 'lf_webinar_date',
 				'value'   => date_i18n( 'Y-m-d' ),
 				'compare' => '>=',
+				'type' => 'DATETIME',
 			),
 			array(
 				'key'     => 'lf_webinar_recording',
-				'value'   => '',
 				'compare' => 'NOT EXISTS',
 			),
 		),
