@@ -48,7 +48,7 @@ function lf_count_up_render_callback( $attributes ) {
 			<?php
 			if ( ! empty( $link ) ) :
 				?>
-			<a <?php echo wp_kses_post( $is_external ); ?>
+			<a class="no-decoration" <?php echo wp_kses_post( $is_external ); ?>
 				href="<?php echo esc_url( $link ); ?>">
 				<?php endif; ?>
 
