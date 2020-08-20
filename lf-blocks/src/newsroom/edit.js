@@ -37,111 +37,111 @@ class Newsroom extends Component {
 		};
 	}
 
-	renderControl = () => {
-		const { attributes, setAttributes, categories } = this.props;
-		const { category, numberposts, showImages, order } = attributes;
+renderControl = () => {
+	const { attributes, setAttributes, categories } = this.props;
+	const { category, numberposts, showImages, order } = attributes;
 
-		// get the list of categories to select.
-		const menuOptions = [
-			{ value: ' ', label: __( 'All' ) },
-			...categories.map( x => ( { value: x.id, label: x.name } ) ),
-		];
+	// get the list of categories to select.
+	const menuOptions = [
+		{ value: ' ', label: __( 'All' ) },
+		...categories.map( x => ( { value: x.id, label: x.name } ) ),
+	];
 
-		return (
-			<InspectorControls key="lf-newsroom-block-panel">
-				<PanelBody title={ __( 'Settings' ) } initialOpen={ true }>
+	return (
+		<InspectorControls key="lf-newsroom-block-panel">
+			<PanelBody title={ __( 'Settings' ) } initialOpen={ true }>
 
-					<SelectControl
-						label={ __( 'Category' ) }
-						value={ category }
-						options={ menuOptions }
-						onChange={ value =>
-							setAttributes( { category: '' !== value ? value : '' } )
-						  }
-					/>
-					<RangeControl
-						label={ __( 'Number of Posts' ) }
-						min={ 1 }
-						max={ 12 }
-						value={ numberposts }
-						onChange={ value => setAttributes( { numberposts: value } ) }
-					/>
-					<SelectControl
-						label={ __( 'Order' ) }
-						value={ order }
-						options={ [
-							{
-								label: __( 'Newest Posts First' ),
-								value: 'desc',
-							},
-							{
-								label: __( 'Oldest Posts First' ),
-								value: 'asc',
-							},
-						] }
-						onChange={ ( value ) => setAttributes( { order: value } ) }
-					/>
-					<ToggleControl
-						label={ __( 'Show Images' ) }
-						help={ showImages ? 'Shows featured images.' : 'No images.' }
-						checked={ showImages }
-						onChange={ this.toggleAttribute( 'showImages' ) }
-					/>
-				</PanelBody>
-			</InspectorControls>
-		);
-	}
+				<SelectControl
+					label={ __( 'Category' ) }
+					value={ category }
+					options={ menuOptions }
+					onChange={ value =>
+						setAttributes( { category: '' !== value ? value : '' } )
+					}
+				/>
+				<RangeControl
+					label={ __( 'Number of Posts' ) }
+					min={ 1 }
+					max={ 12 }
+					value={ numberposts }
+					onChange={ value => setAttributes( { numberposts: value } ) }
+				/>
+				<SelectControl
+					label={ __( 'Order' ) }
+					value={ order }
+					options={ [
+						{
+							label: __( 'Newest Posts First' ),
+							value: 'desc',
+						},
+						{
+							label: __( 'Oldest Posts First' ),
+							value: 'asc',
+						},
+					] }
+					onChange={ ( value ) => setAttributes( { order: value } ) }
+				/>
+				<ToggleControl
+					label={ __( 'Show Images' ) }
+					help={ showImages ? 'Shows featured images.' : 'No images.' }
+					checked={ showImages }
+					onChange={ this.toggleAttribute( 'showImages' ) }
+				/>
+			</PanelBody>
+		</InspectorControls>
+	);
+}
 
-	renderList = () => {
-		const {
-			attributes: { numberposts },
-			posts,
-		} = this.props;
-		const data = posts.map( p => ( { ...p, meta: mapValues( p.meta, head ) } ) ).slice( 0, numberposts );
+renderList = () => {
+	const {
+		attributes: { numberposts },
+		posts,
+	} = this.props;
+	const data = posts.map( p => ( { ...p, meta: mapValues( p.meta, head ) } ) ).slice( 0, numberposts );
 
-		return (
-			<Fragment>
-				{ data.map(
-					 post => (
-						<div key={ post.id } className="nr-post-wrapper">
-							<div className="nr-image-wrapper">
-								{ this.props.attributes.showImages &&
-								<img className="nr-newsroom-image" src={ post.featured_image_src ? post.featured_image_src : 'https://via.placeholder.com/280x175/d9d9d9/000000' } alt="Post Thumbnail" />
-								}
-							</div>
-							<p
-								className="nr-title"
-								dangerouslySetInnerHTML={ { __html: post.title.rendered } }
-							/>
-							<span className="nr-date">{ formatDate( post.date ) }</span>
+	return (
+		<Fragment>
+			{ data.map(
+				post => (
+					<div key={ post.id } className="newsroom-post-wrapper">
+						<div className="newsroom-image-wrapper">
+							{ this.props.attributes.showImages &&
+							<img src={ post.featured_image_src ? post.featured_image_src : 'https://via.placeholder.com/325x171/d9d9d9/000000' } alt="Post Thumbnail" />
+							}
 						</div>
-					)
-				)
-				}
-			</Fragment>
-		);
-	}
-
-	render() {
-		const { posts, className } = this.props;
-
-		return ! posts ? (
-			<Placeholder label={ __( 'Loading...' ) }>
-				<Spinner />
-			</Placeholder>
-		) : (
-			<Fragment>
-				{ this.renderControl() }
-				<div className={ className }>
-						{ this.renderList() }
+						<p
+							className="newsroom-title"
+							dangerouslySetInnerHTML={ { __html: post.title.rendered } }
+						/>
+						<span className="newsroom-date">{ formatDate( post.date ) }</span>
 					</div>
-			</Fragment>
-		);
-	}
+				)
+			)
+			}
+		</Fragment>
+	);
+}
+
+render() {
+	const { posts, className } = this.props;
+
+	return ! posts ? (
+		<Placeholder label={ __( 'Loading...' ) }>
+			<Spinner />
+		</Placeholder>
+	) : (
+		<Fragment>
+			{ this.renderControl() }
+			<div className={ className }>
+				{ this.renderList() }
+			</div>
+		</Fragment>
+	);
+}
 }
 
 export default withSelect(
-	 ( select, props ) => {
+	( select, props ) => {
 		const { getEntityRecords } = select( 'core' );
 		const { category, order, numberposts } = props.attributes;
 		const latestPostsQuery = pickBy(
