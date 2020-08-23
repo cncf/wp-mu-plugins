@@ -12,7 +12,6 @@
  * @phpcs:disable PEAR.Functions.FunctionCallSignature.Indent
  */
 
-const { __ } = wp.i18n;
 const { InnerBlocks } = wp.blockEditor;
 const { Component } = wp.element;
 

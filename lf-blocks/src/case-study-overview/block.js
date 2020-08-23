@@ -46,7 +46,6 @@ registerBlockType(
 			__( 'overview' ),
 			__( 'lf' ),
 		],
-		example: {},
 		attributes: {},
 		html: false,
 		edit: Edit,

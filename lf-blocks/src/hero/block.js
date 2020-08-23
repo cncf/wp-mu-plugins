@@ -46,7 +46,6 @@ registerBlockType(
 			__( 'title' ),
 			__( 'page' ),
 		],
-		example: {},
 		attributes: {},
 		html: false,
 		edit: Edit,

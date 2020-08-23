@@ -12,7 +12,6 @@
  * @phpcs:disable PEAR.Functions.FunctionCallSignature.Indent
  */
 
-const { __ } = wp.i18n;
 const { InnerBlocks } = wp.blockEditor;
 const { Component } = wp.element;
 
@@ -30,7 +29,7 @@ class Hero extends Component {
 				<section className="hero background-image-wrapper">
 
 					<figure className="background-image-figure">
-						<img src="/wp-content/uploads/2020/05/welcome.jpg" alt="welcome" />
+						<img src="https://via.placeholder.com/1400x300/BADA55/000000" alt="Hero" />
 					</figure>
 
 					<div className="container wrap background-image-text-overlay">
