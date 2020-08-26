@@ -245,7 +245,9 @@ class Lf_Mu_Admin {
 		$photo                    = get_user_meta( $user_id, 'profile_photo', true );
 		$first_name               = get_user_meta( $user_id, 'first_name', true );
 		$last_name                = get_user_meta( $user_id, 'last_name', true );
-		if ( 'approved' !== $um_member_directory_data['account_status'] || ! $photo || $um_hide_in_members ) {
+		$hidden                   = ( is_array( $um_hide_in_members ) && in_array( 'Yes', $um_hide_in_members ) ) ? true : false;
+
+		if ( 'approved' !== $um_member_directory_data['account_status'] || ! $photo || $hidden ) {
 			// speaker must be approved, have a photo, and not have hidden their profile.
 			$eligible_for_search = false;
 		} else {
