@@ -345,6 +345,18 @@ $sidebar    = array(
 					'initial_open' => true,
 					'settings'     => array(
 						array(
+							'type'              => 'date_single',
+							'data_type'         => 'meta',
+							'unavailable_dates' => array(),
+							'data_key'          => 'date_accepted',
+							'label'             => __( 'Accepted Date' ),
+							'help'              => __( 'The date the project was accepted into CNCF.' ),
+							'register_meta'     => true,
+							'ui_border_top'     => true,
+							'default_value'     => '',
+							'format'            => 'YYYY-MM-DD',
+						),
+						array(
 							'type'          => 'text',
 							'data_type'     => 'meta',
 							'data_key'      => 'category',
