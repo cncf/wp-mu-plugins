@@ -67,23 +67,16 @@ register_post_type( 'lf_project', $opts );
 if ( $this->is_cncf ) {
 	// Case Study Block Template setup.
 	$case_study_block_template = array(
-		array(
-			'core/heading',
-			array(
-				'level'     => '1',
-				'placeholder'   => 'Case study title to be shown as page header',
-				'className' => 'is-style-max-800',
-			),
-		),
+		array( 'lf/hero' ),
 		array( 'lf/case-study-overview' ),
 		array( 'lf/case-study-highlights' ),
 		array( 'core-embed/youtube' ),
 		array(
 			'core/heading',
 			array(
-				'level'       => '3',
+				'level'       => 3,
 				'placeholder' => 'Introductory paragraph to the case study',
-				'className' => 'is-style-max-800',
+				'className' => 'is-style-max-width-800',
 			),
 		),
 		array( 'core/paragraph' ),
@@ -133,6 +126,7 @@ if ( $this->is_cncf ) {
 		'show_in_nav_menus' => false,
 		'show_in_rest'      => true,
 		'hierarchical'      => false,
+		'template'          => $case_study_block_template,
 		'menu_icon'         => 'dashicons-awards',
 		'rewrite'           => array( 'slug' => 'case-studies-cn' ),
 		'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),

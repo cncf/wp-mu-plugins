@@ -24,20 +24,20 @@ add_action( 'altis.publication-checklist.register_prepublish_checks', 'webinar_t
  * Check for video present (not required).
  */
 function video_present() {
-	$video_block_names = [
+	$video_block_names = array(
 		'core/video',
 		'core-embed/videopress',
 		'core-embed/vimeo',
 		'core-embed/youtube',
-	];
+	);
 
 	Checklist\register_prepublish_check(
 		'video',
-		[
-			'type'      => [
+		array(
+			'type'      => array(
 				'lf_case_study',
 				'lf_case_study_cn',
-			],
+			),
 			'run_check' => function ( array $post ) use ( $video_block_names ) : Status {
 				$blocks       = parse_blocks( $post['post_content'] );
 				$video_blocks = array_filter(
@@ -53,7 +53,7 @@ function video_present() {
 
 				return new Status( STATUS::INFO, __( 'Add a video to the case study', 'Lf_Mu' ) );
 			},
-		]
+		)
 	);
 }
 
@@ -63,10 +63,10 @@ function video_present() {
 function check_featured_image() {
 	Checklist\register_prepublish_check(
 		'featured_image',
-		[
-			'type'      => [
+		array(
+			'type'      => array(
 				'post',
-			],
+			),
 			'run_check' => function ( array $post, array $meta, array $terms ) : Status {
 
 				if ( has_post_thumbnail() ) {
@@ -87,7 +87,7 @@ function check_featured_image() {
 
 				return new Status( Status::INCOMPLETE, __( 'Add a featured image at least 1200x630', 'Lf_Mu' ) );
 			},
-		]
+		)
 	);
 }
 
@@ -97,10 +97,10 @@ function check_featured_image() {
 function webinar_topics() {
 	Checklist\register_prepublish_check(
 		'webinar_topic_check',
-		[
-			'type'      => [
+		array(
+			'type'      => array(
 				'lf_webinar',
-			],
+			),
 			'run_check' => function ( array $post, array $meta, array $terms ) : Status {
 
 				if ( empty( $terms['lf-topic'] ) ) {
@@ -109,6 +109,6 @@ function webinar_topics() {
 				return new Status( Status::COMPLETE, __( 'Add topics to the webinar', 'Lf_Mu' ) );
 
 			},
-		]
+		)
 	);
 }
