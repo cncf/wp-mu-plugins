@@ -51,9 +51,9 @@ class Lf_Mu_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		$options = get_option( $this->plugin_name );
-		$this->site        = ( isset( $options['site'] ) && ! empty( $options['site'] ) ) ? esc_attr( $options['site'] ) : '';
-		$this->is_cncf     = ( 'cncf' === $this->site ) ? true : false;
+		$options       = get_option( $this->plugin_name );
+		$this->site    = ( isset( $options['site'] ) && ! empty( $options['site'] ) ) ? esc_attr( $options['site'] ) : '';
+		$this->is_cncf = ( 'cncf' === $this->site ) ? true : false;
 
 	}
 
@@ -391,5 +391,17 @@ class Lf_Mu_Admin {
 			#wpadminbar { background-color:#12881D; }
 		</style>';
 		echo $change_adminbar_colors; // phpcs:ignore
+	}
+
+	/**
+	 * Load customised pre-publish checklist.
+	 */
+	public function pre_publish_checklist() {
+		if ( ! is_plugin_active( 'publication-checklist/plugin.php' ) ) {
+			return;
+		}
+
+		include_once 'partials/checklist.php';
+
 	}
 }
