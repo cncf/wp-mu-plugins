@@ -350,7 +350,6 @@ $sidebar    = array(
 							'unavailable_dates' => array(),
 							'data_key'          => 'date_accepted',
 							'label'             => __( 'Accepted Date' ),
-							'help'              => __( 'The date the project was accepted into CNCF.' ),
 							'register_meta'     => true,
 							'ui_border_top'     => true,
 							'default_value'     => '',
