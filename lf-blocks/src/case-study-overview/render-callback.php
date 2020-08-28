@@ -73,7 +73,7 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 
 	<div class="case-study-overview">
 
-		<div className="case-study-intro-wrapper">
+		<div class="case-study-intro-wrapper">
 		<?php echo wp_kses_post( $content ); ?>
 		</div>
 
