@@ -90,6 +90,8 @@ function lf_events_render_callback( $attributes ) {
 			$location = 'TBC';
 		} elseif ( ! $country ) {
 			$location = $city;
+		} elseif ( ! $city ) {
+			$location = $country;
 		} else {
 			$location = $city . ', ' . $country;
 		}
