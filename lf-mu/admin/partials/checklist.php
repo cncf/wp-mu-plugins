@@ -87,10 +87,14 @@ function check_featured_image() {
 						return new Status( Status::COMPLETE, __( 'Add a featured image to the post', 'Lf_Mu' ) );
 					} else {
 
-						if ( $width >= $required_width && $height >= $required_height ) {
-							return new Status( Status::COMPLETE, __( 'Add a featured image at least 1200x630 dimensions', 'Lf_Mu' ) );
+						if ( 'svg' == $filetype['ext'] ) {
+							return new Status( Status::INCOMPLETE, __( 'Add a featured image that is not an SVG', 'Lf_Mu' ) );
 						} else {
-							return new Status( Status::INCOMPLETE, __( 'Add a featured image at least 1200x630 dimensions', 'Lf_Mu' ) );
+							if ( $width >= $required_width && $height >= $required_height ) {
+								return new Status( Status::COMPLETE, __( 'Add a featured image at least 1200x630 dimensions', 'Lf_Mu' ) );
+							} else {
+								return new Status( Status::INCOMPLETE, __( 'Add a featured image at least 1200x630 dimensions', 'Lf_Mu' ) );
+							}
 						}
 					}
 				}
