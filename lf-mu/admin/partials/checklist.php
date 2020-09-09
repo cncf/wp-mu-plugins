@@ -17,9 +17,6 @@ use Altis\Workflow\PublicationChecklist\Status;
 // Checks featured image size.
 add_action( 'altis.publication-checklist.register_prepublish_checks', 'check_featured_image' );
 
-// Checks featured image size is not an SVG.
-add_action( 'altis.publication-checklist.register_prepublish_checks', 'check_featured_image_svg' );
-
 // checks for topics on webinar.
 add_action( 'altis.publication-checklist.register_prepublish_checks', 'webinar_topics' );
 
@@ -72,53 +69,33 @@ function check_featured_image() {
 			),
 			'run_check' => function ( array $post, array $meta, array $terms ) : Status {
 
-				if ( has_post_thumbnail() ) {
+				if ( ! has_post_thumbnail() ) {
+					return new Status( Status::INCOMPLETE, __( 'Add a featured image to the post', 'Lf_Mu' ) );
+				} else {
 
 					$img    = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
+
 					$width  = $img[1];
 					$height = $img[2];
 
 					$required_width  = 1200;
 					$required_height = 630;
 
-					if ( $width >= $required_width && $height >= $required_height ) {
-						return new Status( Status::COMPLETE, __( 'Add a featured image at least 1200x630 dimensions', 'Lf_Mu' ) );
-					} else {
-						return new Status( Status::INCOMPLETE, __( 'Add a featured image at least 1200x630 dimensions', 'Lf_Mu' ) );
-					}
-				}
-
-				return new Status( Status::INCOMPLETE, __( 'Add a featured image at least 1200x630 dimensions', 'Lf_Mu' ) );
-			},
-		)
-	);
-}
-
-
-/**
- * Check for featured image on posts.
- */
-function check_featured_image_svg() {
-	Checklist\register_prepublish_check(
-		'featured_image_svg',
-		array(
-			'type'      => array(
-				'post',
-			),
-			'run_check' => function ( array $post, array $meta, array $terms ) : Status {
-
-				if ( has_post_thumbnail() ) {
-
 					$filetype = wp_check_filetype( wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' )[0] );
 
-					if ( 'svg' == $filetype['ext'] ) {
-						return new Status( Status::INCOMPLETE, __( 'Add a featured image that is not an SVG', 'Lf_Mu' ) );
+					if ( has_category( 'news' ) ) {
+						return new Status( Status::COMPLETE, __( 'Add a featured image to the post', 'Lf_Mu' ) );
 					} else {
-						return new Status( Status::COMPLETE, __( 'Add a featured image that is not an SVG', 'Lf_Mu' ) );
+
+						if ( $width >= $required_width && $height >= $required_height ) {
+							return new Status( Status::COMPLETE, __( 'Add a featured image at least 1200x630 dimensions', 'Lf_Mu' ) );
+						} else {
+							return new Status( Status::INCOMPLETE, __( 'Add a featured image at least 1200x630 dimensions', 'Lf_Mu' ) );
+						}
 					}
 				}
 
-				return new Status( Status::INCOMPLETE, __( 'Add a featured image that is not an SVG', 'Lf_Mu' ) );
+				return new Status( Status::INCOMPLETE, __( 'Add a featured image to begin checks', 'Lf_Mu' ) );
 			},
 		)
 	);
