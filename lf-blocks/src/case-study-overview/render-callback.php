@@ -28,11 +28,13 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 		// get chinese content.
 		$industries = get_the_terms( get_the_ID(), 'lf-industry-cn' );
 
-		$location = Lf_Utils::get_term_names( get_the_ID(), 'lf-country-cn' );
+		$location = Lf_Utils::get_term_names( get_the_ID(), 'lf-country-cn', true );
+		$location_slug = Lf_Utils::get_term_slugs( get_the_ID(), 'lf-country-cn', true );
 
 		$cloud_types = get_the_terms( get_the_ID(), 'lf-cloud-type-cn' );
 
-		$product_type = Lf_Utils::get_term_names( get_the_ID(), 'lf-product-type-cn' );
+		$product_type = Lf_Utils::get_term_names( get_the_ID(), 'lf-product-type-cn', true );
+		$product_type_slug = Lf_Utils::get_term_slugs( get_the_ID(), 'lf-product-type-cn', true );
 
 		$challenges = get_the_terms( get_the_ID(), 'lf-challenge-cn' );
 
@@ -44,16 +46,20 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 		$challenge_text    = '挑战';
 		$date_published    = '出版';
 
+		$url_type = '-cn';
+
 	} else {
 
 		// get english content.
 		$industries = get_the_terms( get_the_ID(), 'lf-industry' );
 
-		$location = Lf_Utils::get_term_names( get_the_ID(), 'lf-country' );
+		$location = Lf_Utils::get_term_names( get_the_ID(), 'lf-country', true );
+		$location_slug = Lf_Utils::get_term_slugs( get_the_ID(), 'lf-country', true );
 
 		$cloud_types = get_the_terms( get_the_ID(), 'lf-cloud-type' );
 
-		$product_type = Lf_Utils::get_term_names( get_the_ID(), 'lf-product-type' );
+		$product_type = Lf_Utils::get_term_names( get_the_ID(), 'lf-product-type', true );
+		$product_type_slug = Lf_Utils::get_term_slugs( get_the_ID(), 'lf-product-type', true );
 
 		$challenges = get_the_terms( get_the_ID(), 'lf-challenge' );
 
@@ -64,6 +70,8 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 		$product_type_text = 'Product Type';
 		$challenge_text    = 'Challenges';
 		$date_published    = 'Published';
+
+		$url_type = '';
 	}
 
 	ob_start();
@@ -81,8 +89,7 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 
 		<div>
 				<p><?php echo esc_html( $company_text ); ?></p>
-				<span
-					class="skew-box secondary"><?php the_title(); ?></span>
+				<div class="margin-bottom-small"><?php the_title(); ?></div>
 			</div>
 
 			<?php
@@ -91,8 +98,7 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 			<div>
 				<p><?php echo esc_html( $challenge_text ); ?></p>
 				<?php foreach ( $challenges as $challenge ) { ?>
-				<span
-					class="skew-box secondary"><?php echo esc_html( $challenge->name ); ?></span>
+				<a class="skew-box secondary" title="See more case studies with a <?php echo esc_attr( $challenge->name ); ?> challenge" href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-challenge<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $challenge->slug ); ?>"><?php echo esc_html( $challenge->name ); ?></a>
 				<?php } ?>
 			</div>
 				<?php
@@ -103,8 +109,7 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 			<div>
 				<p><?php echo esc_html( $industry_text ); ?></p>
 				<?php foreach ( $industries as $industry ) { ?>
-				<span
-					class="skew-box secondary"><?php echo esc_html( $industry->name ); ?></span>
+				<a class="skew-box secondary" title="See more case studies from <?php echo esc_attr( $industry->name ); ?>" href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-industry<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $industry->slug ); ?>"><?php echo esc_html( $industry->name ); ?></a>
 				<?php } ?>
 			</div>
 				<?php
@@ -114,8 +119,7 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 				?>
 			<div>
 				<p><?php echo esc_html( $location_text ); ?></p>
-				<span
-					class="skew-box secondary"><?php echo esc_html( $location ); ?></span>
+				<a class="skew-box secondary" title="See more case studies from <?php echo esc_attr( $location ); ?>" href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-country<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $location_slug ); ?>"><?php echo esc_html( $location ); ?></a>
 			</div>
 				<?php
 					endif;
@@ -125,8 +129,7 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 			<div>
 				<p><?php echo esc_html( $cloud_type_text ); ?></p>
 				<?php foreach ( $cloud_types as $cloud_type ) { ?>
-				<span
-					class="skew-box secondary"><?php echo esc_html( $cloud_type->name ); ?></span>
+				<a class="skew-box secondary" title="See more case studies with a <?php echo esc_attr( $cloud_type->name ); ?> cloud type" href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-cloud-type<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $cloud_type->slug ); ?>"><?php echo esc_html( $cloud_type->name ); ?></a>
 				<?php } ?>
 			</div>
 				<?php
@@ -136,16 +139,14 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 				?>
 			<div>
 				<p><?php echo esc_html( $product_type_text ); ?></p>
-				<span
-					class="skew-box secondary"><?php echo esc_html( $product_type ); ?></span>
+				<a class="skew-box secondary" title="See more case studies with <?php echo esc_attr( $product_type ); ?> product type" href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-product-type<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $product_type_slug ); ?>"><?php echo esc_html( $product_type ); ?></a>
 			</div>
 				<?php
 					endif;
 			?>
 			<div>
 				<p><?php echo esc_html( $date_published ); ?></p>
-				<span
-					class="skew-box secondary"><?php the_date(); ?></span>
+				<div><?php the_date(); ?></div>
 			</div>
 
 		</div>
