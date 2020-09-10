@@ -397,7 +397,9 @@ class Lf_Mu_Admin {
 	 * Load customised pre-publish checklist.
 	 */
 	public function pre_publish_checklist() {
-		if ( ! is_plugin_active( 'publication-checklist/plugin.php' ) ) {
+		include_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		if ( ! function_exists( 'is_plugin_active' ) || ! is_plugin_active( 'publication-checklist/plugin.php' ) ) {
 			return;
 		}
 
