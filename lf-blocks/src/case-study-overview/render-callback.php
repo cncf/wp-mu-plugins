@@ -89,7 +89,7 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 
 		<div>
 				<p><?php echo esc_html( $company_text ); ?></p>
-				<div class="margin-bottom-small"><?php the_title(); ?></div>
+				<a class="skew-box secondary" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 			</div>
 
 			<?php
@@ -146,7 +146,7 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 			?>
 			<div>
 				<p><?php echo esc_html( $date_published ); ?></p>
-				<div><?php the_date(); ?></div>
+				<a class="skew-box secondary" href="<?php the_permalink(); ?>"><?php the_date(); ?></a>
 			</div>
 
 		</div>
