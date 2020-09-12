@@ -18,7 +18,7 @@ use Altis\Workflow\PublicationChecklist\Status;
 add_action( 'altis.publication-checklist.register_prepublish_checks', 'check_featured_image' );
 
 // checks for topics on webinar.
-add_action( 'altis.publication-checklist.register_prepublish_checks', 'webinar_topics' );
+// add_action( 'altis.publication-checklist.register_prepublish_checks', 'webinar_topics' ); // phpcs:ignore.
 
 /**
  * Check for video present (not required).
@@ -88,12 +88,12 @@ function check_featured_image() {
 					} else {
 
 						if ( 'svg' == $filetype['ext'] ) {
-							return new Status( Status::INCOMPLETE, __( 'Add a featured image that is not an SVG', 'Lf_Mu' ) );
+							return new Status( Status::INCOMPLETE, __( 'Add a featured image that is not an SVG (SVGs only work for "News" posts)', 'Lf_Mu' ) );
 						} else {
 							if ( $width >= $required_width && $height >= $required_height ) {
-								return new Status( Status::COMPLETE, __( 'Add a featured image at least 1200x630 dimensions', 'Lf_Mu' ) );
+								return new Status( Status::COMPLETE, __( 'Add a featured image of at least 1200x630px', 'Lf_Mu' ) );
 							} else {
-								return new Status( Status::INCOMPLETE, __( 'Add a featured image at least 1200x630 dimensions', 'Lf_Mu' ) );
+								return new Status( Status::INCOMPLETE, __( 'Add a featured image of at least 1200x630px', 'Lf_Mu' ) );
 							}
 						}
 					}
