@@ -23,20 +23,20 @@ function lf_upcoming_webinars_render_callback( $attributes ) {
 
 	// setup the arguments.
 	$args  = array(
-		'posts_per_page'     => $quantity,
-		'post_type'          => array( 'lf_webinar' ),
-		'post_status'        => array( 'publish' ),
-		'meta_key'           => 'lf_webinar_date',
-		'order'              => 'ASC',
-		'meta_type'          => 'DATETIME',
-		'orderby'            => 'meta_value',
-		'no_found_rows'      => true,
-		'meta_query'         => array(
+		'posts_per_page' => $quantity,
+		'post_type'      => array( 'lf_webinar' ),
+		'post_status'    => array( 'publish' ),
+		'meta_key'       => 'lf_webinar_date',
+		'order'          => 'ASC',
+		'meta_type'      => 'DATETIME',
+		'orderby'        => 'meta_value',
+		'no_found_rows'  => true,
+		'meta_query'     => array(
 			array(
 				'key'     => 'lf_webinar_date',
 				'value'   => date_i18n( 'Y-m-d' ),
 				'compare' => '>=',
-				'type' => 'DATETIME',
+				'type'    => 'DATETIME',
 			),
 			array(
 				'key'     => 'lf_webinar_recording',
@@ -47,27 +47,31 @@ function lf_upcoming_webinars_render_callback( $attributes ) {
 	$query = new WP_Query( $args );
 	ob_start();
 
-	// if no upcoming webinars.
-	if ( ! $query->have_posts() ) {
-		return;
-	}
-	?>
+	if ( $query->have_posts() ) {
+		?>
 
 <section
 class="wp-block-lf-upcoming-webinars <?php echo esc_html( $classes ); ?>">
 <div class="webinars-upcoming-wrapper">
-	<?php
-	while ( $query->have_posts() ) :
-		$query->the_post();
+		<?php
+		while ( $query->have_posts() ) :
+			$query->the_post();
 
-		get_template_part( 'components/upcoming-webinars-item' );
+			get_template_part( 'components/upcoming-webinars-item' );
 
 endwhile;
-	wp_reset_postdata();
-	?>
+		wp_reset_postdata();
+		?>
 </div>
 </section>
-	<?php
+		<?php
+
+	} else {
+		?>
+ <p class="is-style-max-width-100" style="border: 1px solid #222; padding: 0.5rem 1rem;">Stay tuned for new webinars in the coming weeks. <a href="#newsletter" title="Sign up for newsletter">Sign up for our newsletter to stay informed</a>.</p>
+		<?php
+	}
+
 	$block_content = ob_get_clean();
 	return $block_content;
 }
