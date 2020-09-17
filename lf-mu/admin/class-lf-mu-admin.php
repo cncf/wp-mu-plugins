@@ -393,17 +393,4 @@ class Lf_Mu_Admin {
 		echo $change_adminbar_colors; // phpcs:ignore
 	}
 
-	/**
-	 * Load customised pre-publish checklist.
-	 */
-	public function pre_publish_checklist() {
-		include_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-		if ( ! function_exists( 'is_plugin_active' ) || ! is_plugin_active( 'publication-checklist/plugin.php' ) ) {
-			return;
-		}
-
-		include_once 'partials/checklist.php';
-
-	}
 }
