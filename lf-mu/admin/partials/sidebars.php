@@ -507,7 +507,7 @@ $sidebar    = array(
 							'register_meta' => true,
 							'ui_border_top' => true,
 							'default_value' => '',
-							'placeholder'   => '',
+							'placeholder'   => 'Oliver Gould',
 						),
 						array(
 							'type'          => 'text',
