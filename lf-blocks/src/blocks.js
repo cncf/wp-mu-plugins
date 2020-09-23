@@ -62,3 +62,6 @@ import './tab-container-block/block.js';
 
 // Stats Block.
 import './stats/block.js';
+
+// YouTube Lite Block.
+import './youtube-lite/block.js';

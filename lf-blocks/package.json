@@ -8,6 +8,7 @@
     "eject": "cgb-scripts eject"
   },
   "dependencies": {
+    "@justinribeiro/lite-youtube": "^0.9.0",
     "cgb-scripts": "1.23.0"
   }
 }

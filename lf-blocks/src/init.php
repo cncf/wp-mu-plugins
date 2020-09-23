@@ -55,6 +55,16 @@ function lf_blocks_frontend_assets() {
 		);
 	}
 
+	if ( has_block( 'lf/youtube-lite' ) ) {
+		wp_enqueue_script(
+			'youtube-lite-js',
+			plugins_url( '/src/youtube-lite/scripts/lite-youtube.js', dirname( __FILE__ ) ),
+			is_admin() ? array( 'wp-editor' ) : null,
+			filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ),
+			true
+		);
+	}
+
 	if ( has_block( 'lf/count-up' ) && ! is_admin() ) {
 
 		wp_enqueue_script(
@@ -273,6 +283,18 @@ function lf_blocks_register_dynamic_blocks() {
 			),
 			'render_callback' => 'lf_case_study_overview_render_callback',
 		)
+	);
+
+	// YouTube Lite block.
+	register_block_type(
+		'lf/youtube-lite',
+		array(
+			'attributes' => array(
+				'className' => array(
+					'type' => 'string',
+				),
+			),
+		),
 	);
 
 	// Landscape block.
