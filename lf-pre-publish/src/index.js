@@ -107,7 +107,7 @@ function countWords() {
 			<Result
 				icon={ iconError }
 				title={ resultTitle + wordCount }
-				message="Posts under 300 words will likely not rank on Google"
+				message="Posts under 300 words will likely not rank on Google."
 			/>
 		);
 	}
@@ -117,7 +117,7 @@ function countWords() {
 			<Result
 				icon={ iconWarning }
 				title={ resultTitle + wordCount }
-				message="Posts should have over 500 words to improve chances of Google ranking"
+				message="Posts should have over 500 words to improve chances of Google ranking."
 			/>
 		);
 	}
@@ -163,7 +163,7 @@ function countCategories() {
 			<Result
 				icon={ iconError }
 				title={ resultTitle }
-				message="You need to choose a category for the post"
+				message="You need to choose a category for the post."
 			/>
 		);
 	}
@@ -173,7 +173,7 @@ function countCategories() {
 			<Result
 				icon={ iconSuccess }
 				title={ resultTitle }
-				message="You have chosen a category for this post"
+				message="You have chosen a category for this post."
 			/>
 		);
 	}
@@ -183,7 +183,7 @@ function countCategories() {
 			<Result
 				icon={ iconError }
 				title={ resultTitle }
-				message="You have chosen more than one category. Please only select one category"
+				message="You have chosen more than one category. Please only select one category."
 			/>
 		);
 	}
@@ -240,7 +240,7 @@ function checkWebinarDate() {
 		<Result
 			icon={ iconError }
 			title="Webinar Date"
-			message="A date should be set for the webinar"
+			message="A date should be set for the webinar."
 		/>
 	);
 }
@@ -310,7 +310,7 @@ function postImages() {
 				<Result
 					icon={ iconError }
 					title={ imageTitle }
-					message="Your featured image size is too small. It needs to be at least 540px width and 285px height. Ideal size for blog posts is 1200x630"
+					message="Your featured image size is too small. It needs to be at least 540px width and 285px height. Ideal size for blog posts is 1200x630px."
 				/>
 			);
 		}
@@ -322,7 +322,7 @@ function postImages() {
 				<Result
 					icon={ iconWarning }
 					title={ imageTitle }
-					message="Your featured image size meets the minimum requirements, but we would recommend using a size of at least 1200x630"
+					message="Your featured image size meets the minimum requirements, but we would recommend using a size of at least 1200x630px."
 				/>
 			);
 		}
@@ -371,7 +371,7 @@ function pageImages() {
 				<Result
 					icon={ iconError }
 					title={ imageTitle }
-					message="The featured image is too small. We recommend a size of 1440px x 260px"
+					message="The featured image is too small. We recommend a size of 1440x260px."
 				/>
 			);
 		}
@@ -475,8 +475,8 @@ const PrePublishCheckList = () => {
 					display: 'block',
 				} }
 			>
-				Save draft, or preview post, to run all checks before
-				publishing.
+				Save draft, or preview post, to re-run all the below checks.
+
 			</span>
 
 			{ runOnPost() }
