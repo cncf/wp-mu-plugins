@@ -348,11 +348,19 @@ function pageImages() {
 		'featured_media'
 	);
 
+	const imageTitle = 'Featured Image';
+
 	const featuredImageObj = featuredImageID
 		? getMedia( featuredImageID )
 		: null;
 	if ( featuredImageID === 0 ) {
-		return null;
+		return (
+			<Result
+				icon={ iconWarning }
+				title={ imageTitle }
+				message="It's recommended to set a featured image so that the page will have a unique heading."
+			/>
+		);
 	}
 
 	if (
@@ -363,8 +371,6 @@ function pageImages() {
 		const featuredWidth = featuredImageObj.media_details.width;
 
 		const featuredHeight = featuredImageObj.media_details.height;
-
-		const imageTitle = 'Featured Image Size';
 
 		if ( featuredWidth < 1440 || featuredHeight < 260 ) {
 			return (
@@ -419,6 +425,7 @@ const PrePublishCheckList = () => {
 	 */
 	function runOnPost() {
 		if ( 'post' !== postType ) return null;
+
 		return (
 			<div>
 				{ checkFeaturedImage() }
@@ -439,7 +446,6 @@ const PrePublishCheckList = () => {
 		if ( 'page' !== postType ) return null;
 		return (
 			<div>
-				{ checkFeaturedImage() }
 				{ pageImages() }
 				{ countH1() }
 				{ countWords() }
@@ -454,12 +460,7 @@ const PrePublishCheckList = () => {
 	 */
 	function runOnWebinar() {
 		if ( 'lf_webinar' !== postType ) return null;
-		return (
-			<div>
-				{ checkWebinarDate() }
-				{ countWords() }
-			</div>
-		);
+		return <div>{ checkWebinarDate() }</div>;
 	}
 
 	return (
@@ -476,7 +477,6 @@ const PrePublishCheckList = () => {
 				} }
 			>
 				Save draft, or preview post, to re-run all the below checks.
-
 			</span>
 
 			{ runOnPost() }
