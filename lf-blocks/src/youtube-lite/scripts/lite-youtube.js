@@ -223,8 +223,8 @@ class LiteYTEmbed extends HTMLElement {
 		// we don't know which image type to preload, so warm the connection
 		LiteYTEmbed.addPrefetch( 'preconnect', 'https://i.ytimg.com/' );
 
-		const posterUrlWebp = `https://i.ytimg.com/vi_webp/${ this.videoId }/hqdefault.webp`;
-		const posterUrlJpeg = `https://i.ytimg.com/vi/${ this.videoId }/hqdefault.jpg`;
+		const posterUrlWebp = `https://i.ytimg.com/vi_webp/${ this.videoId }/maxresdefault.webp`;
+		const posterUrlJpeg = `https://i.ytimg.com/vi/${ this.videoId }/maxresdefault.jpg`;
 		this.__domRefImg.webp.srcset = posterUrlWebp;
 		this.__domRefImg.jpeg.srcset = posterUrlJpeg;
 		this.__domRefImg.fallback.src = posterUrlJpeg;
