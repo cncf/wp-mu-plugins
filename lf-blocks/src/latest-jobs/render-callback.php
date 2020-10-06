@@ -50,7 +50,7 @@ function lf_latest_jobs_render_callback( $attributes ) {
 			<a href="<?php echo esc_url( $link ); ?>" target="_blank" rel="noopener"
 				class="job-image"
 				title="<?php echo esc_html( $title ) . 'at ' . esc_html( $company ); ?>">
-				<img src="<?php echo esc_url( $image ); ?>"
+				<img loading="lazy" src="<?php echo esc_url( $image ); ?>"
 					alt="<?php echo esc_attr( $title ); ?>" />
 			</a>
 
