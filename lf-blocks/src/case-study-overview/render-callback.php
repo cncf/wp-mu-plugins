@@ -27,16 +27,26 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 	if ( is_singular( 'lf_case_study_cn' ) ) {
 		// get chinese content.
 		$industries = get_the_terms( get_the_ID(), 'lf-industry-cn' );
+		foreach ( $industries as $industry ) {
+			$industry->name = preg_replace( '/(.+)(\(\D+\))/', '$1', $industry->name );
+		}
 
-		$location = Lf_Utils::get_term_names( get_the_ID(), 'lf-country-cn', true );
+		$location = preg_replace( '/(.+)(\(\D+\))/', '$1', Lf_Utils::get_term_names( get_the_ID(), 'lf-country-cn', true ) );
 		$location_slug = Lf_Utils::get_term_slugs( get_the_ID(), 'lf-country-cn', true );
 
 		$cloud_types = get_the_terms( get_the_ID(), 'lf-cloud-type-cn' );
+		foreach ( $cloud_types as $cloud_type ) {
+			$cloud_type->name = preg_replace( '/(.+)(\(\D+\))/', '$1', $cloud_type->name );
+		}
 
-		$product_type = Lf_Utils::get_term_names( get_the_ID(), 'lf-product-type-cn', true );
+		$product_type = preg_replace( '/(.+)(\(\D+\))/', '$1', Lf_Utils::get_term_names( get_the_ID(), 'lf-product-type-cn', true ) );
 		$product_type_slug = Lf_Utils::get_term_slugs( get_the_ID(), 'lf-product-type-cn', true );
 
 		$challenges = get_the_terms( get_the_ID(), 'lf-challenge-cn' );
+		foreach ( $challenges as $challenge ) {
+			$challenge->name = preg_replace( '/(.+)(\(\D+\))/', '$1', $challenge->name );
+		}
+
 
 		$company_text      = '公司';
 		$industry_text     = '行业';
