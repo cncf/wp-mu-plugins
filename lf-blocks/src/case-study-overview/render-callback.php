@@ -47,7 +47,6 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 			$challenge->name = preg_replace( '/(.+)(\(\D+\))/', '$1', $challenge->name );
 		}
 
-
 		$company_text      = '公司';
 		$industry_text     = '行业';
 		$location_text     = '地点';
