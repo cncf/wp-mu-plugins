@@ -1,9 +1,8 @@
 /**
  * Register Pre Publish Checklists
  *
- * @package
+ * @package lf-mu
  * @since 1.0.0
- *
  */
 
 /*
@@ -234,7 +233,9 @@ function checkWebinarDate() {
 	const date = select( 'core/editor' ).getEditedPostAttribute( 'meta' )
 		.lf_webinar_date;
 
-	if ( date ) return null;
+	if ( date ) {
+return null;
+	}
 
 	return (
 		<Result
@@ -256,7 +257,9 @@ function getFeaturedImageId() {
 		'featured_media'
 	);
 
-	if ( featuredImageId === 0 ) return null;
+	if ( featuredImageId === 0 ) {
+return null;
+	}
 	return featuredImageId;
 }
 
@@ -266,7 +269,9 @@ function getFeaturedImageId() {
  * @return {string} result.
  */
 function checkFeaturedImage() {
-	if ( getFeaturedImageId() ) return null;
+	if ( getFeaturedImageId() ) {
+return null;
+	}
 	return (
 		<Result
 			icon={ iconError }
@@ -282,7 +287,7 @@ function checkFeaturedImage() {
  * @return {string} result.
  */
 function postImages() {
-	// Get the featured image
+	// Get the featured image.
 	const featuredImageID = select( 'core/editor' ).getEditedPostAttribute(
 		'featured_media'
 	);
@@ -343,7 +348,7 @@ function postImages() {
  * @return {string} result.
  */
 function pageImages() {
-	// Get the featured image
+	// Get the featured image.
 	const featuredImageID = select( 'core/editor' ).getEditedPostAttribute(
 		'featured_media'
 	);
@@ -415,7 +420,7 @@ const PrePublishCheckList = () => {
 		! displayChecklistsOn.includes( postType ) ||
 		hasNewsExternalLink
 	) {
-		return null;
+	return null;
 	}
 
 	/**
@@ -424,17 +429,19 @@ const PrePublishCheckList = () => {
 	 * @return {string} content.
 	 */
 	function runOnPost() {
-		if ( 'post' !== postType ) return null;
+	if ( 'post' !== postType ) {
+return null;
+		}
 
-		return (
-			<div>
-				{ checkFeaturedImage() }
-				{ postImages() }
-				{ countCategories() }
-				{ countH1() }
-				{ countWords() }
-			</div>
-		);
+	return (
+	<div>
+	{ checkFeaturedImage() }
+	{ postImages() }
+	{ countCategories() }
+	{ countH1() }
+	{ countWords() }
+	</div>
+);
 	}
 
 	/**
@@ -443,14 +450,16 @@ const PrePublishCheckList = () => {
 	 * @return {string} content.
 	 */
 	function runOnPage() {
-		if ( 'page' !== postType ) return null;
-		return (
-			<div>
-				{ pageImages() }
-				{ countH1() }
-				{ countWords() }
-			</div>
-		);
+	if ( 'page' !== postType ) {
+return null;
+		}
+	return (
+	<div>
+	{ pageImages() }
+	{ countH1() }
+	{ countWords() }
+	</div>
+);
 	}
 
 	/**
@@ -459,8 +468,10 @@ const PrePublishCheckList = () => {
 	 * @return {string} content.
 	 */
 	function runOnWebinar() {
-		if ( 'lf_webinar' !== postType ) return null;
-		return <div>{ checkWebinarDate() }</div>;
+	if ( 'lf_webinar' !== postType ) {
+return null;
+		}
+	return <div>{ checkWebinarDate() }</div>;
 	}
 
 	return (

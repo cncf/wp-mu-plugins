@@ -32,10 +32,12 @@ export default class Inspector extends Component {
 		}
 
 		function getAndSetYouTubeId( changes ) {
-			setAttributes( {
-				youtubeUrl: changes,
-				youtubeId: getYouTubeId( changes ),
-			} );
+			setAttributes(
+				{
+					youtubeUrl: changes,
+					youtubeId: getYouTubeId( changes ),
+				}
+			);
 		}
 
 		return (
