@@ -62,6 +62,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 		$social_slack = ( isset( $options['social_slack'] ) && ! empty( $options['social_slack'] ) ) ? esc_attr( $options['social_slack'] ) : '';
 
+		$social_twitch = ( isset( $options['social_twitch'] ) && ! empty( $options['social_twitch'] ) ) ? esc_attr( $options['social_twitch'] ) : '';
+
 		$social_twitter = ( isset( $options['social_twitter'] ) && ! empty( $options['social_twitter'] ) ) ? esc_attr( $options['social_twitter'] ) : '';
 
 		$social_twitter_handle = ( isset( $options['social_twitter_handle'] ) && ! empty( $options['social_twitter_handle'] ) ) ? esc_html( $options['social_twitter_handle'] ) : '';
@@ -341,6 +343,18 @@ if ( ! defined( 'WPINC' ) ) {
 							name="<?php echo esc_html( $this->plugin_name ); ?>[social_slack]"
 							value="<?php echo esc_url( $social_slack ); ?>"
 							placeholder="https://www.slack.com/join-link" />
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label
+							for="social_twitch">Twitch</label>
+					</th>
+					<td>
+						<input type="text" class="social_twitch regular-text"
+							id="<?php echo esc_html( $this->plugin_name ); ?>-social_twitch"
+							name="<?php echo esc_html( $this->plugin_name ); ?>[social_twitch]"
+							value="<?php echo esc_url( $social_twitch ); ?>"
+							placeholder="https://www.twitch.tv/handle" />
 					</td>
 				</tr>
 				<tr>
