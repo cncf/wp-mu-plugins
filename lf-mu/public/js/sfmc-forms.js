@@ -128,7 +128,13 @@ jQuery(
 					},
 					error( xhr, status, error ) {
 						let errorMessage = xhr.status + ': ' + xhr.statusText;
-						$( '#sfmc-message' + form ).html( 'There was an error processing your submission. Please try again or contact us directly at info@lfph.io<br>Error code: (' + errorMessage + ')' ).addClass( 'error' );
+						let hostname = window.location.hostname;
+						let errorEmail = 'info@lfph.io';
+						if ( hostname.search("cncf") != -1 ) {
+							errorEmail = 'info@cncf.io';
+						} 
+
+						$( '#sfmc-message' + form ).html( 'There was an error processing your submission. Please try again or contact us directly at ' + errorEmail + '<br>Error code: (' + errorMessage + ')' ).addClass( 'error' );
 						message.scrollIntoView( { behavior: 'smooth', block: 'center' } );
 					},
 				}
