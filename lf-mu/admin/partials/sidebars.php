@@ -566,7 +566,7 @@ if ( $this->is_cncf ) {
 								'ui_border_top'     => false,
 								'default_value'     => '',
 								'format'            => 'YYYY-MM-DD',
-								'help'              => __( 'Optional for single day events.' ),
+								'help'              => __( 'Required. For single day events, enter the same date.' ),
 							),
 							array(
 								'type'          => 'text',
