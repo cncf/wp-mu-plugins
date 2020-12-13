@@ -173,6 +173,10 @@ class Lf_Mu {
 			$this->loader->add_action( 'delete_user', $plugin_admin, 'speaker_deleted' ); // Fires immediately before a user is deleted from the database.
 			$this->loader->add_action( 'profile_update', $plugin_admin, 'speaker_updated' ); // Fires immediately after an existing user is updated.
 			$this->loader->add_action( 'um_after_user_account_updated', $plugin_admin, 'speaker_updated' ); // Fired on account page, after updating profile.
+
+			// Hook to save year in a meta field for case studies.
+			$this->loader->add_action( 'save_post_lf_case_study', $plugin_admin, 'set_case_study_year', 10, 3 );
+			$this->loader->add_action( 'save_post_lf_case_study_cn', $plugin_admin, 'set_case_study_year', 10, 3 );
 		}
 
 	}

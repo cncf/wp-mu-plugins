@@ -395,4 +395,16 @@ class Lf_Mu_Admin {
 		echo $change_adminbar_colors; // phpcs:ignore
 	}
 
+	/**
+	 * Set meta data of year for case studies to faciliate filtering
+	 *
+	 * @param int    $post_id Post ID.
+	 * @param object $post Post object.
+	 * @param bool   $update Whether this is an existing post being updated.
+	 */
+	public function set_case_study_year( $post_id, $post, $update ) {
+		$year = get_post_time( 'Y', false, $post );
+		update_post_meta( $post_id, 'lf_case_study_published_year', $year );
+	}
+
 }
