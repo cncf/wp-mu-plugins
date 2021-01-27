@@ -167,6 +167,23 @@ class Lf_Mu_Public {
 				'crossorigin' => '',
 				'href'        => '//www.gstatic.com',
 			);
+
+			// used by HubSpot forms.
+			$add_urls = array(
+				'https://js.hscollectedforms.net',
+				'https://js.hs-banner.com',
+				'https://js.hs-analytics.net',
+				'https://js.hsforms.net',
+				'https://js.hs-scripts.com',
+			);
+			// add crossorigin, remove protocol.
+			foreach ( $add_urls as $url ) {
+				$url = array(
+					'crossorigin',
+					'href' => str_replace( array( 'http:', 'https:' ), '', $url ),
+				);
+				array_push( $hints, $url );
+			}
 		}
 		if ( 'dns-prefetch' === $relation_type ) {
 			// create array of URLs to remove from prefetch.
