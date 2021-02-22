@@ -1,7 +1,7 @@
 /**
  * Register Pre Publish Checklists
  *
- * @package lf-mu
+ * @package
  * @since 1.0.0
  */
 
@@ -15,10 +15,10 @@
 
 const { registerPlugin } = wp.plugins;
 const { PluginPrePublishPanel } = wp.editPost;
-const { select } = wp.data;
+const { select, dispatch } = wp.data;
 const { count } = wp.wordcount;
 const { serialize } = wp.blocks;
-const { Fragment } = wp.element;
+const { Fragment, useEffect } = wp.element;
 const { getMedia } = select( 'core' );
 
 const iconError = (
@@ -72,6 +72,8 @@ const ppcHeader = {
 	marginLeft: '10px',
 };
 
+let lockPost = false;
+
 /**
  * Results component for displaying feedback.
  *
@@ -104,7 +106,7 @@ function countWords() {
 	if ( wordCount <= 300 ) {
 		wordCountResult = (
 			<Result
-				icon={ iconError }
+				icon={ iconWarning }
 				title={ resultTitle + wordCount }
 				message="Posts under 300 words will likely not rank on Google."
 			/>
@@ -234,7 +236,7 @@ function checkWebinarDate() {
 		.lf_webinar_date;
 
 	if ( date ) {
-return null;
+		return null;
 	}
 
 	return (
@@ -258,7 +260,7 @@ function getFeaturedImageId() {
 	);
 
 	if ( featuredImageId === 0 ) {
-return null;
+		return null;
 	}
 	return featuredImageId;
 }
@@ -270,15 +272,30 @@ return null;
  */
 function checkFeaturedImage() {
 	if ( getFeaturedImageId() ) {
-return null;
+		lockPost = false;
+		return null;
 	}
+	lockPost = true;
 	return (
 		<Result
 			icon={ iconError }
 			title="Featured Image"
-			message="There is no featured image set."
+			message="There is no featured image set. Featured images are required for all blog and announcement posts."
 		/>
 	);
+}
+
+/**
+ * Check for publishing lock.
+ */
+function CheckPublishing() {
+	useEffect( () => {
+		if ( lockPost === true ) {
+			dispatch( 'core/editor' ).lockPostSaving();
+		} else {
+			dispatch( 'core/editor' ).unlockPostSaving();
+		}
+	} );
 }
 
 /**
@@ -420,7 +437,7 @@ const PrePublishCheckList = () => {
 		! displayChecklistsOn.includes( postType ) ||
 		hasNewsExternalLink
 	) {
-	return null;
+		return null;
 	}
 
 	/**
@@ -429,19 +446,20 @@ const PrePublishCheckList = () => {
 	 * @return {string} content.
 	 */
 	function runOnPost() {
-	if ( 'post' !== postType ) {
-return null;
+		if ( 'post' !== postType ) {
+			return null;
 		}
 
-	return (
-	<div>
-	{ checkFeaturedImage() }
-	{ postImages() }
-	{ countCategories() }
-	{ countH1() }
-	{ countWords() }
-	</div>
-);
+		return (
+			<div>
+				{ checkFeaturedImage() }
+				{ postImages() }
+				{ countCategories() }
+				{ countH1() }
+				{ countWords() }
+				{ CheckPublishing() }
+			</div>
+		);
 	}
 
 	/**
@@ -450,16 +468,16 @@ return null;
 	 * @return {string} content.
 	 */
 	function runOnPage() {
-	if ( 'page' !== postType ) {
-return null;
+		if ( 'page' !== postType ) {
+			return null;
 		}
-	return (
-	<div>
-	{ pageImages() }
-	{ countH1() }
-	{ countWords() }
-	</div>
-);
+		return (
+			<div>
+				{ pageImages() }
+				{ countH1() }
+				{ countWords() }
+			</div>
+		);
 	}
 
 	/**
@@ -468,10 +486,10 @@ return null;
 	 * @return {string} content.
 	 */
 	function runOnWebinar() {
-	if ( 'lf_webinar' !== postType ) {
-return null;
+		if ( 'lf_webinar' !== postType ) {
+			return null;
 		}
-	return <div>{ checkWebinarDate() }</div>;
+		return <div>{ checkWebinarDate() }</div>;
 	}
 
 	return (
@@ -487,7 +505,7 @@ return null;
 					display: 'block',
 				} }
 			>
-				Save draft, or preview post, to re-run all the below checks.
+				Save draft, or preview post, to run all the below checks.
 			</span>
 
 			{ runOnPost() }
