@@ -102,7 +102,7 @@ function lf_events_render_callback( $attributes ) {
 
 		$color = get_post_meta( get_the_ID(), 'lf_event_overlay_color', true );
 
-		$color ? $overlay_color = $color : $overlay_color = '#254AAB';
+		$color ? $overlay_color = $color : $overlay_color = 'transparent';
 
 		?>
 

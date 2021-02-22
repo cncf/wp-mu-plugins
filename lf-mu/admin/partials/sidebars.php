@@ -613,7 +613,7 @@ if ( $this->is_cncf ) {
 								'help'          => __( 'Chose a color to overlay the background image' ),
 								'register_meta' => true,
 								'ui_border_top' => true,
-								'default_value' => '',
+								'default_value' => '#254AAB',
 								'alpha_control' => true,
 								'palette'       => $palette,
 							),
