@@ -201,5 +201,5 @@ function lf_newsroom_block_get_image_src_landscape( $object, $field_name, $reque
 		'newsroom-325',
 		false
 	);
-	return $feat_img_array[0];
+	return $feat_img_array[0] ?? null;
 }
