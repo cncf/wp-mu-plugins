@@ -53,11 +53,15 @@ registerBlockType(
 		edit: function( props ) {
 			const { attributes, icon, className } = props;
 
-			const block = attributes.youtubeId ?
+			const blockContent = attributes.youtubeId ? (
 				<div className={ className }>
-					<lite-youtube
-						videoid={ attributes.youtubeId }
-					></lite-youtube></div> :
+					<div className='stop-video-click'></div>
+					<iframe
+					width='560'
+					height='349'
+					src={ `https://www.youtube-nocookie.com/embed/${ attributes.youtubeId }?autoplay=0` }
+					allowFullScreen
+				></iframe></div> ) :
 				<Placeholder
 					icon={ icon }
 					label={ __( 'Enter the YouTube URL or ID in the sidebar' ) }
@@ -66,7 +70,7 @@ registerBlockType(
 			return (
 				<Fragment>
 					<Inspector { ...props } />
-					{ block }
+					{ blockContent }
 				</Fragment>
 			);
 		},
@@ -79,6 +83,7 @@ registerBlockType(
 					<div className={ 'wp-block-lf-youtube-lite' }>
 						<lite-youtube
 							videoid={ attributes.youtubeId }
+							autoload
 						></lite-youtube>
 					</div>
 				</Fragment>

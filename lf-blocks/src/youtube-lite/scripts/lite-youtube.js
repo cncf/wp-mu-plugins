@@ -164,9 +164,9 @@ class LiteYTEmbed extends HTMLElement {
 
 		this.__domRefPlayButton.setAttribute(
 			'aria-label',
-			`${ this.videoPlay }: ${ this.videoTitle }`,
+			`${ this.videoPlay } ${ this.videoTitle }`,
 		);
-		this.setAttribute( 'title', `${ this.videoPlay }: ${ this.videoTitle }` );
+		this.setAttribute( 'title', `${ this.videoPlay } ${ this.videoTitle }` );
 
 		if ( this.autoLoad ) {
 			this.__initIntersectionObserver();
