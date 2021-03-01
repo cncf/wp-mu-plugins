@@ -192,8 +192,6 @@ class Lf_Mu {
 
 		$plugin_public = new Lf_Mu_Public( $this->get_plugin_name(), $this->get_version() );
 
-		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'wp_footer', $plugin_public, 'deregister_scripts' );
 		$this->loader->add_action( 'wp_head', $plugin_public, 'insert_gtm_head' );
 		$this->loader->add_action( 'wp_body_open', $plugin_public, 'insert_gtm_body' );

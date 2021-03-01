@@ -58,43 +58,6 @@ class Lf_Mu_Public {
 	}
 
 	/**
-	 * Register the stylesheets for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/lf-mu-public.css', array(), $this->version, 'all' );
-
-	}
-
-	/**
-	 * Register the JavaScript for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-		// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/lf-mu-public.js', array( 'jquery' ), $this->version, false ); //.
-
-		wp_enqueue_script( 'recaptcha', 'https://www.recaptcha.net/recaptcha/api.js?render=explicit', false, false, true ); // phpcs:ignore
-
-		// SalesForce Forms.
-		wp_enqueue_script( 'sfmc-forms', plugin_dir_url( __FILE__ ) . 'js/sfmc-forms.js', array( 'jquery', 'recaptcha' ), $this->version, true );
-
-		if ( $this->is_cncf ) {
-			$recaptcha_key = '6LdMldUUAAAAABG2vrZ1GT7Eo_TgI-UPlG14ocVH';
-		} else {
-			$recaptcha_key = '6LcOQ_wUAAAAAHQhy1jOTvWzRuwdKDhp83-9eq6E';
-		}
-
-		wp_localize_script(
-			'sfmc-forms',
-			'lf_mu_object',
-			array( 'recaptcha_key' => $recaptcha_key )
-		);
-
-	}
-
-	/**
 	 * Remove wp-embed script to speed things up https://kinsta.com/knowledgebase/disable-embeds-wordpress/.
 	 */
 	public function deregister_scripts() {
