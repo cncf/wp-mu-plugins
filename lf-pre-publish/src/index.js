@@ -272,10 +272,9 @@ function getFeaturedImageId() {
  */
 function checkFeaturedImage() {
 	if ( getFeaturedImageId() ) {
-		lockPost = false;
 		return null;
 	}
-	lockPost = true;
+
 	return (
 		<Result
 			icon={ iconError }
