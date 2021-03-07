@@ -104,11 +104,11 @@ renderList = () => {
 			{ data.map(
 				post => (
 					<div key={ post.id } className="newsroom-post-wrapper">
-						<div className="newsroom-image-wrapper">
-							{ this.props.attributes.showImages &&
-							<img src={ post.featured_image_src ? post.featured_image_src : 'https://via.placeholder.com/325x171/d9d9d9/000000' } alt="Post Thumbnail" />
-							}
-						</div>
+						{ this.props.attributes.showImages &&
+							<div className="newsroom-image-wrapper">
+								<img src={ post.featured_image_src ? post.featured_image_src : 'https://via.placeholder.com/325x171/d9d9d9/000000' } alt="Post Thumbnail" />
+							</div>
+						}
 						<p
 							className="newsroom-title"
 							dangerouslySetInnerHTML={ { __html: post.title.rendered } }
