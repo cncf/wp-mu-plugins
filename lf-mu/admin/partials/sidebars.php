@@ -254,6 +254,16 @@ $sidebar    = array(
 						array(
 							'type'          => 'text',
 							'data_type'     => 'meta',
+							'data_key'      => 'pronouns',
+							'label'         => __( 'Pronouns' ),
+							'register_meta' => true,
+							'ui_border_top' => true,
+							'default_value' => '',
+							'placeholder'   => 'she/her',
+						),
+						array(
+							'type'          => 'text',
+							'data_type'     => 'meta',
 							'data_key'      => 'linkedin',
 							'label'         => __( 'LinkedIn URL' ),
 							'register_meta' => true,
