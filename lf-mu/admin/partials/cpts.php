@@ -183,7 +183,7 @@ if ( $this->is_cncf ) {
 		'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
 	);
 	register_post_type( 'lf_spotlight', $opts );
-	
+
 	$opts = array(
 		'labels'            => array(
 			'name'          => __( 'KubeWeeklys' ),
@@ -196,7 +196,7 @@ if ( $this->is_cncf ) {
 		'show_in_rest'      => true,
 		'hierarchical'      => false,
 		'menu_icon'         => 'dashicons-email-alt',
-		'rewrite'           => array( 'slug' => 'kubeweekly' ),
+		'rewrite'           => array( 'slug' => 'kubeweeklys' ),
 		'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
 	);
 	register_post_type( 'lf_kubeweekly', $opts );
