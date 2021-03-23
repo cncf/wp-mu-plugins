@@ -196,7 +196,7 @@ if ( $this->is_cncf ) {
 		'show_in_rest'      => true,
 		'hierarchical'      => false,
 		'menu_icon'         => 'dashicons-email-alt',
-		'rewrite'           => array( 'slug' => 'kubeweeklys' ),
+		'rewrite'           => array( 'slug' => 'kubeweekly' ),
 		'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
 	);
 	register_post_type( 'lf_kubeweekly', $opts );
