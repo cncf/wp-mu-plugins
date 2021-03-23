@@ -191,7 +191,7 @@ if ( $this->is_cncf ) {
 			'all_items'     => __( 'All KubeWeeklys' ),
 		),
 		'public'            => true,
-		'has_archive'       => false,
+		'has_archive'       => true,
 		'show_in_nav_menus' => false,
 		'show_in_rest'      => true,
 		'hierarchical'      => false,
