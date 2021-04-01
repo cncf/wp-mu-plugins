@@ -190,14 +190,15 @@ if ( $this->is_cncf ) {
 			'singular_name' => __( 'KubeWeekly' ),
 			'all_items'     => __( 'All KubeWeeklys' ),
 		),
-		'public'            => true,
-		'has_archive'       => false,
-		'show_in_nav_menus' => false,
-		'show_in_rest'      => true,
-		'hierarchical'      => false,
-		'menu_icon'         => 'dashicons-email-alt',
-		'rewrite'           => array( 'slug' => 'kubeweekly' ),
-		'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
+		'public'              => true,
+		'has_archive'         => false,
+		'show_in_nav_menus'   => false,
+		'show_in_rest'        => true,
+		'hierarchical'        => false,
+		'exclude_from_search' => true,
+		'menu_icon'           => 'dashicons-email-alt',
+		'rewrite'             => array( 'slug' => 'kubeweekly' ),
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
 	);
 	register_post_type( 'lf_kubeweekly', $opts );
 }
