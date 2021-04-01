@@ -355,6 +355,15 @@ $sidebar    = array(
 					'initial_open' => true,
 					'settings'     => array(
 						array(
+							'type'          => 'image',
+							'data_type'     => 'meta',
+							'data_key'      => 'stacked-logo',
+							'id'            => 'stacked-logo', // keep this for CSS styling.
+							'label'         => __( 'Stacked Logo' ),
+							'help'          => __( 'This is used in the homepage projects display.' ),
+							'register_meta' => true,
+						),
+						array(
 							'type'              => 'date_single',
 							'data_type'         => 'meta',
 							'unavailable_dates' => array(),
