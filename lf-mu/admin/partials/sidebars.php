@@ -357,8 +357,8 @@ $sidebar    = array(
 						array(
 							'type'          => 'image',
 							'data_type'     => 'meta',
-							'data_key'      => 'stacked-logo',
-							'id'            => 'stacked-logo', // keep this for CSS styling.
+							'data_key'      => 'stacked_logo',
+							'id'            => 'stacked_logo', // keep this for CSS styling.
 							'label'         => __( 'Stacked Logo' ),
 							'help'          => __( 'This is used in the homepage projects display.' ),
 							'register_meta' => true,
