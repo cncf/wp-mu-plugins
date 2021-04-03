@@ -41,7 +41,7 @@ $opts = array(
 	'hierarchical'      => false,
 	'menu_icon'         => 'dashicons-video-alt3',
 	'rewrite'           => array( 'slug' => 'webinars' ),
-	'supports'          => array( 'title', 'editor', 'revisions', 'custom-fields' ),
+	'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
 );
 register_post_type( 'lf_webinar', $opts );
 
