@@ -18,7 +18,6 @@ const { Component, Fragment } = wp.element;
 const { RangeControl, PanelBody, ToggleControl } = wp.components;
 
 class UpcomingWebinars extends Component {
-
 	toggleAttribute( attribute ) {
 		return ( newValue ) => {
 			this.props.setAttributes( { [ attribute ]: newValue } );
