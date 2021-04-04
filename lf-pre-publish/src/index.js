@@ -1,7 +1,7 @@
 /**
  * Register Pre Publish Checklists
  *
- * @package WordPress
+ * @package
  * @since 1.0.0
  */
 
@@ -72,7 +72,7 @@ const ppcHeader = {
 	marginLeft: '10px',
 };
 
-let lockPost = false;
+const lockPost = false;
 
 /**
  * Results component for displaying feedback.
