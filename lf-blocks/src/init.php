@@ -159,6 +159,14 @@ function lf_blocks_register_dynamic_blocks() {
 				'className' => array(
 					'type' => 'string',
 				),
+				'showImages' => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
+				'showBorder' => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
 			),
 			'render_callback' => 'lf_upcoming_webinars_render_callback',
 		)

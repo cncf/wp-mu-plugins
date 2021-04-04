@@ -15,12 +15,19 @@
 const { __ } = wp.i18n;
 const { InspectorControls } = wp.blockEditor;
 const { Component, Fragment } = wp.element;
-const { RangeControl, PanelBody } = wp.components;
+const { RangeControl, PanelBody, ToggleControl } = wp.components;
 
 class UpcomingWebinars extends Component {
+
+	toggleAttribute( attribute ) {
+		return ( newValue ) => {
+			this.props.setAttributes( { [ attribute ]: newValue } );
+		};
+	}
+
 	render() {
 		const { attributes, setAttributes } = this.props;
-		const { numberposts } = attributes;
+		const { numberposts, showImages, showBorder } = attributes;
 
 		const elements = [ ...Array( numberposts ).keys() ];
 
@@ -34,6 +41,18 @@ class UpcomingWebinars extends Component {
 						value={ numberposts }
 						onChange={ value => setAttributes( { numberposts: value } ) }
 					/>
+					<ToggleControl
+						label={ __( 'Show Images' ) }
+						help={ showImages ? 'Featured images are shown.' : 'No images are shown.' }
+						checked={ showImages }
+						onChange={ this.toggleAttribute( 'showImages' ) }
+					/>
+					<ToggleControl
+						label={ __( 'Show Image Border' ) }
+						help={ showBorder ? 'Image border is now displayed.' : 'No border is shown.' }
+						checked={ showBorder }
+						onChange={ this.toggleAttribute( 'showBorder' ) }
+					/>
 				</PanelBody>
 			</InspectorControls>
 		);
@@ -46,11 +65,11 @@ class UpcomingWebinars extends Component {
 						{ elements.map(
 							( element, index ) => {
 								return (
-									<article className="webinars-upcoming-box" key={ index }>
+									<article className="webinars-upcoming-box" key={ index } test={ element }>
 										<div className="webinars-upcoming-text-wrapper">
-											<span className="skew-box secondary">Project Webinar</span>
-											<span className="skew-box">Tuesday 12th January 2021</span>
-											<h5 className="webinar-title">This is the Webinar title Lorem ipsum dolor sit amet consectetuer</h5>
+											<span className="skew-box secondary">Example Webinar</span>
+											<span className="skew-box">Tuesday 12th January 2022</span>
+											<h5 className="webinar-title">This is an example Webinar title Lorem ipsum dolor sit amet consectetuer</h5>
 											<span className="presented-by">Presented by Google</span>
 										</div>
 									</article>

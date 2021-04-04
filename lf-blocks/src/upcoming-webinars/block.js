@@ -45,22 +45,19 @@ registerBlockType(
 			__( 'upcoming' ),
 			__( 'lf' ),
 		],
-		styles: [
-			{
-				name: 'vertical',
-				label: __( 'Vertical' ),
-				isDefault: true,
-			},
-			{
-				name: 'horizontal',
-				label: __( 'Horizontal' ),
-			},
-		],
 		example: {},
 		attributes: {
 			numberposts: {
 				type: 'integer',
 				default: 4,
+			},
+			showImages: {
+				type: 'boolean',
+				default: true,
+			},
+			showBorder: {
+				type: 'boolean',
+				default: true,
 			},
 		},
 		html: false,

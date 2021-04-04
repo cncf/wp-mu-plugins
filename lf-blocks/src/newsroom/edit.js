@@ -83,13 +83,13 @@ renderControl = () => {
 				/>
 				<ToggleControl
 					label={ __( 'Show Images' ) }
-					help={ showImages ? 'Featured images are shown.' : 'No images are now shown.' }
+					help={ showImages ? 'Featured images are shown.' : 'No images are shown.' }
 					checked={ showImages }
 					onChange={ this.toggleAttribute( 'showImages' ) }
 				/>
 				<ToggleControl
 					label={ __( 'Show Image Border' ) }
-					help={ showBorder ? 'Image border is now displayed.' : 'No border is now shown.' }
+					help={ showBorder ? 'Image border is now displayed.' : 'No border is shown.' }
 					checked={ showBorder }
 					onChange={ this.toggleAttribute( 'showBorder' ) }
 				/>

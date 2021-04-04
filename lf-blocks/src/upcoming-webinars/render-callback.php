@@ -18,6 +18,12 @@ function lf_upcoming_webinars_render_callback( $attributes ) {
 	// get the quantity to display, if not default.
 	$quantity = isset( $attributes['numberposts'] ) ? intval( $attributes['numberposts'] ) : 4;
 
+	// show images or not.
+	$show_images = isset( $attributes['showImages'] ) ? $attributes['showImages'] : '';
+
+	// show image border or not.
+	$show_border = isset( $attributes['showBorder'] ) ? $attributes['showBorder'] : '';
+
 	// get the classes set from the block if any.
 	$classes = isset( $attributes['className'] ) ? $attributes['className'] : '';
 
@@ -45,6 +51,11 @@ function lf_upcoming_webinars_render_callback( $attributes ) {
 		),
 	);
 	$query = new WP_Query( $args );
+
+	if ( $show_border ) {
+		$classes .= ' has-images-border';
+	}
+
 	ob_start();
 
 	if ( $query->have_posts() ) {
@@ -57,8 +68,10 @@ class="wp-block-lf-upcoming-webinars <?php echo esc_html( $classes ); ?>">
 		while ( $query->have_posts() ) :
 			$query->the_post();
 
-			get_template_part( 'components/upcoming-webinars-item' );
-
+			get_template_part( 'components/upcoming-webinars-item', null, array(
+				  'show_images' => $show_images
+				)
+			  );
 endwhile;
 		wp_reset_postdata();
 		?>
