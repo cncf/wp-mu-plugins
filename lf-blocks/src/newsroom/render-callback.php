@@ -83,8 +83,8 @@ function lf_newsroom_render_callback( $attributes ) {
 		return 'Sorry, there are no posts.';
 	}
 
-	if ($show_border) {
-		$classes .= " has-images-border";
+	if ( $show_border ) {
+		$classes .= ' has-images-border';
 	}
 
 	ob_start();

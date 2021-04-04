@@ -1,7 +1,7 @@
 /**
  * Register Pre Publish Checklists
  *
- * @package
+ * @package WordPress
  * @since 1.0.0
  */
 
