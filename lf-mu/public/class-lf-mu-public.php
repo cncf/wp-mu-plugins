@@ -297,4 +297,14 @@ class Lf_Mu_Public {
 		return $args;
 	}
 
+	/**
+	 * Remove the Kubeweekly archive from the SEO Framework sitemap.
+	 *
+	 * @param array $post_types Query args.
+	 */
+	public function remove_kubeweekly_from_sitemap( $post_types ) {
+		$to_exclude = array( 'lf_kubeweekly' );
+		return array_diff( $post_types, $to_exclude );
+	}
+
 }
