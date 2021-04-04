@@ -211,6 +211,10 @@ function lf_blocks_register_dynamic_blocks() {
 					'type'    => 'boolean',
 					'default' => true,
 				),
+				'showBorder' => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
 				'order'      => array(
 					'type' => 'string',
 				),

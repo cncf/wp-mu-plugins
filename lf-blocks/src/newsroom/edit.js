@@ -39,11 +39,11 @@ class Newsroom extends Component {
 
 renderControl = () => {
 	const { attributes, setAttributes, categories } = this.props;
-	const { category, numberposts, showImages, order } = attributes;
+	const { category, numberposts, showImages, showBorder, order } = attributes;
 
 	// get the list of categories to select.
 	const menuOptions = [
-		{ value: ' ', label: __( 'All' ) },
+		{ value: ' ', label: __( 'All Posts' ) },
 		...categories.map( x => ( { value: x.id, label: x.name } ) ),
 	];
 
@@ -83,9 +83,15 @@ renderControl = () => {
 				/>
 				<ToggleControl
 					label={ __( 'Show Images' ) }
-					help={ showImages ? 'Shows featured images.' : 'No images.' }
+					help={ showImages ? 'Featured images are shown.' : 'No images are now shown.' }
 					checked={ showImages }
 					onChange={ this.toggleAttribute( 'showImages' ) }
+				/>
+				<ToggleControl
+					label={ __( 'Show Image Border' ) }
+					help={ showBorder ? 'Image border is now displayed.' : 'No border is now shown.' }
+					checked={ showBorder }
+					onChange={ this.toggleAttribute( 'showBorder' ) }
 				/>
 			</PanelBody>
 		</InspectorControls>
@@ -123,7 +129,8 @@ renderList = () => {
 }
 
 render() {
-	const { posts, className } = this.props;
+	const { posts, className, attributes } = this.props;
+	const { showBorder } = attributes;
 
 	return ! posts ? (
 		<Placeholder label={ __( 'Loading...' ) }>
@@ -132,7 +139,7 @@ render() {
 	) : (
 		<Fragment>
 			{ this.renderControl() }
-			<div className={ className }>
+			<div className={ ` ${ className } ${ showBorder ? 'has-images-border' : '' } ` }>
 				{ this.renderList() }
 			</div>
 		</Fragment>

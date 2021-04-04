@@ -57,6 +57,10 @@ registerBlockType(
 				type: 'boolean',
 				default: true,
 			},
+			showBorder: {
+				type: 'boolean',
+				default: true,
+			},
 			order: {
 				type: 'string',
 				default: 'desc',
@@ -65,17 +69,6 @@ registerBlockType(
 				type: 'string',
 			},
 		},
-		styles: [
-			{
-				name: 'vertical',
-				label: __( 'Vertical' ),
-				isDefault: true,
-			},
-			{
-				name: 'horizontal',
-				label: __( 'Horizontal' ),
-			},
-		],
 		html: false,
 		edit: Edit,
 		save() {

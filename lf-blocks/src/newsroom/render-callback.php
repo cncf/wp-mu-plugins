@@ -22,6 +22,8 @@ function lf_newsroom_render_callback( $attributes ) {
 	$category = isset( $attributes['category'] ) ? $attributes['category'] : 'blog';
 	// show images or not.
 	$show_images = isset( $attributes['showImages'] ) ? $attributes['showImages'] : '';
+	// show image border or not.
+	$show_border = isset( $attributes['showBorder'] ) ? $attributes['showBorder'] : '';
 	// order of posts.
 	$order = isset( $attributes['order'] ) ? $attributes['order'] : 'DESC';
 
@@ -81,23 +83,29 @@ function lf_newsroom_render_callback( $attributes ) {
 		return 'Sorry, there are no posts.';
 	}
 
+	if ($show_border) {
+		$classes .= " has-images-border";
+	}
+
 	ob_start();
 	?>
-	<section class="wp-block-lf-newsroom <?php echo esc_html( $classes ); ?>">
+<section class="wp-block-lf-newsroom <?php echo esc_html( $classes ); ?>">
 
 	<?php
 	if ( $sticky_post ) {
 		lf_newsroom_show_post( $sticky_post, $show_images, true );
 	}
 
-	while ( $query->have_posts() ) :
-		$query->the_post();
-		lf_newsroom_show_post( get_the_ID(), $show_images );
+	if ( $quantity > 0 ) :
+		while ( $query->have_posts() ) :
+			$query->the_post();
+			lf_newsroom_show_post( get_the_ID(), $show_images, false );
 	endwhile;
+endif;
 	wp_reset_postdata();
 	?>
 
-	</section>
+</section>
 	<?php
 	$block_content = ob_get_clean();
 	return $block_content;
@@ -121,25 +129,25 @@ function lf_newsroom_show_post( $lf_post, $show_images, $sticky = false ) {
 		$sticky_class = '';
 	}
 	?>
-	<div class="newsroom-post-wrapper<?php echo esc_attr( $sticky_class ); ?>">
+<div class="newsroom-post-wrapper<?php echo esc_attr( $sticky_class ); ?>">
 
 	<?php
 	if ( $show_images ) :
 		?>
-		<div class="newsroom-image-wrapper">
+	<div class="newsroom-image-wrapper ">
 		<a class="box-link" href="<?php the_permalink( $lf_post ); ?>"
-		title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>"></a>
-			<?php
-			if ( has_post_thumbnail( $lf_post ) ) {
-				Lf_Utils::display_responsive_images( get_post_thumbnail_id( $lf_post ), 'newsroom-540', '540px', 'archive-image' );
-			} elseif ( isset( $options['generic_thumb_id'] ) && $options['generic_thumb_id'] ) {
-				Lf_Utils::display_responsive_images( $options['generic_thumb_id'], 'newsroom-540', '540px', 'archive-default-svg' );
-			} else {
-				echo '<img src="' . esc_url( get_stylesheet_directory_uri() )
-				. '/images/thumbnail-default.svg" alt="' . esc_attr( lf_blocks_get_site() ) . '" class="archive-default-svg"/>';
-			}
-			?>
-		</div>
+			title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>"></a>
+		<?php
+		if ( has_post_thumbnail( $lf_post ) ) {
+			Lf_Utils::display_responsive_images( get_post_thumbnail_id( $lf_post ), 'newsroom-540', '540px', 'archive-image' );
+		} elseif ( isset( $options['generic_thumb_id'] ) && $options['generic_thumb_id'] ) {
+			Lf_Utils::display_responsive_images( $options['generic_thumb_id'], 'newsroom-540', '540px', 'archive-default-svg' );
+		} else {
+			echo '<img src="' . esc_url( get_stylesheet_directory_uri() )
+			. '/images/thumbnail-default.svg" alt="' . esc_attr( lf_blocks_get_site() ) . '" class="archive-default-svg"/>';
+		}
+		?>
+	</div>
 		<?php
 	endif;
 	?>
@@ -148,23 +156,26 @@ function lf_newsroom_show_post( $lf_post, $show_images, $sticky = false ) {
 	if ( in_category( 'news', $lf_post ) && ( get_post_meta( get_the_ID( $lf_post ), 'lf_post_external_url', true ) ) ) {
 		$link_url = get_post_meta( get_the_ID( $lf_post ), 'lf_post_external_url', true );
 		?>
-		<h5 class="newsroom-title"><a class="external is-primary-color" target="_blank" rel="noopener" href="<?php echo esc_url( $link_url ); ?>"
-		title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>">
-		<?php echo esc_html( get_the_title( $lf_post ) ); ?>
+	<h5 class="newsroom-title"><a class="external is-primary-color"
+			target="_blank" rel="noopener"
+			href="<?php echo esc_url( $link_url ); ?>"
+			title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>">
+			<?php echo esc_html( get_the_title( $lf_post ) ); ?>
 		</a></h5>
 		<?php
 	} else {
 		?>
-		<h5 class="newsroom-title"><a href="<?php the_permalink( $lf_post ); ?>"
-		title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>">
-		<?php echo esc_html( get_the_title( $lf_post ) ); ?>
+	<h5 class="newsroom-title"><a href="<?php the_permalink( $lf_post ); ?>"
+			title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>">
+			<?php echo esc_html( get_the_title( $lf_post ) ); ?>
 		</a></h5>
 		<?php
 	}
 	?>
 
-	<span class="newsroom-date date-icon"> <?php echo get_the_date( 'F j, Y', $lf_post ); ?></span>
-	</div>
+	<span class="newsroom-date date-icon">
+		<?php echo get_the_date( 'F j, Y', $lf_post ); ?></span>
+</div>
 	<?php
 }
 
