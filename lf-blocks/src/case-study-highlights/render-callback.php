@@ -55,7 +55,7 @@ function lf_case_study_highlights_render_callback( $attributes ) {
 		foreach ( $projects as $project ) {
 			?>
 <div class="cs-project-icon">
-<img loading="lazy" src="<?php echo esc_url( get_stylesheet_directory_uri() ) . '/images/projects/' . esc_html( $project->slug ) . '-icon-black.svg'; ?>"
+<img loading="lazy" src="<?php echo esc_url( get_stylesheet_directory_uri() ) . '/images/projects/' . esc_html( $project->slug ) . '-icon-color.svg'; ?>"
 alt="<?php echo esc_html( $project->name ); ?>">
 </div>
 			<?php
