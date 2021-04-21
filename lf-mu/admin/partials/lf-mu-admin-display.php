@@ -145,7 +145,7 @@ if ( ! defined( 'WPINC' ) ) {
 						<div class="pagebox">
 							<input class="color_field" type="hidden"
 								name="<?php echo esc_html( $this->plugin_name ); ?>[hello_bar_bg]"
-								data-default-color="#416FD9"
+								data-default-color="#0088ff"
 								value="<?php echo esc_attr( $hello_bar_bg ); ?>" />
 						</div>
 					</td>

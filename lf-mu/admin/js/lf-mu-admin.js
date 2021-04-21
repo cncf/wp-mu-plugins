@@ -17,9 +17,9 @@
 			$( '.color_field' ).wpColorPicker(
 				{
 					defaultColor: true,
-					palettes: ['#DE176C', '#444444',
-					'#000000', '#436ca9', '#416FD9',
-					'#252b5f', '#111111', '#FFFFFF'
+					palettes: ['#ff00aa', '#2a0054',
+					'#0088ff', '#436ca9', '#416FD9',
+					'#0078f7', '#e4edf6', '#FFFFFF'
 					]
 				}
 			);
