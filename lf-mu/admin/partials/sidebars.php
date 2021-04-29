@@ -50,7 +50,7 @@ foreach ( $tzlist as $tz ) {
 $sidebar    = array(
 	'id'              => 'lf-sidebar-webinar',
 	'id_prefix'       => 'lf_',
-	'label'           => __( ucwords( $this->webinar ) . ' Settings' ),
+	'label'           => ucwords( $this->webinar ) . ' Settings',
 	'post_type'       => 'lf_webinar',
 	'data_key_prefix' => 'lf_webinar_',
 	'icon_dashicon'   => 'admin-settings',
