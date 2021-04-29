@@ -55,6 +55,12 @@ class Lf_Mu_Admin {
 		$this->site    = ( isset( $options['site'] ) && ! empty( $options['site'] ) ) ? esc_attr( $options['site'] ) : '';
 		$this->is_cncf = ( 'cncf' === $this->site ) ? true : false;
 
+		if ( $this->is_cncf ) {
+			$this->webinar = 'online program';
+		} else {
+			$this->webinar = 'webinar';
+		}
+
 	}
 
 	/**

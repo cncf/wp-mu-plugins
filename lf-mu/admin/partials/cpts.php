@@ -30,9 +30,9 @@ register_post_type( 'lf_person', $opts );
 
 $opts = array(
 	'labels'            => array(
-		'name'          => __( 'Webinars' ),
-		'singular_name' => __( 'Webinar' ),
-		'all_items'     => __( 'All Webinars' ),
+		'name'          => ucwords( $this->webinar ) . 's',
+		'singular_name' => ucwords( $this->webinar ),
+		'all_items'     => 'All ' . ucwords( $this->webinar ) . 's',
 	),
 	'public'            => true,
 	'has_archive'       => false,
@@ -40,7 +40,7 @@ $opts = array(
 	'show_in_rest'      => true,
 	'hierarchical'      => false,
 	'menu_icon'         => 'dashicons-video-alt3',
-	'rewrite'           => array( 'slug' => 'webinars' ),
+	'rewrite'           => array( 'slug' => str_replace( ' ', '-', $this->webinar ) . 's' ),
 	'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
 );
 register_post_type( 'lf_webinar', $opts );
