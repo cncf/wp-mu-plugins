@@ -174,7 +174,7 @@ $sidebar    = array(
 							'label'         => __( 'Timezone' ),
 							'register_meta' => true,
 							'ui_border_top' => true,
-							'default_value' => 'America-Los_Angeles',
+							'default_value' => 'america-los_angeles',
 							'options'       => $tzs,
 						),
 						array(
