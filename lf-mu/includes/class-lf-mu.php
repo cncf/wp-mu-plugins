@@ -183,7 +183,6 @@ class Lf_Mu {
 			if ( ! wp_next_scheduled( 'cncf_sync_programs' ) ) {
 				wp_schedule_event( time(), 'hourly', 'cncf_sync_programs' ); // todo: turn to 'daily' after we know it works.
 			}
-			$this->loader->add_action( 'init', $plugin_admin, 'sync_programs' );
 		}
 
 	}
