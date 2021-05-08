@@ -177,6 +177,12 @@ class Lf_Mu {
 			// Hook to save year in a meta field for case studies.
 			$this->loader->add_action( 'save_post_lf_case_study', $plugin_admin, 'set_case_study_year', 10, 3 );
 			$this->loader->add_action( 'save_post_lf_case_study_cn', $plugin_admin, 'set_case_study_year', 10, 3 );
+
+			// Sync programs with https://community.cncf.io/.
+			$this->loader->add_action( 'cncf_sync_programs', $plugin_admin, 'sync_programs' );
+			if ( ! wp_next_scheduled( 'cncf_sync_programs' ) ) {
+				wp_schedule_event( time(), 'hourly', 'cncf_sync_programs' ); // todo: turn to 'daily' after we know it works.
+			}
 		}
 
 	}
