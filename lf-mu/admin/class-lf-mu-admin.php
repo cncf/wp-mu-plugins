@@ -429,10 +429,10 @@ class Lf_Mu_Admin {
 				// add/update CPT.
 
 				$dt_end = strtotime( $program->end_date );
-				$last_manual_id = 391; // !!! this number needs updating to the last manually entered online program!!!
+				$last_manual_id = 3744;
 
 				if ( $last_manual_id >= (int) $program->id || $dt_end < time() - ( 14 * DAY_IN_SECONDS ) ) {
-					// avoid updating programs that ended more than 2 weeks ago to limit computation.
+					// avoid updating programs that ended more than 2 weeks ago to limit computation and
 					// don't mess with existing online programs that were entered manually.
 					continue;
 				}
@@ -442,7 +442,7 @@ class Lf_Mu_Admin {
 				$lf_webinar_slides_url = '';
 
 				if ( $dt_end < time() + DAY_IN_SECONDS ) {
-					// grab program details since we will need them soon for recorded view.
+					// grab program details for recorded view.
 					$details_data = wp_remote_get( 'https://community.cncf.io/api/event/' . $program->id );
 					if ( is_wp_error( $details_data ) || ( wp_remote_retrieve_response_code( $details_data ) != 200 ) ) {
 						continue;
@@ -493,7 +493,7 @@ class Lf_Mu_Admin {
 				wp_insert_post( $params ); // will insert or update the post as needed.
 
 			} else {
-				// !!! turn any matching CPTs to draft since they have been unpublished.
+				// todo later: turn any matching CPTs to draft since they may have been cancelled/unpublished.
 				continue;
 			}
 		}
