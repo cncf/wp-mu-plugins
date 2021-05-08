@@ -429,7 +429,7 @@ class Lf_Mu_Admin {
 				// add/update CPT.
 
 				$dt_end = strtotime( $program->end_date );
-				$last_manual_id = 3744;
+				$last_manual_id = 3566;
 
 				if ( $last_manual_id >= (int) $program->id || $dt_end < time() - ( 14 * DAY_IN_SECONDS ) ) {
 					// avoid updating programs that ended more than 2 weeks ago to limit computation and
