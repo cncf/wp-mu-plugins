@@ -419,8 +419,8 @@ class Lf_Mu_Admin {
 	 */
 	public function sync_programs() {
 		$chapters = array(
-			'https://community.cncf.io/api/chapter/258/event/',
-			'https://community.cncf.io/api/chapter/296/event/',
+			'https://community.cncf.io/api/chapter/258/event/', // https://community.cncf.io/cncf-online-programs/ .
+			'https://community.cncf.io/api/chapter/296/event/', // https://community.cncf.io/end-user-community/ .
 		);
 
 		foreach ( $chapters as $chapter ) {
