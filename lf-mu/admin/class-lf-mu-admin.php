@@ -480,10 +480,6 @@ class Lf_Mu_Admin {
 						),
 					);
 
-					if ( 'https://community.cncf.io/api/chapter/296/event/' === $chapter ) {
-						$params['tax_input'] = array( 'lf-topic' => 'end-user' );
-					}
-
 					$query = new WP_Query(
 						array(
 							'post_type' => 'lf_webinar',
@@ -500,8 +496,11 @@ class Lf_Mu_Admin {
 						$params['ID'] = get_the_id(); // post to update.
 					}
 
-					wp_insert_post( $params ); // will insert or update the post as needed.
+					$newid = wp_insert_post( $params ); // will insert or update the post as needed.
 
+					if ( $newid && 'https://community.cncf.io/api/chapter/296/event/' === $chapter ) {
+						wp_set_object_terms( $newid, 'end-user', 'lf-topic', true );
+					}
 				} else {
 					// todo later: turn any matching CPTs to draft since they may have been cancelled/unpublished.
 					continue;
