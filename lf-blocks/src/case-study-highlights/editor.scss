@@ -6,3 +6,23 @@
  *
  *
  */
+
+.case-study-highlights-wrapper {
+	h3 {
+		margin: 0;
+		font-weight: 700;
+		margin-bottom: 0.5rem;
+		text-transform: uppercase;
+		color: #0088ff;
+
+		strong {
+			font-weight: 700;
+		}
+	}
+
+	p {
+		margin: 0;
+		font-weight: 400;
+		color: #000000;
+	}
+}
