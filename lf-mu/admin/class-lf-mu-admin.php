@@ -508,4 +508,63 @@ class Lf_Mu_Admin {
 			}
 		}
 	}
+
+	/**
+	 * Sync projects data from landscape.
+	 */
+	public function sync_projects() {
+		$projects_url = 'https://landscape.' . $this->site . '.io/api/items?project=hosted';
+		$items_url    = 'https://landscape.' . $this->site . '.io/data/items.json';
+
+		$args = array(
+			'timeout'   => 100,
+			'sslverify' => false,
+		);
+
+		$data = wp_remote_get( $projects_url, $args );
+		if ( is_wp_error( $data ) || ( wp_remote_retrieve_response_code( $data ) != 200 ) ) {
+			return;
+		}
+		$projects = json_decode( wp_remote_retrieve_body( $data ) );
+
+		$data = wp_remote_get( $items_url, $args );
+		if ( is_wp_error( $data ) || ( wp_remote_retrieve_response_code( $data ) != 200 ) ) {
+			return;
+		}
+		$items = json_decode( wp_remote_retrieve_body( $data ) );
+		$id_column = array_column( $items, 'id' );
+
+		foreach ( $projects as $level ) {
+			foreach ( $level->items as $project ) {
+				$key = array_search( $project->id, $id_column );
+				if ( false === $key ) {
+					continue;
+				}
+
+				$params = array(
+					'post_type' => 'lf_project',
+					'post_title' => $items[ $key ]->name,
+					'post_status' => 'publish',
+					'meta_input' => array(
+						'lf_project_external_url' => $items[ $key ]->homepage_url,
+						'lf_project_twitter' => $items[ $key ]->twitter,
+						'lf_project_github' => $items[ $key ]->repo_url,
+						'lf_project_logo_url' => $items[ $key ]->logo,
+					),
+				);
+
+				$p = get_page_by_title( $items[ $key ]->name, OBJECT, 'lf_project' );
+				if ( $p ) {
+					$params['ID'] = $p->ID;
+				}
+
+				$newid = wp_insert_post( $params ); // will insert or update the post as needed.
+
+				if ( $newid ) {
+					wp_set_object_terms( $newid, $level->key, 'lf-project-stage', true );
+				}
+			}
+		}
+
+	}
 }
