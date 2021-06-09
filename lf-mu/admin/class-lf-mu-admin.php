@@ -549,7 +549,16 @@ class Lf_Mu_Admin {
 						'lf_project_external_url' => $items[ $key ]->homepage_url,
 						'lf_project_twitter' => $items[ $key ]->twitter,
 						'lf_project_github' => $items[ $key ]->repo_url,
-						'lf_project_logo_url' => $items[ $key ]->logo,
+						'lf_project_logos' => $items[ $key ]->logo,
+						'lf_project_devstats' => $items[ $key ]->logo,
+						'lf_project_date_accepted' => $items[ $key ]->repo_url,
+						'lf_project_category' => $items[ $key ]->repo_url,
+						'lf_project_stack_overflow' => $items[ $key ]->repo_url,
+						'lf_project_blog' => $items[ $key ]->repo_url,
+						'lf_project_mail' => $items[ $key ]->repo_url,
+						'lf_project_slack' => $items[ $key ]->repo_url,
+						'lf_project_youtube' => $items[ $key ]->repo_url,
+						'lf_project_gitter' => $items[ $key ]->repo_url,
 					),
 				);
 
