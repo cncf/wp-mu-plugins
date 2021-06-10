@@ -544,10 +544,6 @@ class Lf_Mu_Admin {
 
 				$p = $items[ $key ];
 
-				if ( $p->name == 'Open Policy Agent (OPA)') {
-					var_dump($p);
-				}
-
 				$params = array(
 					'post_type' => 'lf_project',
 					'post_title' => $p->name,
