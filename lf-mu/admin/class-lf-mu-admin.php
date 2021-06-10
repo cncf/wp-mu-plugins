@@ -515,6 +515,7 @@ class Lf_Mu_Admin {
 	public function sync_projects() {
 		$projects_url = 'https://landscape.' . $this->site . '.io/api/items?project=hosted';
 		$items_url    = 'https://landscape.' . $this->site . '.io/data/items.json';
+		$logos_url    = 'https://landscape.' . $this->site . '.io/';
 
 		$args = array(
 			'timeout'   => 100,
@@ -541,30 +542,61 @@ class Lf_Mu_Admin {
 					continue;
 				}
 
+				$p = $items[ $key ];
+
+				if ( $p->name == 'Open Policy Agent (OPA)') {
+					var_dump($p);
+				}
+
 				$params = array(
 					'post_type' => 'lf_project',
-					'post_title' => $items[ $key ]->name,
+					'post_title' => $p->name,
 					'post_status' => 'publish',
 					'meta_input' => array(
-						'lf_project_external_url' => $items[ $key ]->homepage_url,
-						'lf_project_twitter' => $items[ $key ]->twitter,
-						'lf_project_github' => $items[ $key ]->repo_url,
-						'lf_project_logos' => $items[ $key ]->logo,
-						'lf_project_devstats' => $items[ $key ]->logo,
-						'lf_project_date_accepted' => $items[ $key ]->repo_url,
-						'lf_project_category' => $items[ $key ]->repo_url,
-						'lf_project_stack_overflow' => $items[ $key ]->repo_url,
-						'lf_project_blog' => $items[ $key ]->repo_url,
-						'lf_project_mail' => $items[ $key ]->repo_url,
-						'lf_project_slack' => $items[ $key ]->repo_url,
-						'lf_project_youtube' => $items[ $key ]->repo_url,
-						'lf_project_gitter' => $items[ $key ]->repo_url,
+						'lf_project_external_url' => $p->homepage_url,
+						'lf_project_twitter' => $p->twitter,
+						'lf_project_logo' => $logos_url . $p->href,
+						'lf_project_category' => explode( ' / ', $p->path)[1],
 					),
 				);
 
-				$p = get_page_by_title( $items[ $key ]->name, OBJECT, 'lf_project' );
-				if ( $p ) {
-					$params['ID'] = $p->ID;
+				if ( property_exists( $p, 'repo_url' ) ) {
+					$params['meta_input']['lf_project_github'] = $p->repo_url;
+				}
+
+				if ( property_exists( $p, 'extra' ) ) {
+					if ( property_exists( $p->extra, 'dev_stats_url' ) ) {
+						$params['meta_input']['lf_project_devstats'] = $p->extra->dev_stats_url;
+					}
+					if ( property_exists( $p->extra, 'artwork_url' ) ) {
+						$params['meta_input']['lf_project_logos'] = $p->extra->artwork_url;
+					}
+					if ( property_exists( $p->extra, 'stack_overflow_url' ) ) {
+						$params['meta_input']['lf_project_stack_overflow'] = $p->extra->stack_overflow_url;
+					}
+					if ( property_exists( $p->extra, 'accepted' ) ) {
+						$params['meta_input']['lf_project_date_accepted'] = $p->extra->accepted;
+					}
+					if ( property_exists( $p->extra, 'blog_url' ) ) {
+						$params['meta_input']['lf_project_blog'] = $p->extra->blog_url;
+					}
+					if ( property_exists( $p->extra, 'mailing_list_url' ) ) {
+						$params['meta_input']['lf_project_mail'] = $p->extra->mailing_list_url;
+					}
+					if ( property_exists( $p->extra, 'slack_url' ) ) {
+						$params['meta_input']['lf_project_slack'] = $p->extra->slack_url;
+					}
+					if ( property_exists( $p->extra, 'youtube_url' ) ) {
+						$params['meta_input']['lf_project_youtube'] = $p->extra->youtube_url;
+					}
+					if ( property_exists( $p->extra, 'gitter_url' ) ) {
+						$params['meta_input']['lf_project_gitter'] = $p->extra->gitter_url;
+					}
+				}
+
+				$pp= get_page_by_title( $p->name, OBJECT, 'lf_project' );
+				if ( $pp) {
+					$params['ID'] = $pp->ID;
 				}
 
 				$newid = wp_insert_post( $params ); // will insert or update the post as needed.
