@@ -552,7 +552,7 @@ class Lf_Mu_Admin {
 						'lf_project_external_url' => $p->homepage_url,
 						'lf_project_twitter' => $p->twitter,
 						'lf_project_logo' => $logos_url . $p->href,
-						'lf_project_category' => explode( ' / ', $p->path)[1],
+						'lf_project_category' => explode( ' / ', $p->path )[1],
 					),
 				);
 
@@ -590,8 +590,8 @@ class Lf_Mu_Admin {
 					}
 				}
 
-				$pp= get_page_by_title( $p->name, OBJECT, 'lf_project' );
-				if ( $pp) {
+				$pp = get_page_by_title( $p->name, OBJECT, 'lf_project' );
+				if ( $pp ) {
 					$params['ID'] = $pp->ID;
 				}
 
