@@ -14,11 +14,10 @@
 
 const { InnerBlocks } = wp.blockEditor;
 const { Component } = wp.element;
+const { Placeholder } = wp.components;
 
 class CaseStudyOverview extends Component {
 	render() {
-		const { attributes, setAttributes } = this.props;
-		const { className } = attributes;
 
 		const overview_template = [
 			[ 'core/heading', { content: 'Challenge', level: 3 } ],
@@ -37,32 +36,18 @@ class CaseStudyOverview extends Component {
 							template={ overview_template }
 						/>
 					</div>
-					<div className="case-study-overview-wrapper">
-						<div>
-							<p>Company</p>
-							<span className="skew-box secondary">Dynamic Data</span>
-						</div>
-						<div>
-							<p>Industry</p>
-							<span className="skew-box secondary">Dynamic Data</span>
-						</div>
-						<div>
-							<p>Location</p>
-							<span className="skew-box secondary">Dynamic Data</span>
-						</div>
-						<div>
-							<p>Cloud Type</p>
-							<span className="skew-box secondary">Dynamic Data</span>
-						</div>
 
-						<div>
-							<p>Product Type</p>
-							<span className="skew-box secondary">Dynamic Data</span>
-						</div>
-						<div>
-							<p>Challenges</p>
-							<span className="skew-box secondary">Dynamic Data</span>
-						</div>
+					<div className="case-study-overview-wrapper">
+						<Placeholder
+							label="Fill in the Settings sidebar for this to be populated ↗️"
+						>
+						</Placeholder>
+						<p>Company: Dynamic Data</p>
+						<p>Industry: Dynamic Data</p>
+						<p>Location: Dynamic Data</p>
+						<p>Cloud Type: Dynamic Data</p>
+						<p>Product Type: Dynamic Data</p>
+						<p>Challenges: Dynamic Data</p>
 					</div>
 				</div>
 			</div>
