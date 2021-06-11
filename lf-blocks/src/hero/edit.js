@@ -17,9 +17,6 @@ const { Component } = wp.element;
 
 class Hero extends Component {
 	render() {
-		const { attributes, setAttributes } = this.props;
-		const { className } = attributes;
-
 		const heroTemplate = [
 			[ 'core/heading', { placeholder: 'Your custom page title', level: 1, textColor: 'white' } ],
 		];
