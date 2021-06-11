@@ -110,30 +110,37 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 
 				<h5 class="margin-bottom"><?php echo esc_html( $organisation_text ); ?></h5>
 
-<?php if ( $company_logo ) {
-	LF_Utils::display_responsive_images( $company_logo, 'spotlight-320', '200px', 'case-study-company-logo' );
-	} else { ?>
+	<?php
+	if ( $company_logo ) {
+		LF_Utils::display_responsive_images( $company_logo, 'spotlight-320', '200px', 'case-study-company-logo' );
+	} else {
+		?>
 	<h3><?php the_title(); ?></h3>
-<?php }
+		<?php
+	}
 
-			if ( ! empty( $challenges ) && ! is_wp_error( $challenges ) ) :
+	if ( ! empty( $challenges ) && ! is_wp_error( $challenges ) ) :
 
-				$number_of_items = count( $challenges );
-				$i = 0;
-				?>
+		$number_of_items = count( $challenges );
+		$i = 0;
+		?>
 				<p><span class="strong"><?php echo esc_html( $challenge_text ); ?>:</span>
 				<?php foreach ( $challenges as $challenge ) { ?>
 				<a
 					title="See more case studies with a <?php echo esc_attr( $challenge->name ); ?> challenge"
-					href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-challenge<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $challenge->slug ); ?>"><?php echo esc_html( $challenge->name ); ?></a><?php
-			if ( ++$i < $number_of_items ) echo ', ';
-			} ?>
+					href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-challenge<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $challenge->slug ); ?>"><?php echo esc_html( $challenge->name ); ?></a>
+												  <?php
+													if ( ++$i < $number_of_items ) {
+														echo ', ';
+													}
+				}
+				?>
 				</p>
 				<?php
 				endif;
 
-			if ( ! empty( $industries ) && ! is_wp_error( $industries ) ) :
-				?>
+	if ( ! empty( $industries ) && ! is_wp_error( $industries ) ) :
+		?>
 				<p><span class="strong"><?php echo esc_html( $industry_text ); ?>:</span>
 				<?php foreach ( $industries as $industry ) { ?>
 				<a
@@ -144,8 +151,8 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 				<?php
 			endif;
 
-			if ( ! empty( $location ) && ! is_wp_error( $location ) ) :
-				?>
+	if ( ! empty( $location ) && ! is_wp_error( $location ) ) :
+		?>
 				<p><span class="strong"><?php echo esc_html( $location_text ); ?>:</span>
 				<a
 					title="See more case studies from <?php echo esc_attr( $location ); ?>"
@@ -154,8 +161,8 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 				<?php
 endif;
 
-			if ( ! empty( $cloud_types ) && ! is_wp_error( $cloud_types ) ) :
-				?>
+	if ( ! empty( $cloud_types ) && ! is_wp_error( $cloud_types ) ) :
+		?>
 				<p><span class="strong"><?php echo esc_html( $cloud_type_text ); ?>:</span>
 				<?php foreach ( $cloud_types as $cloud_type ) { ?>
 				<a
@@ -166,8 +173,8 @@ endif;
 				<?php
 endif;
 
-			if ( ! empty( $product_type ) && ! is_wp_error( $product_type ) ) :
-				?>
+	if ( ! empty( $product_type ) && ! is_wp_error( $product_type ) ) :
+		?>
 				<p><span class="strong"><?php echo esc_html( $product_type_text ); ?>:</span>
 				<a
 					title="See more case studies with <?php echo esc_attr( $product_type ); ?> product type"
@@ -175,7 +182,7 @@ endif;
 			</p>
 				<?php
 endif;
-			?>
+	?>
 			<p><span class="strong"><?php echo esc_html( $date_published ); ?>:</span> <?php the_date(); ?></p>
 			</div>
 
@@ -212,7 +219,7 @@ endif;
 <div class="case-study-subscription-block">
 			<h5 class="margin-bottom">Stay informed</h5>
 <p class="margin-bottom">Interested in reading more successful case studies from our end user community? <strong>Sign up for our newsletter.</strong></p>
-<?php echo do_shortcode( '[hubspot type=form portal=8112310 id=afe5f966-bae5-4fce-bd5d-84f7ae89111b]' ); ?>
+	<?php echo do_shortcode( '[hubspot type=form portal=8112310 id=afe5f966-bae5-4fce-bd5d-84f7ae89111b]' ); ?>
 	<p class="privacy-agreement">See footer for our privacy policy.</p>
 			</div>
 
