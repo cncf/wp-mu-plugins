@@ -218,7 +218,7 @@ endif;
 
 <div class="case-study-subscription-block">
 			<h5 class="margin-bottom">Stay informed</h5>
-<p class="margin-bottom">Interested in reading more successful case studies from our end user community? <strong>Sign up for our newsletter.</strong></p>
+<p class="margin-bottom">Get the latest news from our community of doers. Subscribe to the CNCF newsletter.</p>
 	<?php echo do_shortcode( '[hubspot type=form portal=8112310 id=afe5f966-bae5-4fce-bd5d-84f7ae89111b]' ); ?>
 	<p class="privacy-agreement">See footer for our privacy policy.</p>
 			</div>
