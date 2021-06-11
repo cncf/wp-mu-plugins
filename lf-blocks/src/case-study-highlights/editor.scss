@@ -7,22 +7,34 @@
  *
  */
 
-.case-study-highlights-wrapper {
-	h3 {
-		margin: 0;
-		font-weight: 700;
-		margin-bottom: 0.5rem;
-		text-transform: uppercase;
-		color: #0088ff;
+//  Note: P + H3 switch places on frontend vs backend.
 
-		strong {
-			font-weight: 700;
+#editor .editor-styles-wrapper {
+	.case-study-highlights {
+		.case-study-highlights-wrapper {
+			h3 {
+				margin: 0;
+				font-weight: 700;
+				margin-bottom: 0.5rem;
+				text-transform: uppercase;
+				color: #0088ff;
+				font-size: 1rem;
+
+				strong {
+					font-weight: 700;
+				}
+			}
+
+			p {
+				margin: 0;
+				font-weight: 400;
+				color: #000000;
+				font-size: 1.4rem;
+			}
 		}
 	}
+}
 
-	p {
-		margin: 0;
-		font-weight: 400;
-		color: #000000;
-	}
+.case-study-highlights .block-editor-rich-text__editable [data-rich-text-placeholder] {
+	color: rgba(0, 136, 255, 0.25);
 }
