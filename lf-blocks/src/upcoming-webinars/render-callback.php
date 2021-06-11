@@ -68,10 +68,13 @@ class="wp-block-lf-upcoming-webinars <?php echo esc_html( $classes ); ?>">
 		while ( $query->have_posts() ) :
 			$query->the_post();
 
-			get_template_part( 'components/upcoming-webinars-item', null, array(
-				  'show_images' => $show_images
+			get_template_part(
+				'components/upcoming-webinars-item',
+				null,
+				array(
+					'show_images' => $show_images,
 				)
-			  );
+			);
 endwhile;
 		wp_reset_postdata();
 		?>
