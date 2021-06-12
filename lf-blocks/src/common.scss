@@ -4,36 +4,35 @@
  * Can include things like variables and mixins
  * that are used across the project.
 */
-
 // declare all colours.
 
 $white: #ffffff;
 $black: #202020;
 
 // primary - highlight colour
-$primary-300: #E43B80; // cta rollover
-$primary-400: #DE176C; // preferred CTA
+$primary-300: #ff33bb; // cta rollover
+$primary-400: #ff00aa; // preferred CTA
 
 // secondary - bolder colour
 $secondary-300: #908bb1;
-$secondary-500: #4e4a6d;
-$secondary-600: #302b54;
-$secondary-700: #2C2960;
-$secondary-800: #242b5F;
-$secondary-900: #1C214A;
+$secondary-500: #50326e;
+$secondary-600: #431f67;
+$secondary-700: #2c2960;
+$secondary-800: #242b5f;
+$secondary-900: #2a0552;
 
 // tertiary
-$tertiary-100: #F0F5F7;
+$tertiary-100: #f4f4f4;
 $tertiary-400: #436ca9;
-$tertiary-600: #416FD9;
-$tertiary-700: #0F1533;
+$tertiary-600: #416fd9;
+$tertiary-700: #0088ff;
 
 // greys.
-$grey-100: #E6E6E6;
-$grey-200: #ABB2BF;
+$grey-100: #f9f9f9;
+$grey-200: #abb2bf;
 $grey-400: #a7a7a6;
 $grey-500: #87969c;
-$grey-700: #A7A4B6; // skew box grey.
+$grey-700: #a7a4b6;
 $grey-800: #333333;
 
 // main.
@@ -56,47 +55,89 @@ $menu-desktop-container: $secondary-900;
 $menu-desktop-submenu: $secondary-600;
 $menu-desktop-submenu-submenu: $secondary-500;
 $menu-desktop-divider: $secondary-900;
+$menu-desktop-search: $secondary-600;
 
 // menu text/links.
 $menu-link: $white;
 $menu-hover: $grey-100;
 
-// elements
-$cs-overlay: $secondary-800;
+// highlight elements (pricing table, case study overlay)
+$cs-overlay: $secondary-900;
+$hero-overlay: #2b1d39;
 
 // forms.
-$error: #B80611;
+$error: #b80611;
 $success: green;
 
-// font-stack.
-$font-primary: -apple-system,
-BlinkMacSystemFont,
-"Segoe UI",
-"Roboto",
-"Oxygen",
-"Ubuntu",
-"Cantarell",
-"Fira Sans",
-"Droid Sans",
-"Helvetica Neue",
-sans-serif;
+// Setup variables for the hamburger.
+$hamburger-active-layer-color: $primary-color;
+$hamburger-layer-color: $white;
+$hamburger-padding-x: 0px;
+$hamburger-padding-y: 0px;
+$hamburger-layer-width: 32px;
+$hamburger-layer-height: 4px;
+$hamburger-layer-spacing: 4px;
+$hamburger-layer-border-radius: 1px;
+$hamburger-hover-opacity: 1;
+$hamburger-active-hover-opacity: 1;
 
-$font-code: Hack,
-"Fira Code",
-Consolas,
-Menlo,
-Monaco,
-"Andale Mono",
-"Lucida Console",
-"Lucida Sans Typewriter",
-"DejaVu Sans Mono",
-"Bitstream Vera Sans Mono",
-"Liberation Mono",
-"Nimbus Mono L",
-"Courier New",
-Courier,
-monospace;
+// font-stack.
+$font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, Roboto, Ubuntu,
+	"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+$font-code: Hack, "Fira Code", Consolas, Menlo, Monaco, "Andale Mono", "Lucida Console", "Lucida Sans Typewriter",
+	"DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier,
+	monospace;
+
+$body-text-color: $secondary-900;
 
 // spacing.
 $sm-padding: 2rem;
 $lg-padding: 4rem;
+
+$content-width: 1150px;
+
+.button,
+.hs-button {
+	// copied from Gutenberg.
+	border: 0; // reset
+	padding: 0px; // reset
+	box-shadow: none;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 14px;
+	margin: 0;
+	padding: 9px 24px 10px 24px;
+	text-align: center;
+	text-decoration: none;
+	overflow-wrap: break-word;
+
+	// added.
+	width: auto;
+	white-space: nowrap;
+	text-transform: uppercase;
+	font-family: $font-primary;
+	font-weight: 700;
+
+	// defaults
+	background-color: $link-color;
+	color: $white;
+	transition: all 0.25s ease-out;
+
+	&:link,
+	&:visited {
+		color: $white;
+		text-decoration: none;
+	}
+
+	&:hover {
+		color: $white;
+		background-color: $link-hover;
+		text-decoration: none;
+	}
+
+	&:active {
+		position: relative;
+		top: 1px;
+	}
+}
