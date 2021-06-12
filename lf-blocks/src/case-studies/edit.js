@@ -26,80 +26,79 @@ const { withSelect } = wp.data;
 import { formatDate } from '../helper-functions.js';
 
 class CaseStudies extends Component {
-renderControl = () => {
+	renderControl = () => {
 		const { attributes, setAttributes } = this.props;
 		const { numberposts } = attributes;
 
 		return (
-		<InspectorControls key="lf-case-studies-block-panel">
-			<PanelBody title={ __( 'Settings' ) } initialOpen={ true }>
-				<RangeControl
-					label={ __( 'Number of Case Studies' ) }
-					min={ 1 }
-					max={ 12 }
-					value={ numberposts }
-					onChange={ value => setAttributes( { numberposts: value } ) }
-				/>
-			</PanelBody>
-		</InspectorControls>
-	);
-}
+			<InspectorControls key="lf-case-studies-block-panel">
+				<PanelBody title={ __( 'Settings' ) } initialOpen={ true }>
+					<RangeControl
+						label={ __( 'Number of Case Studies' ) }
+						min={ 1 }
+						max={ 12 }
+						value={ numberposts }
+						onChange={ value => setAttributes( { numberposts: value } ) }
+					/>
+				</PanelBody>
+			</InspectorControls>
+		);
+	}
 
-renderList = () => {
+	renderList = () => {
 		const {
 			attributes: { numberposts },
 			posts,
-			} = this.props;
+		} = this.props;
 
 		const data = posts.slice( 0, numberposts );
-		console.log( data )
 		return (
-		<div className="case-studies-wrapper">
-			{ data.map(
-				post => (
-					<div className="case-study-box" key={ post.id } style={ { backgroundColor: '#2a0552' } }>
+			<div className="case-studies-wrapper">
+				{ data.map(
+					post => (
+						<div className="case-study-box" key={ post.id } style={ { backgroundColor: '#2a0552' } }>
 
-<div className="case-study-content-wrapper">
-<div className="title-stat-date-type">
-<h2 className="case-study-title" dangerouslySetInnerHTML={ { __html: post.title.rendered } } />
-<p className="case-study-stat"><span>{ post.meta.lf_case_study_key_stat }</span>{ post.meta.lf_case_study_key_stat_label }</p>
-<p className="case-study-date date-icon">{ formatDate( post.date ) }</p>
-<div className="case-study-project-type">Project,
-				Project</div>
-</div>
+							<div className="case-study-content-wrapper">
+								<div className="title-stat-date-type">
+									<h2 className="case-study-title" dangerouslySetInnerHTML={ { __html: post.title.rendered } } />
+									<p className="case-study-stat"><span>{ post.meta.lf_case_study_key_stat }</span>{ post.meta.lf_case_study_key_stat_label }</p>
+									<p className="case-study-date date-icon">{ formatDate( post.date ) }</p>
+									<div className="case-study-project-type">Project,
+										Project</div>
+								</div>
 
-<div className="marketing-title-and-cta">
-<p className="case-study-long-title">{ post.meta.lf_case_study_long_title }</p>
-<span className="case-study-cta hs-button on-image">Read Case Study</span>
-</div>
+								<div className="marketing-title-and-cta">
+									<p className="case-study-long-title">{ post.meta.lf_case_study_long_title }</p>
+									<span className="case-study-cta hs-button on-image">Read Case Study</span>
+								</div>
 
-	</div>
-	</div>
+							</div>
+						</div>
+					)
 				)
-			)
-			}
-		</div>
-	);
-}
+				}
+			</div>
+		);
+	}
 
-render() {
+	render() {
 		const { posts, className } = this.props;
 
 		return ! posts ? (
-		<Placeholder label={ __( 'Case Studies - Loading...' ) }>
-			<Spinner />
-		</Placeholder>
-			) : (
+			<Placeholder label={ __( 'Case Studies - Loading...' ) }>
+				<Spinner />
+			</Placeholder>
+		) : (
 			<Fragment>
-			{ this.renderControl() }
-			<div className={ className }>
-				<div className={ `${ className }__block` }>
-					{ this.renderList() }
+				{ this.renderControl() }
+				<div className={ className }>
+					<div className={ `${ className }__block` }>
+						{ this.renderList() }
+					</div>
 				</div>
-			</div>
 			</Fragment>
-			);
-}
+		);
+	}
 }
 
 export default withSelect(
