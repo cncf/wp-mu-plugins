@@ -234,23 +234,6 @@ function lf_blocks_register_dynamic_blocks() {
 		)
 	);
 
-	// Guest Author block.
-	require_once 'guest-author/render-callback.php';
-	register_block_type(
-		'lf/guest-author',
-		array(
-			'attributes'      => array(
-				'className' => array(
-					'type' => 'string',
-				),
-				'content'   => array(
-					'type' => 'string',
-				),
-			),
-			'render_callback' => 'lf_guest_author_render_callback',
-		)
-	);
-
 	// Case Study Highlights block.
 	require_once 'case-study-highlights/render-callback.php';
 	register_block_type(
@@ -375,29 +358,6 @@ function lf_blocks_register_dynamic_blocks() {
 				),
 			),
 			'render_callback' => 'lf_hero_render_callback',
-		)
-	);
-
-	// Image Hero block.
-	require_once 'image-hero/render-callback.php';
-	register_block_type(
-		'lf/image-hero',
-		array(
-			'attributes'      => array(
-				'className'  => array(
-					'type' => 'string',
-				),
-				'imgUrl'     => array(
-					'type' => 'string',
-				),
-				'imgId'      => array(
-					'type' => 'number',
-				),
-				'heroHeight' => array(
-					'type' => 'number',
-				),
-			),
-			'render_callback' => 'lf_image_hero_render_callback',
 		)
 	);
 

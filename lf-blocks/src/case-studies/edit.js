@@ -22,12 +22,15 @@ const { InspectorControls } = wp.blockEditor;
 const { RangeControl, PanelBody, Placeholder, Spinner } = wp.components;
 const { withSelect } = wp.data;
 
+// import helper functions.
+import { formatDate } from '../helper-functions.js';
+
 class CaseStudies extends Component {
 renderControl = () => {
-	const { attributes, setAttributes } = this.props;
-	const { numberposts } = attributes;
+		const { attributes, setAttributes } = this.props;
+		const { numberposts } = attributes;
 
-	return (
+		return (
 		<InspectorControls key="lf-case-studies-block-panel">
 			<PanelBody title={ __( 'Settings' ) } initialOpen={ true }>
 				<RangeControl
@@ -43,23 +46,35 @@ renderControl = () => {
 }
 
 renderList = () => {
-	const {
-		attributes: { numberposts },
-		posts,
-	} = this.props;
+		const {
+			attributes: { numberposts },
+			posts,
+			} = this.props;
 
-	const data = posts.slice( 0, numberposts );
-
-	return (
+		const data = posts.slice( 0, numberposts );
+		console.log( data )
+		return (
 		<div className="case-studies-wrapper">
 			{ data.map(
 				post => (
-					<article className="case-study-box" key={ post.id } style={ { backgroundColor: '#617ABB' } }>
-						<div className="cs-content-wrapper-editor">
-							<h3 className="cs-title" dangerouslySetInnerHTML={ { __html: post.title.rendered } } />
-							<span className="button transparent outline">Read Case Study</span>
-						</div>
-					</article>
+					<div className="case-study-box" key={ post.id } style={ { backgroundColor: '#2a0552' } }>
+
+<div className="case-study-content-wrapper">
+<div className="title-stat-date-type">
+<h2 className="case-study-title" dangerouslySetInnerHTML={ { __html: post.title.rendered } } />
+<p className="case-study-stat"><span>{ post.meta.lf_case_study_key_stat }</span>{ post.meta.lf_case_study_key_stat_label }</p>
+<p className="case-study-date date-icon">{ formatDate( post.date ) }</p>
+<div className="case-study-project-type">Project,
+				Project</div>
+</div>
+
+<div className="marketing-title-and-cta">
+<p className="case-study-long-title">{ post.meta.lf_case_study_long_title }</p>
+<span className="case-study-cta hs-button on-image">Read Case Study</span>
+</div>
+
+	</div>
+	</div>
 				)
 			)
 			}
@@ -68,22 +83,22 @@ renderList = () => {
 }
 
 render() {
-	const { posts, className } = this.props;
+		const { posts, className } = this.props;
 
-	return ! posts ? (
-		<Placeholder label={ __( 'Loading...' ) }>
+		return ! posts ? (
+		<Placeholder label={ __( 'Case Studies - Loading...' ) }>
 			<Spinner />
 		</Placeholder>
-	) : (
-		<Fragment>
+			) : (
+			<Fragment>
 			{ this.renderControl() }
 			<div className={ className }>
 				<div className={ `${ className }__block` }>
 					{ this.renderList() }
 				</div>
 			</div>
-		</Fragment>
-	);
+			</Fragment>
+			);
 }
 }
 

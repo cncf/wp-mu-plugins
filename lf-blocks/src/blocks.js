@@ -24,9 +24,6 @@ import './newsroom/block.js';
 // Twitter Feed Block.
 import './twitter-feed/block.js';
 
-// Guest Author Block.
-import './guest-author/block.js';
-
 // Case Study Highlights Block.
 import './case-study-highlights/block.js';
 
@@ -47,9 +44,6 @@ import './count-up/block.js';
 
 // Hero Block.
 import './hero/block.js';
-
-// Hero Block.
-import './image-hero/block.js';
 
 // Case Studies.
 import './case-studies/block.js';
