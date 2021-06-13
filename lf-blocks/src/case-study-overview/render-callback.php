@@ -108,14 +108,14 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 <!-- organisation block -->
 			<div>
 
-				<h5 class="margin-bottom"><?php echo esc_html( $organisation_text ); ?></h5>
+			<p class="margin-bottom"><span class="strong"><?php echo esc_html( $organisation_text ); ?>:</span></p>
 
 	<?php
 	if ( $company_logo ) {
 		LF_Utils::display_responsive_images( $company_logo, 'spotlight-320', '200px', 'case-study-company-logo' );
 	} else {
 		?>
-	<h3><?php the_title(); ?></h3>
+	<span style="display:inline-block;"><?php the_title(); ?></span>
 		<?php
 	}
 
