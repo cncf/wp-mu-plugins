@@ -128,8 +128,7 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 				<?php foreach ( $challenges as $challenge ) { ?>
 				<a
 					title="See more case studies with a <?php echo esc_attr( $challenge->name ); ?> challenge"
-					href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-challenge<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $challenge->slug ); ?>"><?php echo esc_html( $challenge->name ); ?></a>
-												  <?php
+					href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-challenge<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $challenge->slug ); ?>"><?php echo esc_html( $challenge->name ); ?></a><?php
 													if ( ++$i < $number_of_items ) {
 														echo ', ';
 													}
@@ -140,13 +139,20 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 				endif;
 
 	if ( ! empty( $industries ) && ! is_wp_error( $industries ) ) :
+
+		$number_of_items = count( $industries );
+		$i = 0;
 		?>
 				<p><span class="strong"><?php echo esc_html( $industry_text ); ?>:</span>
 				<?php foreach ( $industries as $industry ) { ?>
 				<a
 					title="See more case studies from <?php echo esc_attr( $industry->name ); ?>"
-					href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-industry<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $industry->slug ); ?>"><?php echo esc_html( $industry->name ); ?></a>
-				<?php } ?>
+					href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-industry<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $industry->slug ); ?>"><?php echo esc_html( $industry->name ); ?></a><?php
+					if ( ++$i < $number_of_items ) {
+						echo ', ';
+					}
+
+				} ?>
 			</p>
 				<?php
 			endif;
@@ -162,13 +168,19 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 endif;
 
 	if ( ! empty( $cloud_types ) && ! is_wp_error( $cloud_types ) ) :
+
+		$number_of_items = count( $cloud_types );
+		$i = 0;
 		?>
 				<p><span class="strong"><?php echo esc_html( $cloud_type_text ); ?>:</span>
 				<?php foreach ( $cloud_types as $cloud_type ) { ?>
 				<a
 					title="See more case studies with a <?php echo esc_attr( $cloud_type->name ); ?> cloud type"
-					href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-cloud-type<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $cloud_type->slug ); ?>"><?php echo esc_html( $cloud_type->name ); ?></a>
-				<?php } ?>
+					href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-cloud-type<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $cloud_type->slug ); ?>"><?php echo esc_html( $cloud_type->name ); ?></a><?php
+				if ( ++$i < $number_of_items ) {
+					echo ', ';
+				}
+				} ?>
 </p>
 				<?php
 endif;
