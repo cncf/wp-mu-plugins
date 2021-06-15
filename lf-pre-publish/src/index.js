@@ -1,7 +1,7 @@
 /**
  * Register Pre Publish Checklists
  *
- * @package
+ * @package WordPress
  * @since 1.0.0
  */
 
@@ -288,13 +288,15 @@ function checkFeaturedImage() {
  * Check for publishing lock.
  */
 function CheckPublishing() {
-	useEffect( () => {
+	useEffect(
+		 () => {
 		if ( lockPost === true ) {
-			dispatch( 'core/editor' ).lockPostSaving();
+					dispatch( 'core/editor' ).lockPostSaving();
 		} else {
-			dispatch( 'core/editor' ).unlockPostSaving();
+					dispatch( 'core/editor' ).unlockPostSaving();
 		}
-	} );
+	}
+		);
 }
 
 /**
@@ -436,7 +438,7 @@ const PrePublishCheckList = () => {
 		! displayChecklistsOn.includes( postType ) ||
 		hasNewsExternalLink
 	) {
-		return null;
+	return null;
 	}
 
 	/**
@@ -445,20 +447,20 @@ const PrePublishCheckList = () => {
 	 * @return {string} content.
 	 */
 	function runOnPost() {
-		if ( 'post' !== postType ) {
-			return null;
+	if ( 'post' !== postType ) {
+		return null;
 		}
 
-		return (
-			<div>
-				{ checkFeaturedImage() }
-				{ postImages() }
-				{ countCategories() }
-				{ countH1() }
-				{ countWords() }
-				{ CheckPublishing() }
-			</div>
-		);
+	return (
+	<div>
+	{ checkFeaturedImage() }
+	{ postImages() }
+	{ countCategories() }
+	{ countH1() }
+	{ countWords() }
+	{ CheckPublishing() }
+	</div>
+);
 	}
 
 	/**
@@ -467,16 +469,16 @@ const PrePublishCheckList = () => {
 	 * @return {string} content.
 	 */
 	function runOnPage() {
-		if ( 'page' !== postType ) {
-			return null;
+	if ( 'page' !== postType ) {
+		return null;
 		}
-		return (
-			<div>
-				{ pageImages() }
-				{ countH1() }
-				{ countWords() }
-			</div>
-		);
+	return (
+	<div>
+	{ pageImages() }
+	{ countH1() }
+	{ countWords() }
+	</div>
+);
 	}
 
 	/**
@@ -485,10 +487,10 @@ const PrePublishCheckList = () => {
 	 * @return {string} content.
 	 */
 	function runOnWebinar() {
-		if ( 'lf_webinar' !== postType ) {
-			return null;
+	if ( 'lf_webinar' !== postType ) {
+		return null;
 		}
-		return <div>{ checkWebinarDate() }</div>;
+	return <div>{ checkWebinarDate() }</div>;
 	}
 
 	return (
