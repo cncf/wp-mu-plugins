@@ -47,6 +47,7 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 			$challenge->name = preg_replace( '/(.+)(\(\D+\))/', '$1', $challenge->name );
 		}
 
+		$organisation_text = '组织';
 		$industry_text     = '行业';
 		$location_text     = '地点';
 		$cloud_type_text   = '云类型';
@@ -73,6 +74,7 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 
 		$challenges = get_the_terms( get_the_ID(), 'lf-challenge' );
 
+		$organisation_text = 'Organization';
 		$industry_text     = 'Industry';
 		$location_text     = 'Location';
 		$cloud_type_text   = 'Cloud Type';
@@ -97,20 +99,20 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 
 		<!-- column 1 -->
 		<div class="case-study-intro-wrapper">
-			<?php echo wp_kses_post( $content ); ?>
+			<?php echo $content; //phpcs:ignore. ?>
 		</div>
 
 		<!-- column 2 -->
 		<div class="case-study-overview-wrapper">
 
-<!-- organisation block -->
+			<!-- organisation block -->
 			<div>
 	<?php
 	if ( $company_logo ) {
 		LF_Utils::display_responsive_images( $company_logo, 'spotlight-320', '200px', 'case-study-company-logo' );
 	} else {
 		?>
-<p><span class="strong"><?php echo esc_html( $organisation_text ); ?>:</span><?php the_title(); ?></p>
+		<p><span class="strong"><?php echo esc_html( $organisation_text ); ?>:</span> <?php the_title(); ?></p>
 		<?php
 	}
 
@@ -143,11 +145,11 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 				<a
 					title="See more case studies from <?php echo esc_attr( $industry->name ); ?>"
 					href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-industry<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $industry->slug ); ?>"><?php echo esc_html( $industry->name ); ?></a><?php
-					if ( ++$i < $number_of_items ) {
-						echo ', ';
-					}
-
-				} ?>
+													if ( ++$i < $number_of_items ) {
+														echo ', ';
+													}
+				}
+				?>
 			</p>
 				<?php
 			endif;
@@ -172,10 +174,11 @@ endif;
 				<a
 					title="See more case studies with a <?php echo esc_attr( $cloud_type->name ); ?> cloud type"
 					href="/case-studies<?php echo esc_attr( $url_type ); ?>?_sft_lf-cloud-type<?php echo esc_attr( $url_type ); ?>=<?php echo esc_attr( $cloud_type->slug ); ?>"><?php echo esc_html( $cloud_type->name ); ?></a><?php
-				if ( ++$i < $number_of_items ) {
-					echo ', ';
+													if ( ++$i < $number_of_items ) {
+														echo ', ';
+													}
 				}
-				} ?>
+				?>
 </p>
 				<?php
 endif;
