@@ -745,7 +745,6 @@ if ( $this->is_cncf ) {
 								'data_type'     => 'meta',
 								'data_key'      => 'long_title',
 								'label'         => __( 'Long Title' ),
-								'help'          => __( 'This value will override the title of the post.' ),
 								'register_meta' => true,
 								'ui_border_top' => true,
 								'default_value' => '',
