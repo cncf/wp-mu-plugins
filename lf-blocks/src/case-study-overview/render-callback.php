@@ -47,7 +47,6 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 			$challenge->name = preg_replace( '/(.+)(\(\D+\))/', '$1', $challenge->name );
 		}
 
-		$organisation_text      = '组织';
 		$industry_text     = '行业';
 		$location_text     = '地点';
 		$cloud_type_text   = '云类型';
@@ -74,7 +73,6 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 
 		$challenges = get_the_terms( get_the_ID(), 'lf-challenge' );
 
-		$organisation_text = 'Organization';
 		$industry_text     = 'Industry';
 		$location_text     = 'Location';
 		$cloud_type_text   = 'Cloud Type';
@@ -107,15 +105,12 @@ function lf_case_study_overview_render_callback( $attributes, $content ) {
 
 <!-- organisation block -->
 			<div>
-
-			<p class="margin-bottom"><span class="strong"><?php echo esc_html( $organisation_text ); ?>:</span></p>
-
 	<?php
 	if ( $company_logo ) {
 		LF_Utils::display_responsive_images( $company_logo, 'spotlight-320', '200px', 'case-study-company-logo' );
 	} else {
 		?>
-	<span style="display:inline-block;"><?php the_title(); ?></span>
+<p><span class="strong"><?php echo esc_html( $organisation_text ); ?>:</span><?php the_title(); ?></p>
 		<?php
 	}
 
