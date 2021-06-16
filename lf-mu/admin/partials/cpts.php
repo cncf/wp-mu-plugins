@@ -51,9 +51,9 @@ $opts = array(
 		'singular_name' => __( 'Project' ),
 		'all_items'     => __( 'All Projects' ),
 	),
-	'public'              => true,
+	'public'              => false,
 	'has_archive'         => false,
-	'show_in_nav_menus'   => true,
+	'show_in_nav_menus'   => false,
 	'show_in_rest'        => true,
 	'hierarchical'        => false,
 	'exclude_from_search' => true, // to hide the singular pages on FE.
