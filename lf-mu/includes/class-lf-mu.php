@@ -170,7 +170,7 @@ class Lf_Mu {
 			wp_schedule_event( time(), 'twicedaily', 'lf_sync_projects' );
 		}
 
-		$this->loader->add_action( 'init', $plugin_admin, 'sync_projects' );
+		// $this->loader->add_action( 'init', $plugin_admin, 'sync_projects' );
 
 		if ( $plugin_admin->is_cncf ) {
 			// Special Easter-egg hook to run full sync of Speakers CPTs.  You just have to update the "Speakers" page.
