@@ -164,6 +164,14 @@ class Lf_Mu {
 		$this->loader->add_action( 'admin_head', $plugin_admin, 'change_adminbar_colors' );
 		$this->loader->add_action( 'wp_head', $plugin_admin, 'change_adminbar_colors' );
 
+		// Sync projects with landscape.
+		$this->loader->add_action( 'lf_sync_projects', $plugin_admin, 'sync_projects' );
+		if ( ! wp_next_scheduled( 'lf_sync_projects' ) ) {
+			wp_schedule_event( time(), 'twicedaily', 'lf_sync_projects' );
+		}
+
+		// $this->loader->add_action( 'init', $plugin_admin, 'sync_projects' );
+
 		if ( $plugin_admin->is_cncf ) {
 			// Special Easter-egg hook to run full sync of Speakers CPTs.  You just have to update the "Speakers" page.
 			$this->loader->add_action( 'post_updated', $plugin_admin, 'sync_speakers' );
@@ -181,10 +189,9 @@ class Lf_Mu {
 			// Sync programs with https://community.cncf.io/.
 			$this->loader->add_action( 'cncf_sync_programs', $plugin_admin, 'sync_programs' );
 			if ( ! wp_next_scheduled( 'cncf_sync_programs' ) ) {
-				wp_schedule_event( time(), 'daily', 'cncf_sync_programs' );
+				wp_schedule_event( time(), 'twicedaily', 'cncf_sync_programs' );
 			}
 		}
-
 	}
 
 	/**
