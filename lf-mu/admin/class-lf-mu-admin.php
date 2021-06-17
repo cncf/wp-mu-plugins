@@ -595,6 +595,11 @@ class Lf_Mu_Admin {
 					$params['ID'] = $pp->ID;
 				}
 
+				// adds term to taxonomy if it doesn't exist.
+				if ( ! term_exists( $p->name, 'lf-project' ) ) {
+					wp_insert_term( $p->name, 'lf-project' );
+				}
+
 				$newid = wp_insert_post( $params ); // will insert or update the post as needed.
 
 				if ( $newid ) {
