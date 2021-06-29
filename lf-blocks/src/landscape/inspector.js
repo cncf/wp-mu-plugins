@@ -24,28 +24,33 @@ export default class Inspector extends Component {
 	render() {
 		const { attributes, setAttributes } = this.props;
 
+		const {
+			iframeSrc, iframeWidth, iframeId,
+		} = attributes;
+
 		return (
 			<InspectorControls key="inspector">
 				<PanelBody title={ __( 'Settings' ) } >
 					<TextControl
-						label={ __( 'iFrame URL' ) }
-						value={ attributes.iframeSrc }
+						label={ __( 'Landscape URL' ) }
+						value={ iframeSrc }
 						onChange={ ( value ) => {
 							setAttributes( { iframeSrc: value } );
 						} }
 					/>
 					<TextControl
-						label={ __( 'Override Width' ) }
-						value={ attributes.iframeWidth }
+						label={ __( 'Unique ID' ) }
+						help="Give the landscape embed a unique ID reference (useful when embedding multiple landscapes in one page)"
+						value={ iframeId }
 						onChange={ ( value ) => {
-							setAttributes( { iframeWidth: value } );
+							setAttributes( { iframeId: value } );
 						} }
 					/>
 					<TextControl
-						label={ __( 'Override Height' ) }
-						value={ attributes.iframeHeight }
+						label={ __( 'Override Width' ) }
+						value={ iframeWidth }
 						onChange={ ( value ) => {
-							setAttributes( { iframeHeight: value } );
+							setAttributes( { iframeWidth: value } );
 						} }
 					/>
 				</PanelBody>

@@ -49,34 +49,37 @@ registerBlockType(
 			iframeWidth: {
 				type: 'string',
 			},
-			iframeHeight: {
-				type: 'string',
+			iframeId: {
+				type: 'string'
 			},
 		},
 
 		edit: function( props ) {
 			const { attributes } = props;
 
+			const {
+				iframeSrc, iframeWidth, iframeId,
+			} = attributes;
+
 			const iframeStyle = {
-				width: attributes.iframeWidth || '1px',
-				maxWidth: attributes.iframeWidth || '',
-				height: attributes.iframeHeight || '',
+				width: iframeWidth || '1px',
+				maxWidth: iframeWidth || '100%',
 				minWidth: '100%',
 				zIndex: '-1',
 			};
 
-			const block = attributes.iframeSrc ?
+			const block = iframeSrc ?
 				<div className={ props.className }>
 					<div className="iframe-overlay"></div>
 					<iframe
 						title="landscape"
-						id="landscape"
-						src={ attributes.iframeSrc }
+						src={ iframeSrc }
 						style={ iframeStyle }
+						id={ iframeId ? iframeId : 'landscape' }
 						frameBorder="0"></iframe></div> :
 				<Placeholder
 					icon={ LandscapeIcon.src }
-					label={ __( 'Enter the landscape URL to embed in the sidebar' ) }
+					label={ __( 'Enter the landscape URL in the sidebar to activate the embed' ) }
 				/>;
 
 			return (
@@ -88,28 +91,46 @@ registerBlockType(
 		},
 
 		save: function( props ) {
-			const { attributes } = props;
-
-			const iframeStyle = {
-				width: attributes.iframeWidth || '1px',
-				maxWidth: attributes.iframeWidth || '',
-				height: attributes.iframeHeight || '',
-				minWidth: '100%',
-			};
-
-			return (
-				<Fragment>
-					<iframe
-						title="landscape"
-						id="landscape"
-						src={ attributes.iframeSrc }
-						style={ iframeStyle }
-						frameBorder="0"
-						scrolling="no"
-						className="iframe-container"
-					></iframe>
-				</Fragment>
-			);
+			return null;
 		},
+		deprecated: [
+			{
+				attributes: {
+					iframeSrc: {
+						type: 'string',
+					},
+					iframeWidth: {
+						type: 'string',
+					},
+					iframeHeight: {
+						type: 'string',
+					},
+				},
+				save: function( props ) {
+					const { attributes } = props;
+
+					const iframeStyle = {
+						width: attributes.iframeWidth || '1px',
+						maxWidth: attributes.iframeWidth || '',
+						height: attributes.iframeHeight || '',
+						minWidth: '100%',
+					};
+
+					return (
+						<Fragment>
+							<iframe
+								title="landscape"
+								id="landscape"
+								src={ attributes.iframeSrc }
+								style={ iframeStyle }
+								frameBorder="0"
+								scrolling="no"
+								className="iframe-container"
+							></iframe>
+						</Fragment>
+					);
+				},
+			},
+		],
 	}
 );

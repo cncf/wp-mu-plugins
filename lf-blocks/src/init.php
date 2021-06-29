@@ -46,6 +46,7 @@ function lf_blocks_frontend_assets() {
 	}
 
 	if ( has_block( 'lf/landscape' ) ) {
+
 		wp_enqueue_script(
 			'landscape-resize',
 			'//landscape.' . lf_blocks_get_site() . '.io/iframeResizer.js',
@@ -293,6 +294,7 @@ function lf_blocks_register_dynamic_blocks() {
 	);
 
 	// Landscape block.
+	require_once 'landscape/render-callback.php';
 	register_block_type(
 		'lf/landscape',
 		array(
@@ -301,6 +303,7 @@ function lf_blocks_register_dynamic_blocks() {
 					'type' => 'string',
 				),
 			),
+			'render_callback' => 'lf_landscape_render_callback',
 		),
 	);
 
