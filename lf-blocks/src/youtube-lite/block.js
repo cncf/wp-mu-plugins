@@ -56,108 +56,95 @@ registerBlockType(
 				default: true,
 			},
 			youtubeSdStatus: {
-				type: 'boolean',
-				default: false,
-			},
-		},
-
-		edit: function( props ) {
-			const { attributes, icon, className } = props;
-
-			const blockContent = attributes.youtubeId ? (
-				<div className={ className }>
-					<div className="stop-video-click"></div>
-					<iframe
-						width="560"
-						height="349"
-						src={ `https://www.youtube-nocookie.com/embed/${ attributes.youtubeId }?autoplay=0` }
-						allowFullScreen
-						title="YouTube Embed"
-					></iframe></div> ) :
-				<Placeholder
-					icon={ icon }
-					label={ __( 'Enter the YouTube URL or ID in the sidebar' ) }
-				/>;
-
-			return (
-				<Fragment>
-					<Inspector { ...props } />
-					{ blockContent }
-				</Fragment>
-			);
-		},
-
-		save: function( props ) {
-			const { attributes } = props;
-
-			const {
-				youtubeId,
-				youtubeTitle,
-				youtubeWebPStatus,
-				youtubeSdStatus,
-			} = attributes;
-
-			function returnWebpStatus() {
-				return youtubeWebPStatus ? '1' : '0';
-			}
-
-			function returnSdStatus() {
-				return youtubeSdStatus ? '1' : '0';
-			}
-
-			return (
-				<Fragment>
-					{ youtubeId && (
-						<div className={ 'wp-block-lf-youtube-lite' }>
-							<lite-youtube
-								videoid={ youtubeId }
-								videotitle={ youtubeTitle }
-								webpStatus={ returnWebpStatus() }
-								sdthumbStatus={ returnSdStatus() }
-								autoload
-							></lite-youtube>
-						</div>
-					) }
-				</Fragment>
-			);
-		},
-		// transforms: {
-		// 	from: [
-		// 		{
-		// 			type: 'block',
-		// 			blocks: [ 'core-embed/youtube', 'core/paragraph' ],
-		// 			transform: ( { content } ) => {
-		// 				return createBlock( 'lf/youtube-lite', {
-		// 					youtubeUrl: content,
-		// 				} );
-		// 			},
-		// 		},
-		// 	],
-		// },
-		deprecated: [
-			{
-				attributes: {
-					youtubeUrl: {
-						type: 'string',
-					},
-					youtubeId: {
-						type: 'string',
+						type: 'boolean',
+						default: false,
 					},
 				},
-				save: ( props ) => {
-					const { attributes } = props;
-					return (
-						<Fragment>
-							<div className={ 'wp-block-lf-youtube-lite' }>
-								<lite-youtube
+
+				edit: function( props ) {
+									const { attributes, icon, className } = props;
+
+									const blockContent = attributes.youtubeId ? (
+										<div className={ className }>
+								<div className="stop-video-click"></div>
+								<iframe
+									width="560"
+									height="349"
+									src={ `https://www.youtube-nocookie.com/embed/${ attributes.youtubeId }?autoplay=0` }
+									allowFullScreen
+									title="YouTube Embed"
+								></iframe></div> ) :
+										<Placeholder
+								icon={ icon }
+								label={ __( 'Enter the YouTube URL or ID in the sidebar' ) }
+										/>;
+
+									return (
+										<Fragment>
+								<Inspector { ...props } />
+								{ blockContent }
+										</Fragment>
+									);
+				},
+
+				save: function( props ) {
+										const { attributes } = props;
+
+										const {
+									youtubeId,
+									youtubeTitle,
+									youtubeWebPStatus,
+									youtubeSdStatus,
+													} = attributes;
+
+										function returnWebpStatus() {
+						return youtubeWebPStatus ? '1' : '0';
+										}
+
+										function returnSdStatus() {
+					return youtubeSdStatus ? '1' : '0';
+										}
+
+										return (
+										<Fragment>
+								{ youtubeId && (
+									<div className={ 'wp-block-lf-youtube-lite' }>
+										<lite-youtube
+											videoid={ youtubeId }
+											videotitle={ youtubeTitle }
+											webpStatus={ returnWebpStatus() }
+											sdthumbStatus={ returnSdStatus() }
+											autoload
+										></lite-youtube>
+									</div>
+								) }
+										</Fragment>
+										);
+				},
+				deprecated: [
+					{
+								attributes: {
+									youtubeUrl: {
+										type: 'string',
+									},
+									youtubeId: {
+										type: 'string',
+									},
+										},
+								save: ( props ) => {
+									const { attributes } = props;
+									return (
+										<Fragment>
+									<div className={ 'wp-block-lf-youtube-lite' }>
+										<lite-youtube
 									videoid={ attributes.youtubeId }
 									autoload
-								></lite-youtube>
-							</div>
-						</Fragment>
-					);
-				},
-			},
-		],
-	}
-);
+										></lite-youtube>
+									</div>
+										</Fragment>
+									);
+								},
+					},
+				],
+			}
+		);

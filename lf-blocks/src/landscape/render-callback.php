@@ -24,13 +24,13 @@ function lf_landscape_render_callback( $attributes ) {
 	$classes = isset( $attributes['className'] ) ? $attributes['className'] : '';
 
 	// stop if no URL set.
-	if (! $iframe_src ) {
+	if ( ! $iframe_src ) {
 		return;
 	}
 
 	ob_start();
 
-	$iframe_styles = 'width: ' . $iframe_width . ' ; min-width: 100%;';
+	$iframe_styles = 'width: ' . $iframe_width . ' ; min-width: 100%;'; // phpcs:ignore.
 
 	if ( $iframe_id ) {
 
@@ -59,12 +59,12 @@ function lf_landscape_render_callback( $attributes ) {
 
 <iframe
 title="landscape"
-id="<?php echo ($iframe_id ? $iframe_id : 'landscape'); ?>"
+id="<?php echo ( $iframe_id ? esc_html( $iframe_id ) : 'landscape' ); // phpcs:ignore. ?>"
 src="<?php echo esc_url( $iframe_src ); ?>"
 frameBorder="0"
 scrolling="no"
-class="iframe-container <?php echo $classes; ?>"
-style="<?php echo $iframe_styles; ?>"
+class="iframe-container <?php echo esc_html( $classes ); ?>"
+style="<?php echo $iframe_styles; // phpcs:ignore. ?>"
 ></iframe>
 
 	<?php

@@ -40,11 +40,10 @@ export default class Inspector extends Component {
 		}
 
 		/**
-	 * Get and set the ID
-	 *
-	 * @param {string} changes Video URL
-	 *
-	 */
+		 * Get and set the ID
+		 *
+		 * @param {string} changes Video URL
+		 */
 		function getAndSetYouTubeId( changes ) {
 			setAttributes(
 				{
@@ -55,14 +54,16 @@ export default class Inspector extends Component {
 		}
 
 		/**
-	 * Get and set the ID
-	 */
+		 * Get and set the ID
+		 */
 		function clearVideoId() {
-			setAttributes( {
+			setAttributes(
+				 {
 				youtubeUrl: null,
 				youtubeId: null,
 				youtubeTitle: null,
-			} );
+			}
+				);
 		}
 
 		return (
@@ -108,9 +109,11 @@ export default class Inspector extends Component {
 						}
 						checked={ youtubeWebPStatus }
 						onChange={ () =>
-							setAttributes( {
+							setAttributes(
+								 {
 								youtubeWebPStatus: ! youtubeWebPStatus,
-							} )
+							}
+								)
 						}
 					/>
 					<ToggleControl
@@ -120,9 +123,11 @@ export default class Inspector extends Component {
 						}
 						checked={ youtubeSdStatus }
 						onChange={ () =>
-							setAttributes( {
+							setAttributes(
+								 {
 								youtubeSdStatus: ! youtubeSdStatus,
-							} )
+							}
+								)
 						}
 					/>
 				</PanelBody>
