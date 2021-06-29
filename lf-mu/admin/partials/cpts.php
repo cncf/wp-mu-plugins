@@ -69,8 +69,8 @@ if ( $this->is_cncf ) {
 	$case_study_block_template = array(
 		array( 'lf/hero' ),
 		array( 'lf/case-study-overview' ),
-		array( 'lf/case-study-highlights' ),
 		array( 'core-embed/youtube' ),
+		array( 'lf/case-study-highlights' ),
 		array(
 			'core/heading',
 			array(
