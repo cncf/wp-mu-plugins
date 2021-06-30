@@ -26,6 +26,7 @@ class CaseStudyOverview extends Component {
 			[ 'core/paragraph', { placeholder: 'Solution paragraph' } ],
 			[ 'core/heading', { content: 'Impact', level: 3 } ],
 			[ 'core/paragraph', { placeholder: 'Impact paragraph' } ],
+			[ 'lf/youtube-lite' ],
 		];
 
 		return (

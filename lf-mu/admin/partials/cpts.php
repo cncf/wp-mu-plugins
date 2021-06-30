@@ -69,14 +69,13 @@ if ( $this->is_cncf ) {
 	$case_study_block_template = array(
 		array( 'lf/hero' ),
 		array( 'lf/case-study-overview' ),
-		array( 'lf/youtube-lite' ),
 		array( 'lf/case-study-highlights' ),
 		array(
 			'core/heading',
 			array(
 				'level'       => 3,
 				'placeholder' => 'Introductory paragraph to the case study',
-				'className' => 'is-style-max-width-800',
+				'className'   => 'is-style-max-width-800',
 			),
 		),
 		array( 'core/paragraph' ),
@@ -92,12 +91,12 @@ if ( $this->is_cncf ) {
 		array(
 			'core/quote',
 			array(
-				'placeholder'   => 'Nice quote from customer lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo',
-				'className' => 'is-style-case-study-quote',
+				'placeholder' => 'Nice quote from customer lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo',
+				'className'   => 'is-style-case-study-quote',
 			),
 		),
 	);
-	$opts = array(
+	$opts                      = array(
 		'labels'            => array(
 			'name'          => __( 'Case Studies' ),
 			'singular_name' => __( 'Case Study' ),
@@ -185,7 +184,7 @@ if ( $this->is_cncf ) {
 	register_post_type( 'lf_spotlight', $opts );
 
 	$opts = array(
-		'labels'            => array(
+		'labels'              => array(
 			'name'          => __( 'KubeWeeklys' ),
 			'singular_name' => __( 'KubeWeekly' ),
 			'all_items'     => __( 'All KubeWeeklys' ),
