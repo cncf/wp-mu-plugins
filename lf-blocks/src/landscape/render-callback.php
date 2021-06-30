@@ -34,7 +34,7 @@ function lf_landscape_render_callback( $attributes ) {
 
 	if ( $iframe_id ) {
 
-		wp_register_script( 'landscape-override', false, array(), false, false );
+		wp_register_script( 'landscape-override', false, array(), false, false ); // phpcs:ignore.
 		wp_enqueue_script( 'landscape-override' );
 
 		$landscape_override = "document.addEventListener('DOMContentLoaded', function() {
