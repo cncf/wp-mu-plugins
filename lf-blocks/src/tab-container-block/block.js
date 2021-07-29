@@ -34,28 +34,28 @@ const TEMPLATE = [
  * @return {?WPBlock}          The block, if it has been successfully registered; otherwise `undefined`.
  */
 registerBlockType(
-	 'lf/tab-container-block',
+	'lf/tab-container-block',
 	{
-	title: __( 'LF | Tab Container Block' ),
-	description: __( 'Each block creates a clickable item in a sidebar menu.' ),
-	icon: 'index-card',
-	category: 'lf',
-	keywords: [
-		__( 'container' ),
-		__( 'tab' ),
-		__( 'sidebar' ),
-		__( 'cncf' ),
-		__( 'lf' ),
-	],
-	attributes: {
+		title: __( 'LF | Tab Container Block' ),
+		description: __( 'Each block creates a clickable item in a sidebar menu.' ),
+		icon: 'index-card',
+		category: 'lf',
+		keywords: [
+			__( 'container' ),
+			__( 'tab' ),
+			__( 'sidebar' ),
+			__( 'cncf' ),
+			__( 'lf' ),
+		],
+		attributes: {
 			menuTitle: {
 				type: 'string',
-				},
+			},
 			id: {
 				type: 'string',
-				},
-	},
-	edit: ( props ) => {
+			},
+		},
+		edit: ( props ) => {
 			const { setAttributes, attributes: { menuTitle, id } } = props;
 
 			function kebobCase( text ) {
@@ -68,14 +68,14 @@ registerBlockType(
 				}
 
 				const slug = string
-				.split( '' )
-				.reduce(
-					 function( result, ch ) {
-							 return result + ( charMap[ ch ] || ch )
-							 // allowed.
-							  .replace( text.remove || /[^\w\s$_+~\-]/g, '' );
-					},
-					''
+					.split( '' )
+					.reduce(
+						function( result, ch ) {
+							return result + ( charMap[ ch ] || ch )
+							// allowed.
+								.replace( text.remove || /[^\w\s$_+~\-]/g, '' );
+						},
+						''
 					)
 					// trim leading/trailing spaces.
 					.trim()
@@ -83,48 +83,48 @@ registerBlockType(
 					.replace( /[-\s]+/g, text.replacement || '-' );
 
 				return slug.toLowerCase();
-				}
+			}
 
 			function onMenuTitleChange( changes ) {
 				setAttributes(
-				 {
-				menuTitle: changes,
-				id: kebobCase( changes ),
-				}
-					);
-				}
+					{
+						menuTitle: changes,
+						id: kebobCase( changes ),
+					}
+				);
+			}
 
 			return [
-			<InspectorControls key="lf-tab-container-block">
-				<PanelBody><PanelRow>
-					<TextControl
-						label="Menu title:"
-						value={ menuTitle }
-						onChange={ onMenuTitleChange }
-						placeholder="Design Options"
-					/>
-				</PanelRow><PanelRow>
-					<TextControl
-						label="Url slug:"
-						value={ id }
-						onChange={ value => setAttributes( { id: kebobCase( value ) } ) }
-						help="Enter a title to designate how you want the url slug to appear for this section."
-						placeholder="design-options"
-					/>
-				</PanelRow></PanelBody>
-			</InspectorControls>,
-			<div className={ props.className } key="lf-tab-container-block">
-				<InnerBlocks template={ TEMPLATE } />
-			</div>,
+				<InspectorControls key="lf-tab-container-block">
+					<PanelBody><PanelRow>
+						<TextControl
+							label="Menu title:"
+							value={ menuTitle }
+							onChange={ onMenuTitleChange }
+							placeholder="Design Options"
+						/>
+					</PanelRow><PanelRow>
+						<TextControl
+							label="Url slug:"
+							value={ id }
+							onChange={ value => setAttributes( { id: kebobCase( value ) } ) }
+							help="Enter a title to designate how you want the url slug to appear for this section."
+							placeholder="design-options"
+						/>
+					</PanelRow></PanelBody>
+				</InspectorControls>,
+				<div className={ props.className } key="lf-tab-container-block-item">
+					<InnerBlocks template={ TEMPLATE } />
+				</div>,
 			];
-	},
-	save: ( props ) => {
+		},
+		save: ( props ) => {
 			const { attributes: { menuTitle, id } } = props;
 			return (
-			<div data-menu-title={ menuTitle } data-menu-slug={ id } id={ id } >
-				<InnerBlocks.Content />
-			</div>
-		);
-	},
-}
-	);
+				<div data-menu-title={ menuTitle } data-menu-slug={ id } id={ id } >
+					<InnerBlocks.Content />
+				</div>
+			);
+		},
+	}
+);

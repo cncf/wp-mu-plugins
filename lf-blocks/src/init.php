@@ -19,38 +19,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Assets enqueued:
  * 1. blocks.style.build.css - Frontend + Backend.
  *
- * @uses {wp-editor} for WP editor styles.
  * @since 1.0.0
  */
 function lf_blocks_frontend_assets() {
 	// Register block styles for both frontend + backend.
 
-	/*
-	// Exclude the enqueue - styles covered in theme.
-	wp_enqueue_style(
-	'lf_blocks_style',
-	plugins_url( 'dist/blocks.style.build.css', dirname( __FILE__ ) ),
-	is_admin() ? array( 'wp-editor' ) : null,
-	filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css' )
-	);
-	*/
-
-	if ( has_block( 'lf/twitter-feed' ) ) {
-		wp_enqueue_script(
-			'twitter-feed',
-			'//platform.twitter.com/widgets.js',
-			is_admin() ? array( 'wp-editor' ) : null,
-			filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ),
-			true
-		);
-	}
-
 	if ( has_block( 'lf/landscape' ) ) {
-
 		wp_enqueue_script(
 			'landscape-resize',
 			'//landscape.' . lf_blocks_get_site() . '.io/iframeResizer.js',
-			is_admin() ? array( 'wp-editor' ) : null,
+			null,
 			filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ),
 			true
 		);
@@ -60,39 +38,11 @@ function lf_blocks_frontend_assets() {
 		wp_enqueue_script(
 			'youtube-lite-js',
 			plugins_url( '/src/youtube-lite/scripts/lite-youtube.js', dirname( __FILE__ ) ),
-			is_admin() ? array( 'wp-editor' ) : null,
+			null,
 			filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ),
 			true
 		);
 	}
-
-	if ( has_block( 'lf/count-up' ) && ! is_admin() ) {
-
-		wp_enqueue_script(
-			'lf-count-up-waypoints-js',
-			plugins_url( '/src/count-up/scripts/waypoints.min.js', dirname( __FILE__ ) ),
-			is_admin() ? array( 'wp-editor' ) : null,
-			filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ),
-			true
-		);
-
-		wp_enqueue_script(
-			'lf-count-up-countup-js',
-			plugins_url( '/src/count-up/scripts/countup.js', dirname( __FILE__ ) ),
-			is_admin() ? array( 'wp-editor' ) : null,
-			filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ),
-			true
-		);
-
-		wp_enqueue_script(
-			'lf-count-up-front-js',
-			plugins_url( '/src/count-up/scripts/index.js', dirname( __FILE__ ) ),
-			is_admin() ? array( 'wp-editor' ) : array( 'lf-count-up-countup-js', 'lf-count-up-waypoints-js' ),
-			filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ),
-			true
-		);
-	}
-
 }
 add_action( 'enqueue_block_assets', 'lf_blocks_frontend_assets' );
 
@@ -106,7 +56,6 @@ add_action( 'enqueue_block_assets', 'lf_blocks_frontend_assets' );
  * @uses {wp-blocks} for block type registration & related functions.
  * @uses {wp-element} for WP Element abstraction — structure of blocks.
  * @uses {wp-i18n} to internationalize the block's text.
- * @uses {wp-editor} for WP editor styles.
  * @since 1.0.0
  */
 function lf_blocks_editor_assets() {
@@ -115,7 +64,7 @@ function lf_blocks_editor_assets() {
 	wp_enqueue_script(
 		'lf_blocks_script',
 		plugins_url( '/dist/blocks.build.js', dirname( __FILE__ ) ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
+		array( 'wp-blocks', 'wp-i18n', 'wp-element' ),
 		filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ),
 		true
 	);
@@ -124,22 +73,9 @@ function lf_blocks_editor_assets() {
 	wp_enqueue_style(
 		'lf_blocks_editor_style',
 		plugins_url( 'dist/blocks.editor.build.css', dirname( __FILE__ ) ),
-		array( 'wp-edit-blocks' ),
+		null,
 		filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' )
 	);
-
-	// WP Localized globals. Use dynamic PHP stuff in JavaScript via `cgbGlobal` object.
-	// phpcs:disable
-	wp_localize_script(
-	'lf_blocks_script',
-	'cgbGlobal', // Array containing dynamic data for a JS Global.
-		[
-		'pluginDirPath' => plugin_dir_path( __DIR__ ),
-		'pluginDirUrl'  => plugin_dir_url( __DIR__ ),
-		'fallback' => plugins_url( '/latest-jobs/images/jobs-fallback.png', __FILE__ ),
-		]
-	);
-	// phpcs:enable
 
 }
 add_action( 'enqueue_block_editor_assets', 'lf_blocks_editor_assets' );
@@ -157,7 +93,7 @@ function lf_blocks_register_dynamic_blocks() {
 		'lf/upcoming-webinars',
 		array(
 			'attributes'      => array(
-				'className' => array(
+				'className'  => array(
 					'type' => 'string',
 				),
 				'showImages' => array(
@@ -170,20 +106,6 @@ function lf_blocks_register_dynamic_blocks() {
 				),
 			),
 			'render_callback' => 'lf_upcoming_webinars_render_callback',
-		)
-	);
-
-	// Twitter Feed block.
-	require_once 'twitter-feed/render-callback.php';
-	register_block_type(
-		'lf/twitter-feed',
-		array(
-			'attributes'      => array(
-				'className' => array(
-					'type' => 'string',
-				),
-			),
-			'render_callback' => 'lf_twitter_feed_render_callback',
 		)
 	);
 
@@ -241,7 +163,7 @@ function lf_blocks_register_dynamic_blocks() {
 		'lf/case-study-highlights',
 		array(
 			'attributes'      => array(
-				'className'   => array(
+				'className'     => array(
 					'type' => 'string',
 				),
 				'headingText01' => array(
@@ -298,7 +220,7 @@ function lf_blocks_register_dynamic_blocks() {
 	register_block_type(
 		'lf/landscape',
 		array(
-			'attributes' => array(
+			'attributes'      => array(
 				'className' => array(
 					'type' => 'string',
 				),
@@ -317,37 +239,6 @@ function lf_blocks_register_dynamic_blocks() {
 				),
 			),
 		),
-	);
-
-	// Latest Jobs block.
-	require_once 'latest-jobs/render-callback.php';
-	register_block_type(
-		'lf/latest-jobs',
-		array(
-			'attributes'      => array(
-				'className' => array(
-					'type' => 'string',
-				),
-				'quantity'  => array(
-					'type' => 'number',
-				),
-			),
-			'render_callback' => 'lf_latest_jobs_render_callback',
-		)
-	);
-
-	// Count Up block.
-	require_once 'count-up/render-callback.php';
-	register_block_type(
-		'lf/count-up',
-		array(
-			'attributes'      => array(
-				'className' => array(
-					'type' => 'string',
-				),
-			),
-			'render_callback' => 'lf_count_up_render_callback',
-		)
 	);
 
 	// Hero block.
@@ -422,7 +313,7 @@ function lf_blocks_register_dynamic_blocks() {
 		'lf/stats',
 		array(
 			'attributes'      => array(
-				'className'   => array(
+				'className'     => array(
 					'type' => 'string',
 				),
 				'headingText01' => array(
@@ -483,7 +374,7 @@ function add_lf_block_categories( $categories ) {
 		$categories
 	);
 }
-add_filter( 'block_categories', 'add_lf_block_categories' );
+add_filter( 'block_categories_all', 'add_lf_block_categories' );
 
 /**
  * Return site acronym
