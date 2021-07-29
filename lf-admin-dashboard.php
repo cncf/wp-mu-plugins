@@ -10,47 +10,6 @@
  * Text Domain: wp-no-base-permalink
  */
 
-
-/**
- * Move menu elements in WP Admin
- */
-add_filter(
-	'custom_menu_order',
-	function () {
-		return true;
-	}
-);
-add_filter( 'menu_order', 'my_new_admin_menu_order' );
-
-/**
- * New Admin Menu Order
- *
- * @param array $menu_order The menu order.
- */
-function my_new_admin_menu_order( $menu_order ) {
-	$new_positions = array(
-		'upload.php' => 11,
-		// 'edit.php?post_type=page' => 4,
-	);
-	/**
-	 * Sorting
-	 *
-	 * @param array $array The menu order.
-	 * @param array $a The menu order.
-	 * @param array $b The menu order.
-	 */
-	function move_element( &$array, $a, $b ) {
-		$out = array_splice( $array, $a, 1 );
-		array_splice( $array, $b, 0, $out );
-	}
-	foreach ( $new_positions as $value => $new_index ) {
-		if ( $current_index = array_search( $value, $menu_order ) ) { // phpcs:ignore
-			move_element( $menu_order, $current_index, $new_index );
-		}
-	}
-	return $menu_order;
-};
-
 /**
  * Add theme usage box into WordPress Dashboard
  */
