@@ -9,24 +9,43 @@
  * @subpackage Lf_Mu/admin/partials
  */
 
- // Projects - Hidden from Menus.
-$opts = array(
-	'labels'              => array(
-		'name'          => __( 'Projects' ),
-		'singular_name' => __( 'Project' ),
-		'all_items'     => __( 'All Projects' ),
-	),
-	'public'              => false,
-	'has_archive'         => false,
-	'show_in_nav_menus'   => false,
-	'show_in_rest'        => true,
-	'hierarchical'        => false,
-	'exclude_from_search' => true, // to hide the singular pages on FE.
-	'publicly_queryable'  => false, // to hide the singular pages on FE.
-	'menu_icon'           => 'dashicons-hammer',
-	'rewrite'             => array( 'slug' => 'projects' ),
-	'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
-);
+// Projects.
+if ( $this->is_cncf ) {
+	// for CNCF we show the project pages.
+	$opts = array(
+		'labels'              => array(
+			'name'          => __( 'Projects' ),
+			'singular_name' => __( 'Project' ),
+			'all_items'     => __( 'All Projects' ),
+		),
+		'public'              => true,
+		'has_archive'         => false,
+		'show_in_nav_menus'   => false,
+		'show_in_rest'        => true,
+		'show_ui'             => false,
+		'hierarchical'        => false,
+		'rewrite'             => array( 'slug' => 'projects' ),
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
+	);
+} else {
+	// for LFPH we hide the porject pages.
+	$opts = array(
+		'labels'              => array(
+			'name'          => __( 'Projects' ),
+			'singular_name' => __( 'Project' ),
+			'all_items'     => __( 'All Projects' ),
+		),
+		'public'              => false,
+		'has_archive'         => false,
+		'show_in_nav_menus'   => false,
+		'show_in_rest'        => true,
+		'hierarchical'        => false,
+		'exclude_from_search' => true, // to hide the singular pages on FE.
+		'publicly_queryable'  => false, // to hide the singular pages on FE.
+		'rewrite'             => array( 'slug' => 'projects' ),
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
+	);
+}
 register_post_type( 'lf_project', $opts );
 
 if ( $this->is_cncf ) {
