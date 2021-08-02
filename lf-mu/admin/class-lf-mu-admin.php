@@ -560,6 +560,10 @@ class Lf_Mu_Admin {
 					$params['meta_input']['lf_project_github'] = $p->repo_url;
 				}
 
+				if ( property_exists( $p, 'description' ) ) {
+					$params['meta_input']['lf_project_description'] = $p->description;
+				}
+
 				if ( property_exists( $p, 'extra' ) ) {
 					if ( property_exists( $p->extra, 'dev_stats_url' ) ) {
 						$params['meta_input']['lf_project_devstats'] = $p->extra->dev_stats_url;
