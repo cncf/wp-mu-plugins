@@ -293,7 +293,7 @@ class Lf_Mu_Admin {
 		$affiliations = get_user_meta( $user_id, 'sb_certifications', false )[0];
 		$expertise    = get_user_meta( $user_id, 'expertise', false )[0];
 		$languages    = get_user_meta( $user_id, 'languages', false )[0];
-		$projects     = get_user_meta( $user_id, 'project', false )[0];
+		$people     = get_user_meta( $user_id, 'project', false )[0];
 		$country      = get_user_meta( $user_id, 'country', false )[0];
 
 		$country = str_replace( 'Korea, Republic of', 'South Korea', $country );
@@ -313,7 +313,7 @@ class Lf_Mu_Admin {
 		wp_set_object_terms( $speaker_id, $affiliations, 'lf-speaker-affiliation' );
 		wp_set_object_terms( $speaker_id, $expertise, 'lf-speaker-expertise' );
 		wp_set_object_terms( $speaker_id, $languages, 'lf-language' );
-		wp_set_object_terms( $speaker_id, $projects, 'lf-project' );
+		wp_set_object_terms( $speaker_id, $people, 'lf-project' );
 		wp_set_object_terms( $speaker_id, $country, 'lf-country' );
 
 		wp_reset_postdata();
@@ -606,6 +606,99 @@ class Lf_Mu_Admin {
 					wp_set_object_terms( $newid, $level->key, 'lf-project-stage', false );
 				}
 			}
+		}
+
+	}
+
+	/**
+	 * Sync people data from https://github.com/cncf/people
+	 */
+	public function sync_people() {
+		$data = 'https://raw.githubusercontent.com/cncf/people/main/people.json';
+
+		$args = array(
+			'timeout'   => 100,
+			'sslverify' => false,
+		);
+
+		$data = wp_remote_get( $people_url, $args );
+		if ( is_wp_error( $data ) || ( wp_remote_retrieve_response_code( $data ) != 200 ) ) {
+			return;
+		}
+		$people = json_decode( wp_remote_retrieve_body( $data ) );
+var_dump($people);
+		foreach ( $people as $p ) {
+
+			// foreach ( $level->items as $project ) {
+			// 	$key = array_search( $project->id, $id_column );
+			// 	if ( false === $key ) {
+			// 		continue;
+			// 	}
+
+			// 	$p = $items[ $key ];
+
+			// 	$params = array(
+			// 		'post_type' => 'lf_project',
+			// 		'post_title' => $p->name,
+			// 		'post_status' => 'publish',
+			// 		'meta_input' => array(
+			// 			'lf_project_external_url' => $p->homepage_url,
+			// 			'lf_project_twitter' => $p->twitter,
+			// 			'lf_project_logo' => $logos_url . $p->href,
+			// 			'lf_project_category' => explode( ' / ', $p->path )[1],
+			// 		),
+			// 	);
+
+			// 	if ( property_exists( $p, 'repo_url' ) ) {
+			// 		$params['meta_input']['lf_project_github'] = $p->repo_url;
+			// 	}
+
+			// 	if ( property_exists( $p, 'extra' ) ) {
+			// 		if ( property_exists( $p->extra, 'dev_stats_url' ) ) {
+			// 			$params['meta_input']['lf_project_devstats'] = $p->extra->dev_stats_url;
+			// 		}
+			// 		if ( property_exists( $p->extra, 'artwork_url' ) ) {
+			// 			$params['meta_input']['lf_project_logos'] = $p->extra->artwork_url;
+			// 		}
+			// 		if ( property_exists( $p->extra, 'stack_overflow_url' ) ) {
+			// 			$params['meta_input']['lf_project_stack_overflow'] = $p->extra->stack_overflow_url;
+			// 		}
+			// 		if ( property_exists( $p->extra, 'accepted' ) ) {
+			// 			$params['meta_input']['lf_project_date_accepted'] = $p->extra->accepted;
+			// 		}
+			// 		if ( property_exists( $p->extra, 'blog_url' ) ) {
+			// 			$params['meta_input']['lf_project_blog'] = $p->extra->blog_url;
+			// 		}
+			// 		if ( property_exists( $p->extra, 'mailing_list_url' ) ) {
+			// 			$params['meta_input']['lf_project_mail'] = $p->extra->mailing_list_url;
+			// 		}
+			// 		if ( property_exists( $p->extra, 'slack_url' ) ) {
+			// 			$params['meta_input']['lf_project_slack'] = $p->extra->slack_url;
+			// 		}
+			// 		if ( property_exists( $p->extra, 'youtube_url' ) ) {
+			// 			$params['meta_input']['lf_project_youtube'] = $p->extra->youtube_url;
+			// 		}
+			// 		if ( property_exists( $p->extra, 'gitter_url' ) ) {
+			// 			$params['meta_input']['lf_project_gitter'] = $p->extra->gitter_url;
+			// 		}
+			// 	}
+
+			// 	$pp = get_page_by_title( $p->name, OBJECT, 'lf_project' );
+			// 	if ( $pp ) {
+			// 		$params['ID'] = $pp->ID;
+			// 	}
+
+			// 	// adds term to taxonomy if it doesn't exist.
+			// 	if ( ! term_exists( $p->name, 'lf-project' ) ) {
+			// 		wp_insert_term( $p->name, 'lf-project' );
+			// 	}
+
+			// 	$newid = wp_insert_post( $params ); // will insert or update the post as needed.
+
+			// 	if ( $newid ) {
+			// 		wp_set_object_terms( $newid, $level->key, 'lf-project-stage', false );
+			// 	}
+			// }
 		}
 
 	}
