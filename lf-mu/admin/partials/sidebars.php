@@ -264,6 +264,16 @@ $sidebar    = array(
 						array(
 							'type'          => 'text',
 							'data_type'     => 'meta',
+							'data_key'      => 'location',
+							'label'         => __( 'Location' ),
+							'register_meta' => true,
+							'ui_border_top' => true,
+							'default_value' => '',
+							'placeholder'   => 'Portland, Oregon, USA',
+						),
+						array(
+							'type'          => 'text',
+							'data_type'     => 'meta',
 							'data_key'      => 'linkedin',
 							'label'         => __( 'LinkedIn URL' ),
 							'register_meta' => true,
