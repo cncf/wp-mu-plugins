@@ -614,7 +614,7 @@ class Lf_Mu_Admin {
 	 * Sync people data from https://github.com/cncf/people
 	 */
 	public function sync_people() {
-		$data = 'https://raw.githubusercontent.com/cncf/people/main/people.json';
+		$people_url = 'https://raw.githubusercontent.com/cncf/people/main/people.json';
 
 		$args = array(
 			'timeout'   => 100,
@@ -626,79 +626,65 @@ class Lf_Mu_Admin {
 			return;
 		}
 		$people = json_decode( wp_remote_retrieve_body( $data ) );
-var_dump($people);
 		foreach ( $people as $p ) {
 
-			// foreach ( $level->items as $project ) {
-			// 	$key = array_search( $project->id, $id_column );
-			// 	if ( false === $key ) {
-			// 		continue;
-			// 	}
+			$params = array(
+				'post_type'    => 'lf_person',
+				'post_title'   => $p->name,
+				'post_content' => $p->bio,
+				'post_status'  => 'publish',
+				'meta_input'   => array(),
+			);
 
-			// 	$p = $items[ $key ];
+			if ( property_exists( $p, 'company' ) ) {
+				$params['meta_input']['lf_person_company'] = $p->company;
+			}
+			if ( property_exists( $p, 'pronouns' ) ) {
+				$params['meta_input']['lf_person_pronouns'] = $p->pronouns;
+			}
+			if ( property_exists( $p, 'location' ) ) {
+				$params['meta_input']['lf_person_location'] = $p->location;
+			}
+			if ( property_exists( $p, 'linkedin' ) ) {
+				$params['meta_input']['lf_person_linkedin'] = $p->linkedin;
+			}
+			if ( property_exists( $p, 'twitter' ) ) {
+				$params['meta_input']['lf_person_twitter'] = $p->twitter;
+			}
+			if ( property_exists( $p, 'github' ) ) {
+				$params['meta_input']['lf_person_github'] = $p->github;
+			}
+			if ( property_exists( $p, 'wechat' ) ) {
+				$params['meta_input']['lf_person_wechat'] = $p->wechat;
+			}
+			if ( property_exists( $p, 'priority' ) ) {
+				$params['meta_input']['lf_person_is_priority'] = $p->priority;
+			}
+			if ( property_exists( $p, 'image' ) ) {
+				$params['meta_input']['lf_person_image'] = $p->image;
+			}
+			if ( property_exists( $p, 'website' ) ) {
+				$params['meta_input']['lf_person_website'] = $p->website;
+			}
 
-			// 	$params = array(
-			// 		'post_type' => 'lf_project',
-			// 		'post_title' => $p->name,
-			// 		'post_status' => 'publish',
-			// 		'meta_input' => array(
-			// 			'lf_project_external_url' => $p->homepage_url,
-			// 			'lf_project_twitter' => $p->twitter,
-			// 			'lf_project_logo' => $logos_url . $p->href,
-			// 			'lf_project_category' => explode( ' / ', $p->path )[1],
-			// 		),
-			// 	);
+			$pp = get_page_by_title( $p->name, OBJECT, 'lf_person' );
+			if ( $pp ) {
+				$params['ID'] = $pp->ID;
+			}
 
-			// 	if ( property_exists( $p, 'repo_url' ) ) {
-			// 		$params['meta_input']['lf_project_github'] = $p->repo_url;
-			// 	}
+			$newid = wp_insert_post( $params ); // will insert or update the post as needed.
 
-			// 	if ( property_exists( $p, 'extra' ) ) {
-			// 		if ( property_exists( $p->extra, 'dev_stats_url' ) ) {
-			// 			$params['meta_input']['lf_project_devstats'] = $p->extra->dev_stats_url;
-			// 		}
-			// 		if ( property_exists( $p->extra, 'artwork_url' ) ) {
-			// 			$params['meta_input']['lf_project_logos'] = $p->extra->artwork_url;
-			// 		}
-			// 		if ( property_exists( $p->extra, 'stack_overflow_url' ) ) {
-			// 			$params['meta_input']['lf_project_stack_overflow'] = $p->extra->stack_overflow_url;
-			// 		}
-			// 		if ( property_exists( $p->extra, 'accepted' ) ) {
-			// 			$params['meta_input']['lf_project_date_accepted'] = $p->extra->accepted;
-			// 		}
-			// 		if ( property_exists( $p->extra, 'blog_url' ) ) {
-			// 			$params['meta_input']['lf_project_blog'] = $p->extra->blog_url;
-			// 		}
-			// 		if ( property_exists( $p->extra, 'mailing_list_url' ) ) {
-			// 			$params['meta_input']['lf_project_mail'] = $p->extra->mailing_list_url;
-			// 		}
-			// 		if ( property_exists( $p->extra, 'slack_url' ) ) {
-			// 			$params['meta_input']['lf_project_slack'] = $p->extra->slack_url;
-			// 		}
-			// 		if ( property_exists( $p->extra, 'youtube_url' ) ) {
-			// 			$params['meta_input']['lf_project_youtube'] = $p->extra->youtube_url;
-			// 		}
-			// 		if ( property_exists( $p->extra, 'gitter_url' ) ) {
-			// 			$params['meta_input']['lf_project_gitter'] = $p->extra->gitter_url;
-			// 		}
-			// 	}
-
-			// 	$pp = get_page_by_title( $p->name, OBJECT, 'lf_project' );
-			// 	if ( $pp ) {
-			// 		$params['ID'] = $pp->ID;
-			// 	}
-
-			// 	// adds term to taxonomy if it doesn't exist.
-			// 	if ( ! term_exists( $p->name, 'lf-project' ) ) {
-			// 		wp_insert_term( $p->name, 'lf-project' );
-			// 	}
-
-			// 	$newid = wp_insert_post( $params ); // will insert or update the post as needed.
-
-			// 	if ( $newid ) {
-			// 		wp_set_object_terms( $newid, $level->key, 'lf-project-stage', false );
-			// 	}
-			// }
+			if ( $newid ) {
+				if ( property_exists( $p, 'language' ) ) {
+					wp_set_object_terms( $newid, $p->language, 'lf-language', false );
+				}
+				if ( property_exists( $p, 'projects' ) ) {
+					wp_set_object_terms( $newid, $p->projects, 'lf-project', false );
+				}
+				if ( property_exists( $p, 'category' ) ) {
+					wp_set_object_terms( $newid, $p->category, 'lf-person-category', false );
+				}
+			}
 		}
 
 	}
