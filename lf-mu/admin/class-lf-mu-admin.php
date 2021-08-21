@@ -493,7 +493,7 @@ class Lf_Mu_Admin {
 					);
 					if ( $query->have_posts() ) {
 						$query->the_post();
-						$params['ID'] = get_the_id(); // post to update.
+						$params['ID'] = get_the_ID(); // post to update.
 					}
 
 					$newid = wp_insert_post( $params ); // will insert or update the post as needed.
@@ -636,6 +636,9 @@ class Lf_Mu_Admin {
 				'meta_input'   => array(),
 			);
 
+			if ( property_exists( $p, 'excerpt' ) ) {
+				$params['post_excerpt'] = $p->excerpt;
+			}
 			if ( property_exists( $p, 'company' ) ) {
 				$params['meta_input']['lf_person_company'] = $p->company;
 			}
@@ -656,6 +659,9 @@ class Lf_Mu_Admin {
 			}
 			if ( property_exists( $p, 'wechat' ) ) {
 				$params['meta_input']['lf_person_wechat'] = $p->wechat;
+			}
+			if ( property_exists( $p, 'youtube' ) ) {
+				$params['meta_input']['lf_person_youtube'] = $p->youtube;
 			}
 			if ( property_exists( $p, 'priority' ) ) {
 				$params['meta_input']['lf_person_is_priority'] = $p->priority;
@@ -687,5 +693,57 @@ class Lf_Mu_Admin {
 			}
 		}
 
+	}
+
+	/**
+	 * Dump people from to json format.
+	 */
+	public function dump_people() {
+		$people = array();
+
+		$args = array(
+			'post_type'      => 'lf_person',
+			'post_status'    => 'publish',
+			'posts_per_page' => 999,
+			'tax_query'      => array(
+				array(
+					'taxonomy' => 'lf-person-category',
+					'field'    => 'slug',
+					'terms'    => array( 'ambassadors', 'governing-board', 'staff', 'technical-oversight-committee', 'toc-contributors' ),
+				),
+			),
+		);
+
+		$the_query = new WP_Query( $args );
+
+		if ( $the_query->have_posts() ) {
+			while ( $the_query->have_posts() ) {
+				$the_query->the_post();
+
+				$people[] = array(
+					'name' => get_the_title(),
+					'bio' => str_replace( array( "<!-- wp:paragraph -->\n", "\n<!-- /wp:paragraph -->", "\r" ), '', get_the_content() ),
+					'excerpt' => get_the_excerpt(),
+					'company' => get_post_meta( get_the_ID(), 'lf_person_company', true ),
+					'pronouns' => get_post_meta( get_the_ID(), 'lf_person_pronouns', true ),
+					'linkedin' => get_post_meta( get_the_ID(), 'lf_person_linkedin', true ),
+					'twitter' => get_post_meta( get_the_ID(), 'lf_person_twitter', true ),
+					'github' => get_post_meta( get_the_ID(), 'lf_person_github', true ),
+					'wechat' => get_post_meta( get_the_ID(), 'lf_person_wechat', true ),
+					'website' => get_post_meta( get_the_ID(), 'lf_person_website', true ),
+					'youtube' => get_post_meta( get_the_ID(), 'lf_person_youtube', true ),
+					'priority' => get_post_meta( get_the_ID(), 'lf_person_is_priority', true ),
+					'category' => wp_get_post_terms( get_the_ID(), 'lf-person-category', array( 'fields' => 'names' ) ),
+					'image' => str_replace( 'cncfci.lndo.site', 'www.cncf.io', get_the_post_thumbnail_url( get_the_ID() ) ),
+				);
+			}
+		}
+		$name = array_column( $people, 'name' );
+
+		array_multisort( $name, SORT_STRING, $people );
+
+		var_dump( json_encode( $people, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK ) );
+
+		die();
 	}
 }

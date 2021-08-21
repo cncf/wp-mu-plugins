@@ -198,7 +198,11 @@ class Lf_Mu {
 				wp_schedule_event( time(), 'twicedaily', 'lf_sync_people' );
 			}
 
-			$this->loader->add_action( 'init', $plugin_admin, 'sync_people' );
+			// $this->loader->add_action( 'init', $plugin_admin, 'sync_people' ); // phpcs:ignore.
+
+			// Use this command locally if you want to dump a json feed of all current People.
+			// Load browser and view source to copy the properly formatted feed.
+			// $this->loader->add_action( 'init', $plugin_admin, 'dump_people' ); // phpcs:ignore.
 
 		}
 	}
