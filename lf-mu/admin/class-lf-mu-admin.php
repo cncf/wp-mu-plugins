@@ -615,6 +615,7 @@ class Lf_Mu_Admin {
 	 */
 	public function sync_people() {
 		$people_url = 'https://raw.githubusercontent.com/cncf/people/main/people.json';
+		$github_images_url = 'https://raw.githubusercontent.com/cncf/people/main/images/';
 
 		$args = array(
 			'timeout'   => 100,
@@ -667,7 +668,12 @@ class Lf_Mu_Admin {
 				$params['meta_input']['lf_person_is_priority'] = $p->priority;
 			}
 			if ( property_exists( $p, 'image' ) ) {
-				$params['meta_input']['lf_person_image'] = $p->image;
+				if ( strpos( $p->image, 'http' ) !== false ) {
+					$image_url = $p->image;
+				} else {
+					$image_url = $github_images_url . $p->image;
+				}
+				$params['meta_input']['lf_person_image'] = $image_url;
 			}
 			if ( property_exists( $p, 'website' ) ) {
 				$params['meta_input']['lf_person_website'] = $p->website;
