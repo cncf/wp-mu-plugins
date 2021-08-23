@@ -293,7 +293,7 @@ class Lf_Mu_Admin {
 		$affiliations = get_user_meta( $user_id, 'sb_certifications', false )[0];
 		$expertise    = get_user_meta( $user_id, 'expertise', false )[0];
 		$languages    = get_user_meta( $user_id, 'languages', false )[0];
-		$people     = get_user_meta( $user_id, 'project', false )[0];
+		$project      = get_user_meta( $user_id, 'project', false )[0];
 		$country      = get_user_meta( $user_id, 'country', false )[0];
 
 		$country = str_replace( 'Korea, Republic of', 'South Korea', $country );
@@ -313,7 +313,7 @@ class Lf_Mu_Admin {
 		wp_set_object_terms( $speaker_id, $affiliations, 'lf-speaker-affiliation' );
 		wp_set_object_terms( $speaker_id, $expertise, 'lf-speaker-expertise' );
 		wp_set_object_terms( $speaker_id, $languages, 'lf-language' );
-		wp_set_object_terms( $speaker_id, $people, 'lf-project' );
+		wp_set_object_terms( $speaker_id, $project, 'lf-project' );
 		wp_set_object_terms( $speaker_id, $country, 'lf-country' );
 
 		wp_reset_postdata();
