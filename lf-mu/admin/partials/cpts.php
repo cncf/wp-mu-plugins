@@ -16,7 +16,7 @@ $opts = array(
 		'singular_name' => __( 'Project' ),
 		'all_items'     => __( 'All Projects' ),
 	),
-	'public'              => true,
+	'public'              => false,
 	'has_archive'         => false,
 	'show_in_nav_menus'   => false,
 	'show_in_rest'        => true,
@@ -25,7 +25,7 @@ $opts = array(
 	'publicly_queryable'  => false, // to hide the singular pages on FE.
 	'menu_icon'           => 'dashicons-hammer',
 	'rewrite'             => array( 'slug' => 'projects' ),
-	'supports'            => array( 'title', 'editor', 'slug', 'thumbnail', 'revisions', 'custom-fields' ),
+	'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
 );
 register_post_type( 'lf_project', $opts );
 
@@ -150,6 +150,48 @@ if ( $this->is_cncf ) {
 		'supports'          => array( 'title', 'custom-fields' ),
 	);
 	register_post_type( 'lf_speaker', $opts );
+
+	$opts = array(
+		'labels'              => array(
+			'name'          => __( 'People' ),
+			'singular_name' => __( 'Person' ),
+			'all_items'     => __( 'All People' ),
+		),
+		'public'              => true,
+		'has_archive'         => false,
+		'show_in_nav_menus'   => false,
+		'show_in_rest'        => true,
+		'hierarchical'        => false,
+		'exclude_from_search' => true, // to hide the singular pages on FE.
+		'publicly_queryable'  => false, // to hide the singular pages on FE.
+		'menu_icon'           => 'dashicons-buddicons-buddypress-logo',
+		'rewrite'             => array( 'slug' => 'person' ),
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields', 'excerpt' ),
+	);
+	register_post_type( 'lf_person', $opts );
+
+} else {
+	// LFPH-specific code.
+
+	$opts = array(
+		'labels'              => array(
+			'name'          => __( 'People' ),
+			'singular_name' => __( 'Person' ),
+			'all_items'     => __( 'All People' ),
+		),
+		'public'              => true,
+		'has_archive'         => false,
+		'show_in_nav_menus'   => false,
+		'show_in_rest'        => true,
+		'hierarchical'        => false,
+		'exclude_from_search' => true, // to hide the singular pages on FE.
+		'publicly_queryable'  => false, // to hide the singular pages on FE.
+		'menu_icon'           => 'dashicons-buddicons-buddypress-logo',
+		'rewrite'             => array( 'slug' => 'person' ),
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields', 'excerpt' ),
+	);
+	register_post_type( 'lf_person', $opts );
+
 }
 
 $opts = array(
@@ -168,25 +210,6 @@ $opts = array(
 	'supports'          => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
 );
 register_post_type( 'lf_webinar', $opts );
-
-$opts = array(
-	'labels'              => array(
-		'name'          => __( 'People' ),
-		'singular_name' => __( 'Person' ),
-		'all_items'     => __( 'All People' ),
-	),
-	'public'              => true,
-	'has_archive'         => false,
-	'show_in_nav_menus'   => false,
-	'show_in_rest'        => true,
-	'hierarchical'        => false,
-	'exclude_from_search' => true, // to hide the singular pages on FE.
-	'publicly_queryable'  => false, // to hide the singular pages on FE.
-	'menu_icon'           => 'dashicons-buddicons-buddypress-logo',
-	'rewrite'             => array( 'slug' => 'person' ),
-	'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields', 'excerpt' ),
-);
-register_post_type( 'lf_person', $opts );
 
 if ( $this->is_cncf ) {
 	$opts = array(
