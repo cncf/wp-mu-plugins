@@ -16,7 +16,7 @@ $opts = array(
 		'singular_name' => __( 'Project' ),
 		'all_items'     => __( 'All Projects' ),
 	),
-	'public'              => false,
+	'public'              => true,
 	'has_archive'         => false,
 	'show_in_nav_menus'   => false,
 	'show_in_rest'        => true,
@@ -25,7 +25,7 @@ $opts = array(
 	'publicly_queryable'  => false, // to hide the singular pages on FE.
 	'menu_icon'           => 'dashicons-hammer',
 	'rewrite'             => array( 'slug' => 'projects' ),
-	'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
+	'supports'            => array( 'title', 'editor', 'slug', 'thumbnail', 'revisions', 'custom-fields' ),
 );
 register_post_type( 'lf_project', $opts );
 
