@@ -627,6 +627,9 @@ class Lf_Mu_Admin {
 			return;
 		}
 		$people = json_decode( wp_remote_retrieve_body( $data ) );
+
+		$synced_ids = array();
+
 		foreach ( $people as $p ) {
 
 			$params = array(
@@ -696,9 +699,22 @@ class Lf_Mu_Admin {
 				if ( property_exists( $p, 'category' ) ) {
 					wp_set_object_terms( $newid, $p->category, 'lf-person-category', false );
 				}
+
+				$synced_ids[] = $newid;
 			}
 		}
 
+		// delete any People posts which aren't in $synced_ids.
+		$query = new WP_Query(
+			array(
+				'post_type' => 'lf_person',
+				'post__not_in' => $synced_ids,
+			)
+		);
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			wp_delete_post( get_the_id() );
+		}
 	}
 
 	/**
