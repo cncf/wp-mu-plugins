@@ -607,7 +607,11 @@ class Lf_Mu_Admin {
 				$newid = wp_insert_post( $params ); // will insert or update the post as needed.
 
 				if ( $newid ) {
-					wp_set_object_terms( $newid, $level->key, 'lf-project-stage', true );
+					if ( $this->is_cncf ) {
+						wp_set_object_terms( $newid, $level->key, 'lf-project-stage', false );
+					} else {
+						wp_set_object_terms( $newid, $p->category, 'lf-project-stage', false );
+					}
 				}
 			}
 		}
