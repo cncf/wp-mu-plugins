@@ -147,8 +147,8 @@ function lf_newsroom_show_post( $lf_post, $show_images, $sticky = false ) {
 		<?php
 
 		if ( in_category( 'news', $lf_post ) ) {
-			if ( has_post_thumbnail() ) {
-				echo wp_get_attachment_image( get_post_thumbnail_id(), 'newsroom-media-coverage', false, array( 'class' => 'media-logo' ) );
+			if ( has_post_thumbnail( $lf_post ) ) {
+				echo wp_get_attachment_image( get_post_thumbnail_id( $lf_post ), 'newsroom-media-coverage', false, array( 'class' => 'media-logo' ) );
 			} else {
 				echo '<img src="' . esc_url( get_stylesheet_directory_uri() )
 				. '/images/thumbnail-default.svg" alt="CNCF Media Coverage" />';
