@@ -145,10 +145,10 @@ function lf_newsroom_show_post( $lf_post, $show_images, $sticky = false ) {
 	<div class="newsroom-image-wrapper">
 
 		<?php
-		if ( in_category( 'news', $lf_post ) && ( get_post_meta( get_the_ID( $lf_post ), 'lf_post_external_url', true ) ) ) {
+		if ( in_category( 'news', $lf_post ) || ( get_post_meta( get_the_ID( $lf_post ), 'lf_post_external_url', true ) ) ) {
 			?>
 
-<a class="box-link" href="<?php echo esc_url( $correct_link ); ?>" target="_blank"
+		<a class="box-link" href="<?php echo esc_url( $correct_link ); ?>" target="_blank"
 			title="<?php echo esc_attr( get_the_title( $lf_post ) ); ?>"></a>
 			<?php
 			if ( has_post_thumbnail( $lf_post ) ) {
