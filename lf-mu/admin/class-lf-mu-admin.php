@@ -628,6 +628,10 @@ class Lf_Mu_Admin {
 		}
 		$people = json_decode( wp_remote_retrieve_body( $data ) );
 
+		if ( ! $people ) {
+			return;
+		}
+
 		$synced_ids = array();
 
 		foreach ( $people as $p ) {
