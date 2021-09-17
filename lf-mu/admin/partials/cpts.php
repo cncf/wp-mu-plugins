@@ -213,6 +213,7 @@ if ( $this->is_cncf ) {
 
 }
 
+
 $opts = array(
 	'labels'            => array(
 		'name'          => ucwords( $this->webinar ) . 's',
