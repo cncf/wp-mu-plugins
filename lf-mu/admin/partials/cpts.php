@@ -176,7 +176,7 @@ if ( $this->is_cncf ) {
 			'singular_name' => __( 'Person' ),
 			'all_items'     => __( 'All People' ),
 		),
-		'public'              => true,
+		'public'              => false,
 		'has_archive'         => false,
 		'show_in_nav_menus'   => false,
 		'show_in_rest'        => true,
@@ -198,7 +198,7 @@ if ( $this->is_cncf ) {
 			'singular_name' => __( 'Person' ),
 			'all_items'     => __( 'All People' ),
 		),
-		'public'              => false,
+		'public'              => true,
 		'has_archive'         => false,
 		'show_in_nav_menus'   => false,
 		'show_in_rest'        => true,
@@ -212,7 +212,6 @@ if ( $this->is_cncf ) {
 	register_post_type( 'lf_person', $opts );
 
 }
-
 
 $opts = array(
 	'labels'            => array(
